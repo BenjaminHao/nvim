@@ -6,7 +6,7 @@
 --│  UPDATE: 2024-08-08 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
---TODO: Migrate keymaps
+--TODO: Migrate keymaps, add toggle
 local Keymaps = {}
 
 local util = require("my.helpers.misc")
@@ -48,11 +48,13 @@ local nvim_keymaps = {
   ["v|K"] = map.key(":m '<-2<CR>gv=gv"):desc("Edit: Move this line up"),
   -- Others
   ["n|<Esc>"] = map.func(util.esc_flash_or_noh):desc("Edit: Clear search highlight"),
+  -- ["n|<Esc>"] = map.cmd("nohlsearch"):desc("Edit: Clear search highlight"),
   ["n|<S-Tab>"] = map.cmd("normal za"):desc("Edit: Toggle code fold"),
   ["n|<Leader>w"] = map.cmd("w"):desc("Edit: Write file"),
   ["n|<Leader>q"] = map.cmd("wq"):desc("Edit: Save file and quit"),
   ["n|<Leader>Q"] = map.cmd("q!"):desc("Edit: Force quit"),
   -- ["n|<Leader>ts"] = bind.cmd("setlocal spell! spelllang=en_us"):desc("Edit: Toggle spell check"),
+  ["n|<C-t>"] = map.func(function () require("my.helpers.antonym").toggle() end):desc("Edit: Toggle term"),
   ["c|<C-t>"] = map.key([[<C-R>=expand("%:p:h")<CR>]]):desc("Edit: Complete path of current file"),
   --------------------------------- Windows ------------------------------------
   ["n|<C-h>"] = map.key("<C-w>h"):desc("Windows: Focus left"),

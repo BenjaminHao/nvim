@@ -119,6 +119,7 @@ Misc.better_insert = function()
   return is_empty_line() and "S" or "i"
 end
 
+-- TODO: fix bug
 Misc.esc_flash_or_noh = function()
   local flash_active, state = pcall(function()
     return require("flash.plugins.char").state

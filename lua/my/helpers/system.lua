@@ -23,7 +23,7 @@ if not getmetatable("") then
   debug.setmetatable("", str_mt)
 end
 
-local os_name = vim.loop.os_uname().sysname
+local os_name = vim.uv.os_uname().sysname
 System.is_mac = os_name == "Darwin"
 System.is_linux = os_name == "Linux"
 System.is_windows = os_name == "Windows_NT"

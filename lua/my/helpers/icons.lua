@@ -147,6 +147,8 @@ local data = {
     Table = "",
     Task = "",
     Telescope = "",
+    ToggleOff = "󰨙",
+    ToggleOn = "󰔡",
     Vbar = "│",
     Window = "",
   },

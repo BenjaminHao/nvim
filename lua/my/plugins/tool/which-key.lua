@@ -26,7 +26,7 @@ Plugin.config = function()
 
   -------------------------- Which-key Config ----------------------------------
   wk.setup({
-    preset = "helix",
+    preset = "modern",
     delay = vim.o.timeoutlen,
     triggers = {
       { "<auto>", mode = "nixso" },
@@ -62,18 +62,19 @@ Plugin.config = function()
       separator = icons.ui.Vbar,
     },
     spec = {
-      -- { "<leader>g", group = icons.git.Git .. "Git" },
+      { "<leader>g", group = icons.git.Git .. "Git" },
+      { "<leader>t", group = icons.ui.ToggleOff .. " Toggle" },
       -- { "<leader>d", group = icons.ui.Bug .. " Debug" },
       -- { "<leader>s", group = icons.cmp.tmux .. "Session" },
-      -- { "<leader>b", group = icons.ui.Buffer .. " Buffer" },
+      { "<leader>b", group = icons.ui.Buffer .. " Buffer" },
       -- { "<leader>S", group = icons.ui.Search .. " Search" },
       -- { "<leader>W", group = icons.ui.Window .. " Window" },
       -- { "<leader>p", group = icons.ui.Package .. " Package" },
-      -- { "<leader>l", group = icons.misc.LspAvailable .. " Lsp" },
+      { "<leader>l", group = icons.misc.LspAvailable .. " Lsp" },
       { "<leader>f", group = icons.ui.Telescope .. " Fuzzy Find" },
       -- { "<leader>n", group = icons.ui.FolderOpen .. " Nvim Tree" },
     },
-  }) 
+  })
 end
 
 return Plugin

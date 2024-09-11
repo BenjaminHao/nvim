@@ -22,7 +22,7 @@ end
 Plugin.init = function()
   local map = require("my.helpers.map")
   local keymaps = {
-    ["n|<Leader>bd"] = map.func(function() delete_buffer(true) end):desc("Edit: Delete buffer"),
+    ["n|<Leader>bd"] = map.func(function() delete_buffer(false) end):desc("Edit: Delete buffer"),
     ["n|<Leader>bD"] = map.func(function() delete_buffer(true) end):desc("Edit: Force delete buffer"),
     ["n|<Leader>bc"] = map.cmd("BufferLinePickClose"):desc("Edit: Close picked buffer"),
     ["n|<Leader>bC"] = map.cmd("BufferLineCloseOthers"):desc("Edit: Close other buffers"),
@@ -41,7 +41,9 @@ Plugin.init = function()
 end
 
 Plugin.config = function()
-  require("bufferline").setup({
+  local bufferline = require("bufferline")
+
+  bufferline.setup({
     options = {
       mode = "buffers",
       themable = true,
@@ -50,15 +52,13 @@ Plugin.config = function()
       show_close_icon = false,
       always_show_bufferline = true,
       -- style_preset = bufferline.style_preset.minimal,
-      separator_style = "slant",
-      numbers = function(opts)
-        return string.format("%s", opts.raise(opts.ordinal))
-      end,
+      separator_style = "slope",
       get_element_icon = function(element)
         local icon, hl = require('nvim-web-devicons').get_icon_by_filetype(element.filetype, { default = false })
         return icon, hl
       end,
-      close_command = delete_buffer(false),
+      close_command = function() delete_buffer(false) end,
+      right_mouse_command = function() delete_buffer(false) end,
       diagnostics = false,           -- OR: | "nvim_lsp" 
       diagnostics_update_in_insert = false,
       sort_by = "insert_at_end",

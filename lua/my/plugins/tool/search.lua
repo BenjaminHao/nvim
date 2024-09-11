@@ -21,6 +21,8 @@ Plugin.init = function()
   map.setup(keymaps)
 
 end
+
+--TODO: setup search
 Plugin.config = function()
   local builtin = require("telescope.builtin")
   local extensions = require("telescope").extensions

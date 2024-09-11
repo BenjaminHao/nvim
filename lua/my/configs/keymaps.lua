@@ -21,10 +21,10 @@ local nvim_keymaps = {
   ["n|<C-f>"] = map.key("<C-f>zz"):desc("Edit: Move screen down one page"),
   ["n|<C-b>"] = map.key("<C-b>zz"):desc("Edit: Move screen up one page"),
   -- better yanking
-  ["v|d"] = map.key('"_d'):desc("Edit: Delete"), -- In visual mode, d for delete, x for cut
   ["n|D"] = map.key("d$"):desc("Edit: Delete text to EOL"),
   ["n|dd"] = map.func(util.better_dd):expr():desc("Edit: Delete line"),
-  ["n|x"] = map.key('"_x'):desc("Edit: Delete a character"), -- Do not copy deleted character
+  ["n|x"] = map.key('"_x'):desc("Edit: Delete a character"),
+  ["v|x"] = map.key('"_d'):desc("Edit: Delete"),
   ["n|Y"] = map.key("y$"):desc("Edit: Yank text to EOL"),
   ["v|p"] = map.key('"_dP'):desc("Edit: Paste"), -- Visual overwrite paste
   -- Indenting
@@ -53,7 +53,7 @@ local nvim_keymaps = {
   ["n|<Leader>w"] = map.cmd("w"):desc("Edit: Write file"),
   ["n|<Leader>q"] = map.cmd("wq"):desc("Edit: Save file and quit"),
   ["n|<Leader>Q"] = map.cmd("q!"):desc("Edit: Force quit"),
-  -- ["n|<Leader>ts"] = bind.cmd("setlocal spell! spelllang=en_us"):desc("Edit: Toggle spell check"),
+  ["n|<Leader>ts"] = map.cmd("setlocal spell! spelllang=en_us"):desc("Edit: Toggle spell check"),
   ["n|<C-t>"] = map.func(function () require("my.helpers.antonym").toggle() end):desc("Edit: Toggle term"),
   ["c|<C-t>"] = map.key([[<C-R>=expand("%:p:h")<CR>]]):desc("Edit: Complete path of current file"),
   --------------------------------- Windows ------------------------------------

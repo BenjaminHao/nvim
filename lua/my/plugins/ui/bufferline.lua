@@ -9,39 +9,14 @@ local Plugin = {
   version = "*",
   event = "VeryLazy",
   dependencies = {
-    { "echasnovski/mini.bufremove" },
-    { "nvim-tree/nvim-web-devicons" },
+    "echasnovski/mini.bufremove",
+    "nvim-tree/nvim-web-devicons",
   },
 }
 
----@param force boolean Force delete buffer
-local function delete_buffer(force)
-  require("mini.bufremove").delete(0, force)
-end
-
-Plugin.init = function()
-  local map = require("my.helpers.map")
-  local keymaps = {
-    ["n|<Leader>bd"] = map.func(function() delete_buffer(false) end):desc("Edit: Delete buffer"),
-    ["n|<Leader>bD"] = map.func(function() delete_buffer(true) end):desc("Edit: Force delete buffer"),
-    ["n|<Leader>bc"] = map.cmd("BufferLinePickClose"):desc("Edit: Close picked buffer"),
-    ["n|<Leader>bC"] = map.cmd("BufferLineCloseOthers"):desc("Edit: Close other buffers"),
-    ["n|<Leader>bs"] = map.cmd("BufferLineSortByDirectory"):desc("Edit: Sort buffers"),
-    ["n|g1"] = map.cmd("BufferLineGoToBuffer 1"):desc("Edit: Goto buffer 1-9"),
-    ["n|g2"] = map.cmd("BufferLineGoToBuffer 2"):desc("which_key_ignore"),
-    ["n|g3"] = map.cmd("BufferLineGoToBuffer 3"):desc("which_key_ignore"),
-    ["n|g4"] = map.cmd("BufferLineGoToBuffer 4"):desc("which_key_ignore"),
-    ["n|g5"] = map.cmd("BufferLineGoToBuffer 5"):desc("which_key_ignore"),
-    ["n|g6"] = map.cmd("BufferLineGoToBuffer 6"):desc("which_key_ignore"),
-    ["n|g7"] = map.cmd("BufferLineGoToBuffer 7"):desc("which_key_ignore"),
-    ["n|g8"] = map.cmd("BufferLineGoToBuffer 8"):desc("which_key_ignore"),
-    ["n|g9"] = map.cmd("BufferLineGoToBuffer 9"):desc("which_key_ignore"),
-  }
-  map.setup(keymaps)
-end
-
 Plugin.config = function()
   local bufferline = require("bufferline")
+  local bufremove = require("mini.bufremove")
 
   bufferline.setup({
     options = {
@@ -52,13 +27,12 @@ Plugin.config = function()
       show_close_icon = false,
       always_show_bufferline = true,
       -- style_preset = bufferline.style_preset.minimal,
-      separator_style = "slope",
+      separator_style = "slant",
       get_element_icon = function(element)
         local icon, hl = require('nvim-web-devicons').get_icon_by_filetype(element.filetype, { default = false })
         return icon, hl
       end,
-      close_command = function() delete_buffer(false) end,
-      right_mouse_command = function() delete_buffer(false) end,
+      close_command = function(n) bufremove.delete(n, false) end,
       diagnostics = false,           -- OR: | "nvim_lsp" 
       diagnostics_update_in_insert = false,
       sort_by = "insert_at_end",

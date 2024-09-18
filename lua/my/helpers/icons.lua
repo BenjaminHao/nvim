@@ -3,7 +3,7 @@
 --│  MODULE: my.helpers.icons                                                │--
 --│  DETAIL: Nerdfont required                                               │--
 --│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
---│  UPDATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  UPDATE: 2024-09-13 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Icons = {}

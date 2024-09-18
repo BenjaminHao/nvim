@@ -3,15 +3,14 @@
 --│  MODULE: my.configs.autocmds                                             │--
 --│  DETAIL: QoL autocmd settings                                            │--
 --│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
---│  UPDATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  UPDATE: 2024-09-13 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Autocmds = {}
 
 local function create_autocmds()
   local autocmd = vim.api.nvim_create_autocmd
-  local general = vim.api.nvim_create_augroup("General Settings", { clear = true })
-  local ft_filter = require("my.helpers.filter").get("quit_with_q")
+  local general = vim.api.nvim_create_augroup("General", { clear = true })
 
   autocmd({ "FocusGained", "TermClose", "TermLeave" }, {
     desc = "Reload file when it changed",
@@ -35,7 +34,7 @@ local function create_autocmds()
   })
 
   autocmd("BufEnter", {
-    desc = "Disable New Line Comment",
+    desc = "Disable new line comment",
     group = general,
     callback = function()
       vim.opt.formatoptions:remove { "c", "r", "o" }
@@ -43,9 +42,18 @@ local function create_autocmds()
   })
 
   autocmd("FileType", {
-    desc = "Close specific buffers with <q>",
+    desc = "Close specific buffers with <q> key",
     group = general,
-    pattern = ft_filter,
+    pattern =
+      {
+        "lspinfo",
+        "man",
+        "help",
+        "qf",
+        "vim",
+        "checkhealth",
+        "spectre_panel",
+      },
     callback = function(event)
       vim.bo[event.buf].buflisted = false
       vim.keymap.set("n", "q", "<cmd>close<cr>", {
@@ -57,7 +65,7 @@ local function create_autocmds()
   })
 
   autocmd("BufReadPost", {
-    desc = "Go to last loc when opening a buffer",
+    desc = "Go to last location when opening a buffer",
     group = general,
     callback = function()
       local mark = vim.api.nvim_buf_get_mark(0, '"')

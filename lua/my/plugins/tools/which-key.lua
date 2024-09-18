@@ -14,9 +14,9 @@ Plugin.init = function()
   vim.o.timeoutlen = 500
 end
 
+-- TODO: filter hidden keys
 Plugin.config = function()
   local wk = require("which-key")
-  local hidden_key = require("my.helpers.filter").get("which_key_hidden", true)
   local icons = {
     ui = require("my.helpers.icons").get("ui"),
     misc = require("my.helpers.icons").get("misc"),
@@ -63,15 +63,16 @@ Plugin.config = function()
     },
     spec = {
       { "<leader>g", group = icons.git.Git .. "Git" },
-      { "<leader>t", group = icons.ui.ToggleOff .. " Toggle" },
+      { "<leader>T", group = icons.ui.ToggleOff .. " Toggle" },
+      { "<leader>b", group = icons.ui.Buffer .. " Buffer" },
+      { "<leader>l", group = icons.misc.LspAvailable .. " Lsp" },
+      { "<leader>f", group = icons.ui.Telescope .. " Find" },
+      { "<leader>m", group = icons.ui.Comment.. " Message" },
       -- { "<leader>d", group = icons.ui.Bug .. " Debug" },
       -- { "<leader>s", group = icons.cmp.tmux .. "Session" },
-      { "<leader>b", group = icons.ui.Buffer .. " Buffer" },
       -- { "<leader>S", group = icons.ui.Search .. " Search" },
       -- { "<leader>W", group = icons.ui.Window .. " Window" },
       -- { "<leader>p", group = icons.ui.Package .. " Package" },
-      { "<leader>l", group = icons.misc.LspAvailable .. " Lsp" },
-      { "<leader>f", group = icons.ui.Telescope .. " Fuzzy Find" },
       -- { "<leader>n", group = icons.ui.FolderOpen .. " Nvim Tree" },
     },
   })

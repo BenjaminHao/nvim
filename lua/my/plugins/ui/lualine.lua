@@ -71,7 +71,7 @@ Plugin.config = function()
     has_enough_room = function()
       return vim.o.columns > 100
     end,
-    has_comp_before = function()
+    has_filetype = function()
       return vim.bo.filetype ~= ""
     end,
     has_git = function()
@@ -93,6 +93,7 @@ Plugin.config = function()
     force_centering = function()
       return "%="
     end,
+
     abbreviate_path = function(path)
       local home = require("my.helpers.system").home_dir
       if path:find(home, 1, true) == 1 then
@@ -171,7 +172,34 @@ Plugin.config = function()
         return #symbols > 0 and table.concat(symbols, "") or ""
       end,
       padding = { left = -1, right = 1 },
-      cond = conditionals.has_comp_before,
+      cond = conditionals.has_filetype,
+    },
+
+    macro = {
+      function()
+        -- Autocmd to track macro recording, and redraw statusline
+        -- vim.api.nvim_create_autocmd("RecordingEnter", {
+        --   pattern = "*",
+        --   callback = function()
+        --     vim.cmd("redrawstatus")
+        --   end,
+        -- })
+        -- -- Autocmd to track the end of macro recording
+        -- vim.api.nvim_create_autocmd("RecordingLeave", {
+        --   pattern = "*",
+        --   callback = function()
+        --     vim.cmd("redrawstatus")
+        --   end,
+        -- })
+
+        if vim.fn.reg_recording() ~= "" then
+          return "Recording @" .. vim.fn.reg_recording()
+        else
+          return ""
+        end
+      end,
+      padding = 1,
+      color = utils.gen_hl("red", true, true, nil, "bold"),
     },
 
     lsp = {
@@ -232,19 +260,20 @@ Plugin.config = function()
 
     tabwidth = {
       function()
-        return icons.ui.Tab .. vim.api.nvim_get_option_value("tabstop", { scope = "local" })
+        return "󰌒 " .. vim.api.nvim_get_option_value("tabstop", { scope = "local" })
       end,
       padding = 1,
+      cond = conditionals.has_enough_room,
     },
 
     cwd = {
       function()
-        return icons.ui.FolderWithHeart .. utils.abbreviate_path(vim.fs.normalize(vim.fn.getcwd()))
+        return icons.ui.FolderWithHeart .. utils.abbreviate_path(vim.fn.getcwd())
       end,
       color = utils.gen_hl("subtext0", true, true, nil, "bold"),
     },
 
-    file_location = {
+    progress = {
       function()
         local cursorline = vim.fn.line(".")
         local cursorcol = vim.fn.virtcol(".")
@@ -283,7 +312,7 @@ Plugin.config = function()
         components.file_status,
         vim.tbl_extend("force", components.separator, {
           cond = function()
-            return conditionals.has_git() and conditionals.has_comp_before()
+            return conditionals.has_git() and conditionals.has_filetype()
           end,
         }),
       },
@@ -309,6 +338,7 @@ Plugin.config = function()
         },
 
         { utils.force_centering },
+        components.macro,
         {
           "diagnostics",
           sources = { "nvim_diagnostic" },
@@ -323,24 +353,21 @@ Plugin.config = function()
         components.lsp,
       },
       lualine_x = {
-        { -- show @recording message
-          require("noice").api.statusline.mode.get,
-          cond = require("noice").api.statusline.mode.has,
+        {
+          "fileformat",
+          symbols = {
+            unix = "",
+            dos = "",
+            mac = "", -- Legacy macOS
+          },
+          padding = { left = 1 },
+          cond = conditionals.has_enough_room,
         },
         {
           "encoding",
           fmt = string.upper,
           padding = { left = 1 },
           cond = conditionals.has_enough_room,
-        },
-        {
-          "fileformat",
-          symbols = {
-            unix = " ",
-            dos = " ",
-            mac = " ", -- Legacy macOS
-          },
-          padding = { left = 1 },
         },
         components.tabwidth,
       },
@@ -349,7 +376,7 @@ Plugin.config = function()
         components.python_venv,
         components.cwd,
       },
-      lualine_z = { components.file_location },
+      lualine_z = { components.progress },
     },
     inactive_sections = {
       lualine_a = {},

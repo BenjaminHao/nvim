@@ -1,6 +1,6 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ MODULE: my.plugins.completion.nvim-cmp                                   │--
+--│ MODULE: my.plugins.cmp.nvim-cmp                                          │--
 --│ DESC: Auto-completion plugin                                             │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
@@ -22,7 +22,7 @@ local Plugin = {
 Plugin.config = function()
   local cmp = require("cmp")
   local luasnip = require("luasnip")
-  local util = require("my.helpers.misc")
+  local util = require("my.helpers.utils")
   local icons = {
     kind = require("my.helpers.icons").get("kind"),
     type = require("my.helpers.icons").get("type"),

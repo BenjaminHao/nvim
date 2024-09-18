@@ -9,21 +9,11 @@ local Plugin = {
   build = ":TSUpdate",
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
-    { "Wansmer/treesj" }, -- for splitting/joning blocks of code
-    { "windwp/nvim-ts-autotag" },
-    { "nvim-treesitter/nvim-treesitter-textobjects" }, -- syntax aware text-objects
+    "Wansmer/treesj", -- for splitting/joning blocks of code
+    "windwp/nvim-ts-autotag",
+    "nvim-treesitter/nvim-treesitter-textobjects", -- syntax aware text-objects
   },
 }
-
-Plugin.init = function()
-  local map = require("my.helpers.map")
-
-  local keymaps = {
-    ["n|<tab>"] = map.cmd("TSJToggle"):desc("Edit: Split/joining blocks of Code"),
-  }
-
-  map.setup(keymaps)
-end
 
 Plugin.config = function()
   local treesitter = require("nvim-treesitter.configs")
@@ -70,6 +60,7 @@ Plugin.config = function()
       "markdown",
       "markdown_inline",
       "python",
+      "regex",
       "rust",
       "sql",
       "tsx",

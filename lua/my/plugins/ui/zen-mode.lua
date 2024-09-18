@@ -12,16 +12,6 @@ local Plugin = {
   },
 }
 
-Plugin.init = function()
-  local map = require("my.helpers.map")
-
-  local keymaps = {
-    ["n|<Leader>z"] = map.cmd("ZenMode"):desc("Tool: Zen Mode")
-  }
-
-  map.setup(keymaps)
-end
-
 Plugin.config = function ()
     local zenmode = require("zen-mode")
 

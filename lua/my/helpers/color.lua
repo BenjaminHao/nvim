@@ -1,3 +1,11 @@
+--╭──────────────────────────────────────────────────────────────────────────╮--
+--│                                                                          │--
+--│  MODULE: my.helpers.color                                                │--
+--│  DETAIL: Custom colors                                                   │--
+--│  CREATE: nvimdots                                                        │--
+--│  UPDATE: 2024-09-13 by Benjamin Hao                                      │--
+--│                                                                          │--
+--╰──────────────────────────────────────────────────────────────────────────╯--
 local Color = {}
 
 ---@class palette
@@ -166,6 +174,7 @@ function Color.extend_hl(name, def)
   local current_def = vim.api.nvim_get_hl(0, { name = name, link = false })
   local combined_def = vim.tbl_deep_extend("force", current_def, def)
 
+---@diagnostic disable-next-line: param-type-mismatch
   vim.api.nvim_set_hl(0, name, combined_def)
 end
 

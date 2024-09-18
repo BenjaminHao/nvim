@@ -24,12 +24,14 @@ if not getmetatable("") then
 end
 
 local os_name = vim.uv.os_uname().sysname
+local home = vim.env.HOME
+
 System.is_mac = os_name == "Darwin"
 System.is_linux = os_name == "Linux"
 System.is_windows = os_name == "Windows_NT"
 System.is_wsl = vim.fn.has("wsl") == 1
 
-local home = System.is_windows and os.getenv("USERPROFILE") or os.getenv("HOME")
+-- local home = System.is_windows and os.getenv("USERPROFILE") or os.getenv("HOME")
 System.home_dir = home
 System.cache_dir = home / ".cache" / "nvim"
 System.data_dir = vim.fn.stdpath("data")

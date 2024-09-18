@@ -8,21 +8,6 @@ local Plugin = {
   "FabianWirth/search.nvim",
 }
 
-Plugin.init = function()
-  local map = require("my.helpers.map")
-
-  local function find_files()
-    require("search").open({ collection = "file" })
-  end
-
-  local keymaps = {
-    ["n|<Leader>ff"] = map.func(find_files):desc("Find: Files"),
-  }
-  map.setup(keymaps)
-
-end
-
---TODO: setup search
 Plugin.config = function()
   local builtin = require("telescope.builtin")
   local extensions = require("telescope").extensions
@@ -33,6 +18,7 @@ Plugin.config = function()
       file = {
         initial_tab = 1,
         tabs = {
+          -- TODO: add file search tabs
           {
             name = "Files",
             tele_func = function(opts)
@@ -44,12 +30,11 @@ Plugin.config = function()
               end
             end,
           },
-          {
-            name = "Frecency",
-            tele_func = function()
-              extensions.frecency.frecency()
-            end,
-          },
+        },
+      },
+      recent = {
+        initial_tab = 1,
+        tabs = {
           {
             name = "Oldfiles",
             tele_func = function()
@@ -57,28 +42,36 @@ Plugin.config = function()
             end,
           },
           {
-            name = "Buffers",
+            name = "Frecency",
             tele_func = function()
-              builtin.buffers()
+              extensions.frecency.frecency()
             end,
           },
         },
       },
-      -- Search using patterns
-      pattern = {
+      -- Search word
+      word = {
         initial_tab = 1,
         tabs = {
           {
-            name = "Word in project",
+            name = "Current Buffer",
             tele_func = function()
-              extensions.live_grep_args.live_grep_args()
+              builtin.current_buffer_fuzzy_find()
             end,
           },
           {
-            name = "Word under cursor",
-            tele_func = function(opts)
-              opts = opts or {}
-              builtin.grep_string(opts)
+            name = "Opened Files",
+            tele_func = function()
+              builtin.live_grep {
+                grep_open_files = true,
+                prompt_title = 'Live Grep in Open Files',
+              }
+            end,
+          },
+          {
+            name = "Whole Project",
+            tele_func = function()
+              extensions.live_grep_args.live_grep_args()
             end,
           },
         },
@@ -109,54 +102,6 @@ Plugin.config = function()
             name = "Diff current file with commit",
             tele_func = function()
               extensions.advanced_git_search.diff_commit_file()
-            end,
-          },
-        },
-      },
-      -- Retrieve dossiers
-      dossier = {
-        initial_tab = 1,
-        tabs = {
-          {
-            name = "Sessions",
-            tele_func = function()
-              extensions.persisted.persisted()
-            end,
-          },
-          {
-            name = "Projects",
-            tele_func = function()
-              extensions.projects.projects({})
-            end,
-          },
-          {
-            name = "Zoxide",
-            tele_func = function()
-              extensions.zoxide.list()
-            end,
-          },
-        },
-      },
-      -- Miscellaneous
-      misc = {
-        initial_tab = 1,
-        tabs = {
-          {
-            name = "Colorschemes",
-            tele_func = function()
-              builtin.colorscheme({ enable_preview = true })
-            end,
-          },
-          {
-            name = "Notify",
-            tele_func = function()
-              extensions.notify.notify()
-            end,
-          },
-          {
-            name = "Undo History",
-            tele_func = function()
-              extensions.undo.undo()
             end,
           },
         },

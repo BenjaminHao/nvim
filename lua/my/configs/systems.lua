@@ -1,9 +1,9 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
 --│  MODULE: my.configs.systems                                              │--
---│  DETAIL: Settings based on different os                                  │--
+--│  DETAIL: Configs based on different os                                   │--
 --│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
---│  UPDATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  UPDATE: 2024-09-13 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Systems = {}
@@ -64,7 +64,7 @@ cmd.exe will be used instead for `:!` (shell bang) and toggleterm.nvim.
 
 You're recommended to install PowerShell for better experience.]],
         vim.log.levels.WARN,
-        { title = "[EDITOR] Runtime Warning" }
+        { title = "[my.config.systems] Runtime Warning" }
       )
       return
     end

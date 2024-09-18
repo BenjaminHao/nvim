@@ -21,6 +21,10 @@ Plugin.config = function()
 
   require("flash").setup({
     labels = "asdfghjklqwertyuiopzxcvbnm",
+    jump = {
+      -- automatically jump when there is only one match
+      autojump = true,
+    },
     label = {
       -- allow uppercase labels
       uppercase = true,
@@ -45,6 +49,20 @@ Plugin.config = function()
         -- When using jump labels, don't use these keys
         -- This allows using those keys directly after the motion
         label = { exclude = "hjkliardc" },
+        -- IMPORTANT: NOT using ;/, keep pressing f/t to go to the next
+        keys = { "f", "F", "t", "T", },
+      },
+    },
+    prompt = {
+      enabled = true,
+      prefix = { { " 󰓾 ", "FlashPromptIcon" } },
+      win_config = {
+        relative = "editor",
+        width = 1, -- when <=1 it's a percentage of the editor width
+        height = 1,
+        row = -1, -- when negative it's an offset from the bottom
+        col = 0, -- when negative it's an offset from the right
+        zindex = 1000,
       },
     },
   })

@@ -1,12 +1,14 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ MODULE: my.helpers.antonym                                               │--
---│ DESC: Toggle reserve terms                                               │--
+--│  MODULE: my.helpers.antonym                                              │--
+--│  DETAIL: Toggle reserve terms                                            │--
+--│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  UPDATE: 2024-09-13 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Antonym = {}
 
----@usage Put lower case antonyms here. Final table will include capitalized & upper case strings.
+---@usage Put lower case antonyms here.
 local data = {
   ["true"] = "false",
   ["yes"] = "no",
@@ -22,17 +24,18 @@ local data = {
 }
 
 local get_antonym_tbl = function()
-  local capitalize = require("my.helpers.misc").capitalize_string
+  local capitalize = require("my.helpers.utils").capitalize_string
   for key, value in pairs(data) do
     data[value] = key -- add reserve lookup
-    if string.find(key, "%a") and string.find(value, "%a") then
-      data[string.upper(key)] = string.upper(value)
+    if key:find("%a") then
       data[capitalize(key)] = capitalize(value)
+      data[key:upper()] = value:upper()
     end
   end
   return data
 end
 
+-- TODO: popup window to show tbl
 Antonym.check_antonym_tbl = function ()
   vim.print(vim.inspect(get_antonym_tbl()))
 end

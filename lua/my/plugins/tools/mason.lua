@@ -1,9 +1,12 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ FILE: plugins/mason.lua                                                  │--
---│ DESC: package manager for LSP servers                                    │--
+--│  MODULE: my.plugins.tools.mason                                          │--
+--│  DETAIL: Package manager for LSP servers                                 │--
+--│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  UPDATE: 2024-09-14 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
+-- TODO: icons
 local Plugin = {
   "williamboman/mason.nvim",
   event = "VeryLazy",
@@ -16,11 +19,6 @@ local Plugin = {
 Plugin.config = function()
   local mason = require("mason")
   local mason_lspconfig = require("mason-lspconfig")
-
-  local icons = {
-    ui = require("my.helpers.icons").get("ui", true),
-    misc = require("my.helpers.icons").get("misc", true),
-  }
 
   mason.setup({
     ui = {

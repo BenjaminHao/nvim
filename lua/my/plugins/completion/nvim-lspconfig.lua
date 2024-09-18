@@ -1,6 +1,6 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ MODULE: my.plugins.completion.nvim-lspconfig                             │--
+--│ MODULE: my.plugins.cmp.nvim-lspconfig                             │--
 --│ DESC: LSP config file (npm is required)                                  │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
@@ -14,56 +14,6 @@ local Plugin = {
   }
 }
 
-Plugin.init = function()
-  vim.api.nvim_create_autocmd("LspAttach", {
-    group = vim.api.nvim_create_augroup("LSP", { clear = true }),
-    callback = function(event)
-      local map = require("my.helpers.map")
-      local keymaps = {
-        ["n|K"] = map.cmd("Lspsaga hover_doc"):buf(event.buf):desc("LSP: Show doc"),
-        -- ["n|M"] = map.func(vim.lsp.buf.hover):buf(event.buf):desc("LSP: More info"),
-        -- ["n|<C-m>"] = map.func(vim.lsp.buf.signature_help):buf(event.buf):desc("LSP: Signature help"),
-        ["n|gd"] = map.cmd("Glance definitions"):buf(event.buf):desc("LSP: Preview definition"),
-        -- ["n|gd"] = map.func(f.lsp_goto_definitions):buf(event.buf):desc("LSP: Goto definition"),
-        ["n|gD"] = map.cmd("Lspsaga goto_definition"):buf(event.buf):desc("LSP: Goto definition"),
-        -- ["n|gD"] = map.func(vim.lsp.buf.declaration):buf(event.buf):desc("LSP: Goto declaration"),
-        ["n|gi"] = map.cmd("Glance implementations"):buf(event.buf):desc("LSP: Show Implementations"),
-        -- ["n|gi"] = map.func(f.lsp_goto_implementation):buf(event.buf):desc("LSP: Goto implementation"),
-          ["n|gr"] = map.cmd("Glance references"):buf(event.buf):desc("LSP: Show references"),
-        -- ["n|gr"] = map.func(f.lsp_goto_references):buf(event.buf):desc("LSP: Goto references"),
-        -- ["n|<Leader>lt"] = map.func(require("telescope.builtin").lsp_type_definitions):buf(event.buf):desc("LSP: Type definition"),
-        -- ["n|<Leader>ls"] = map.func(require("telescope.builtin").lsp_document_symbols):buf(event.buf):desc("LSP: Symbols (current file)"),
-        -- ["n|<Leader>lS"] = map.func(require("telescope.builtin").lsp_dynamic_workspace_symbols):buf(event.buf):desc("LSP: Symbols (workspace)"),
-        ["n|<Leader>lr"] = map.cmd("Lspsaga rename"):buf(event.buf):desc("LSP: Rename symbol"),
-        ["n|<Leader>lR"] = map.cmd("Lspsaga rename ++project"):buf(event.buf):desc("LSP: Rename project symbol"),
-        -- ["n|<Leader>lr"] = map.func(vim.lsp.buf.rename):buf(event.buf):desc("LSP: Rename symbol"),
-        ["n|<Leader>lc"] = map.cmd("Lspsaga code_action"):buf(event.buf):desc("LSP: Code action"),
-        -- ["n|<Leader>lc"] = map.func(vim.lsp.buf.code_action):buf(event.buf):desc("LSP: Code action"),
-      }
-      map.setup(keymaps)
-      -- The following two autocommands are used to highlight references of the
-      -- word under your cursor when your cursor rests there for a little while.
-      --    See `:help CursorHold` for information about when this is executed
-      --
-      -- When you move your cursor, the highlights will be cleared (the second autocommand).
-      local client = vim.lsp.get_client_by_id(event.data.client_id)
-      if client and client.server_capabilities.documentHighlightProvider then
-        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-          buffer = event.buf,
-          callback = vim.lsp.buf.document_highlight,
-        })
-
-        vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-          buffer = event.buf,
-          callback = vim.lsp.buf.clear_references,
-        })
-      end
-      vim.cmd.hi({ "link", "LspReferenceText", "Underlined" })
-      vim.cmd.hi({ "link", "LspReferenceRead", "Underlined" })
-      vim.cmd.hi({ "link", "LspReferenceWrite", "Underlined" })
-    end,
-  })
-end
 -- It's important that you set up the plugins in the following order:
 -- 1. mason.nvim
 -- 2. mason-lspconfig.nvim
@@ -136,6 +86,31 @@ please REMOVE your LSP configuration (rust_analyzer.lua) from the `servers` dire
   end
 
   mason_lspconfig.setup_handlers({ mason_lsp_handler })
+
+  vim.api.nvim_create_autocmd("LspAttach", {
+    group = vim.api.nvim_create_augroup("LSP", { clear = true }),
+    callback = function(event)
+      require("my.keymaps.completion").lsp_on_attach(event.buf)
+      -- TODO: change highlight color
+      -- The following two autocommands are used to highlight references of the
+      -- word under your cursor when your cursor rests there for a little while.
+      --    See `:help CursorHold` for information about when this is executed
+      --
+      -- When you move your cursor, the highlights will be cleared (the second autocommand).
+      local client = vim.lsp.get_client_by_id(event.data.client_id)
+      if client and client.server_capabilities.documentHighlightProvider then
+        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+          buffer = event.buf,
+          callback = vim.lsp.buf.document_highlight,
+        })
+
+        vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+          buffer = event.buf,
+          callback = vim.lsp.buf.clear_references,
+        })
+      end
+    end,
+  })
 end
 
 return Plugin

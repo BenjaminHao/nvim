@@ -21,36 +21,12 @@ local Plugin = {
   }
 }
 
-Plugin.init = function()
-  local map = require("my.helpers.map")
-  local keymaps = {
-    -- ["n|<Leader>ff"] = bind.cmd("Telescope find_files"):desc("Find: Files"),
-    ["n|<Leader>fh"] = map.cmd("Telescope help_tags"):desc("Find: Help"),
-    ["n|<Leader>fp"] = map.cmd("Telescope projects"):desc("Find: Projects"),
-    ["n|<Leader>fk"] = map.cmd("Telescope keymaps"):desc("Find: Keymaps"),
-    ["n|<Leader>fu"] = map.cmd("Telescope undo"):desc("Find: Undo history"),
-    ["n|<Leader>fb"] = map.cmd("Telescope buffers"):desc("Find: Buffers"),
-    ["n|<Leader>fd"] = map.cmd("Telescope diagnostics"):desc("Find: Diagnostics"),
-    ["n|<Leader>fw"] = map.cmd("Telescope live_grep"):desc("Find: Word"),
-    ["n|<Leader>fr"] = map.cmd("Telescope oldfiles"):desc("Find: Recent File by history"),
-    ["n|<Leader>fR"] = map.cmd("Telescope frecency"):desc("Find: Recent File by frecency"),
-    ["n|<Leader>f<Cr>"] = map.cmd("Telescope resume"):desc("Find: Resume last find"),
-    --["n|<leader>/"] = map_fun(f.telescope_search):desc("Find: Word in current buffer"),
-    --["v|<leader>f"] = map_fun(f.telescope_vmode):desc("Find: Selection"),
-    -- todo-comments
-    ["n|<Leader>ft"] = map.cmd("TodoTelescope"):desc("Find: Todo"),
-  }
-
-  map.setup(keymaps)
-end
-
 Plugin.config = function()
   local telescope = require("telescope")
   local actions = require("telescope.actions")
   local lga_actions = require("telescope-live-grep-args.actions")
   local undo_actions = require("telescope-undo.actions")
   local icons = { ui = require("my.helpers.icons").get("ui", true) }
-  local file_filter = require("my.helpers.filter").get("telescope_ignore_file")
 
   telescope.setup({
     ----------------------------- builtin ---------------------------------------
@@ -61,7 +37,6 @@ Plugin.config = function()
       sorting_strategy = "ascending",
       results_title = false,
       set_env = { COLORTERM = "truecolor" },
-      file_ignore_patterns = file_filter,
       layout_config = {
         horizontal = {
           prompt_position = "top",
@@ -75,6 +50,21 @@ Plugin.config = function()
           preview_cutoff = 40,
           mirror = true,
         },
+      },
+      file_ignore_patterns = {
+        "%.class",
+        "%.exe",
+        "%.jpeg",
+        "%.jpg",
+        "%.mkv",
+        "%.mp4",
+        "%.pdf",
+        "%.png",
+        "%.zip",
+        ".cache",
+        ".git/",
+        "build/",
+        "node_modules",
       },
       mappings = {
         i = {
@@ -112,6 +102,7 @@ Plugin.config = function()
         show_scores = true,
         show_unindexed = true,
         ignore_patterns = { "*.git/*", "*/tmp/*" },
+        prompt_title = 'Frecency',
       },
       live_grep_args = {
         auto_quoting = true,

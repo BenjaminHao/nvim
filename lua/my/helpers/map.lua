@@ -1,7 +1,9 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ FILE: my/utils/keybind.lua                                               │--
---│ DESC: function for key binds                                             │--
+--│  MODULE: my.helpers.map                                                  │--
+--│  DETAIL: Better readability, for clean key binds                         │--
+--│  CREATE: nvimdots                                                        │--
+--│  UPDATE: 2024-08-08 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Map = {}

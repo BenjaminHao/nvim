@@ -1,9 +1,12 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ MODULE: my.plugins.tool.todo-comments                                    │--
---│ DESC: Highlight and search for todo comments                             │--
+--│  MODULE: my.plugins.tools.todo-comments                                  │--
+--│  DETAIL: Highlight and search for todo comments                          │--
+--│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  UPDATE: 2024-09-19 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
+-- TODO: icons
 local Plugin = {
   "folke/todo-comments.nvim",
   event = { "BufReadPost", "BufNewFile" },
@@ -11,6 +14,7 @@ local Plugin = {
 }
 
 Plugin.config = function()
+
   require("todo-comments").setup({
     signs = false, -- show icons in the signs column
     keywords = {

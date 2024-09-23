@@ -1,7 +1,9 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ MODULE: my.plugins.tool.telescope                                        │--
---│ DESC: Fuzzy finder plugin                                                │--
+--│  MODULE: my.plugins.tools.telescope                                      │--
+--│  DETAIL: Fuzzy finder plugin                                             │--
+--│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  UPDATE: 2024-09-19 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Plugin = {
@@ -82,6 +84,7 @@ Plugin.config = function()
     },
     ---------------------------- extensions ----------------------------------
     load_extension = {
+      "aerial",
       "frecency",
       "fzf",
       "lazygit",

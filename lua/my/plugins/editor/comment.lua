@@ -1,7 +1,9 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ MODULE: my.plugins.editor.comment                                        │--
---│ DESC: plugin for commenting                                              │--
+--│  MODULE: my.plugins.editor.comment                                       │--
+--│  DETAIL: Quick commenting                                                │--
+--│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  UPDATE: 2024-08-08 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Plugin = {

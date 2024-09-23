@@ -18,18 +18,6 @@ Func.better_insert = function()
   return util.is_empty_line() and "S" or "i"
 end
 
--- TODO: fix bug
-Func.esc_flash_or_noh = function()
-  local flash_active, state = pcall(function()
-    return require("flash.plugins.char").state
-  end)
-  if flash_active and state then
-    state:hide()
-  else
-    pcall(vim.cmd.noh)
-  end
-end
-
 Func.toggle_term = function()
   require("my.helpers.antonym").toggle()
 end
@@ -86,6 +74,23 @@ end
 
 Func.find_git = function()
   require("search").open({ collection = "git" })
+end
+
+local lazygit = nil
+Func.toggle_lazygit = function()
+  if vim.fn.executable("lazygit") == 1 then
+    if not lazygit then
+      lazygit = require("toggleterm.terminal").Terminal:new({
+        cmd = "lazygit",
+        direction = "float",
+        close_on_exit = true,
+        hidden = true,
+      })
+    end
+    lazygit:toggle()
+  else
+    vim.notify("Command [lazygit] not found!", vim.log.levels.ERROR, { title = "toggleterm.nvim" })
+  end
 end
 
 ------------------------------------ Editor ------------------------------------

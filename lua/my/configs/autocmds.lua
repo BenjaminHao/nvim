@@ -132,6 +132,14 @@ local function create_autocmds()
     end,
   })
 
+  autocmd({ "BufEnter" }, {
+    desc = "Auto show/hide hlsearch",
+    group = general,
+    callback = function(opt)
+      require("my.helpers.hlsearch").set_auto_hlsearch(opt.buf)
+    end,
+  })
+
 end
 
 Autocmds.setup = function()

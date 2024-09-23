@@ -1,7 +1,9 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ MODULE: my.plugins.ui.lualine                                            │--
---│ DESC: Statusline                                                         │--
+--│  MODULE: my.plugins.ui.lualine                                           │--
+--│  DETAIL: Statusline plugin                                               │--
+--│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  UPDATE: 2024-09-19 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Plugin = {
@@ -11,8 +13,8 @@ local Plugin = {
 }
 
 Plugin.config = function()
-  local has_catppuccin = vim.g.colors_name:find("catppuccin") ~= nil
-  local colors = require("my.helpers.color").get_palette()
+  -- local has_catppuccin = vim.g.colors_name:find("catppuccin") ~= nil
+  -- local colors = require("my.helpers.color").get_palette()
   local icons = {
     diagnostics = require("my.helpers.icons").get("diagnostics", true),
     git = require("my.helpers.icons").get("git", true),
@@ -21,51 +23,50 @@ Plugin.config = function()
     ui = require("my.helpers.icons").get("ui", true),
   }
 
-  local function custom_theme()
-    vim.api.nvim_create_autocmd("ColorScheme", {
-      group = vim.api.nvim_create_augroup("LualineColorScheme", { clear = true }),
-      pattern = "*",
-      callback = function()
-        has_catppuccin = vim.g.colors_name:find("catppuccin") ~= nil
-        require("lualine").setup({ options = { theme = custom_theme() } })
-      end,
-    })
+  -- local function custom_theme()
+  --   vim.api.nvim_create_autocmd("ColorScheme", {
+  --     group = vim.api.nvim_create_augroup("LualineColorScheme", { clear = true }),
+  --     pattern = "*",
+  --     callback = function()
+  --       has_catppuccin = vim.g.colors_name:find("catppuccin") ~= nil
+  --       require("lualine").setup({ options = { theme = custom_theme() } })
+  --     end,
+  --   })
 
-    if has_catppuccin then
-      colors = require("my.helpers.color").get_palette()
-      -- local universal_bg = require("core.settings").transparent_background and "NONE" or colors.mantle
-      local universal_bg = colors.mantle
-      return {
-        normal = {
-          a = { fg = colors.lavender, bg = colors.surface0, gui = "bold" },
-          b = { fg = colors.text, bg = universal_bg },
-          c = { fg = colors.text, bg = universal_bg },
-        },
-        command = {
-          a = { fg = colors.peach, bg = colors.surface0, gui = "bold" },
-        },
-        insert = {
-          a = { fg = colors.green, bg = colors.surface0, gui = "bold" },
-        },
-        visual = {
-          a = { fg = colors.flamingo, bg = colors.surface0, gui = "bold" },
-        },
-        terminal = {
-          a = { fg = colors.teal, bg = colors.surface0, gui = "bold" },
-        },
-        replace = {
-          a = { fg = colors.red, bg = colors.surface0, gui = "bold" },
-        },
-        inactive = {
-          a = { fg = colors.subtext0, bg = universal_bg, gui = "bold" },
-          b = { fg = colors.subtext0, bg = universal_bg },
-          c = { fg = colors.subtext0, bg = universal_bg },
-        },
-      }
-    else
-      return "auto"
-    end
-  end
+  --   if has_catppuccin then
+  --     colors = require("my.helpers.color").get_palette()
+  --     local universal_bg = require("my.configs.settings").transparent_background and "NONE" or colors.mantle
+  --     return {
+  --       normal = {
+  --         a = { fg = colors.lavender, bg = colors.surface0, gui = "bold" },
+  --         b = { fg = colors.text, bg = universal_bg },
+  --         c = { fg = colors.text, bg = universal_bg },
+  --       },
+  --       command = {
+  --         a = { fg = colors.peach, bg = colors.surface0, gui = "bold" },
+  --       },
+  --       insert = {
+  --         a = { fg = colors.green, bg = colors.surface0, gui = "bold" },
+  --       },
+  --       visual = {
+  --         a = { fg = colors.flamingo, bg = colors.surface0, gui = "bold" },
+  --       },
+  --       terminal = {
+  --         a = { fg = colors.teal, bg = colors.surface0, gui = "bold" },
+  --       },
+  --       replace = {
+  --         a = { fg = colors.red, bg = colors.surface0, gui = "bold" },
+  --       },
+  --       inactive = {
+  --         a = { fg = colors.subtext0, bg = universal_bg, gui = "bold" },
+  --         b = { fg = colors.subtext0, bg = universal_bg },
+  --         c = { fg = colors.subtext0, bg = universal_bg },
+  --       },
+  --     }
+  --   else
+  --     return "auto"
+  --   end
+  -- end
 
   local conditionals = {
     has_enough_room = function()
@@ -295,7 +296,8 @@ Plugin.config = function()
     options = {
       icons_enabled = true,
       globalstatus = true,
-      theme = custom_theme(),
+      -- theme = custom_theme(),
+      theme = "auto",
       component_separators = "",
       section_separators = { left = "", right = "" },
       disabled_filetypes = { statusline = { "alpha" } },

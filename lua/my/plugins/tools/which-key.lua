@@ -1,7 +1,9 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ MODULE: my.plugins.tool.which-key                                        │--
---│ DESC: showing pending key binds                                          │--
+--│  MODULE: my.plugins.tools.which-key                                      │--
+--│  DETAIL: Showing pending keybinds                                        │--
+--│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  UPDATE: 2024-09-19 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Plugin = {
@@ -14,7 +16,7 @@ Plugin.init = function()
   vim.o.timeoutlen = 500
 end
 
--- TODO: filter hidden keys
+-- TODO: config whichkey
 Plugin.config = function()
   local wk = require("which-key")
   local icons = {

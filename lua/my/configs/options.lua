@@ -77,14 +77,14 @@ local global = {
 local neovide = {
   no_idle = true,                        -- Force neovide to redraw all the time
   refresh_rate = 60,                     -- Set neovide fps, only effective when not using vsync
-  cursor_vfx_mode = "railgun",           -- Cursor particles: "railgun"|"torpedo"|"pixiedust"|"sonicboom"|"ripple"|"wireframe"
+  cursor_vfx_mode = "pixiedust",         -- Cursor particles: "railgun"|"torpedo"|"pixiedust"|"sonicboom"|"ripple"|"wireframe"
   cursor_vfx_opacity = 200.0,            -- Set cursor particle opacity
   cursor_antialiasing = true,            -- Enables or disables antialiasing of the cursor quad
   cursor_trail_size = 0.5,               -- Determines how much the trail of the cursor lags behind the front edge
-  cursor_animation_length = 0.1,         -- Determines the time it takes for the cursor to complete it's animation in seconds
+  cursor_animation_length = 0.15,        -- Determines the time it takes for the cursor to complete it's animation in seconds
   cursor_vfx_particle_speed = 20.0,      -- Sets the speed of particle movement
   cursor_vfx_particle_density = 5.0,     -- Sets the number of generated particles
-  cursor_vfx_particle_lifetime = 1.2,    -- Sets the amount of time the generated particles should survive
+  cursor_vfx_particle_lifetime = 1.5,    -- Sets the amount of time the generated particles should survive
 }
 
 Options.setup = function()

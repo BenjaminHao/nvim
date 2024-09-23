@@ -1,9 +1,12 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ MODULE: my.plugins.ui.alpha                                              │--
---│ DESC: Startup screen plugin                                              │--
+--│  MODULE: my.plugins.ui.alpha                                             │--
+--│  DETAIL: Startup screen plugin                                           │--
+--│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  UPDATE: 2024-09-19 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
+-- TODO: icons
 local Plugin = {
   "goolord/alpha-nvim",
   event = "VimEnter",
@@ -13,92 +16,103 @@ local Plugin = {
 }
 
 Plugin.config = function()
-    local dashboard = require("alpha.themes.dashboard")
-    local alpha = require("alpha")
+  local alpha = require("alpha")
+  local dashboard = require("alpha.themes.dashboard")
+  -- require("my.helpers.color").gen_alpha_hl()
 
-    ------------------------- Dashboard settings -------------------------------
-    -- Set header
-    dashboard.section.header.val = {
-      "                                                                       ",
-      "                                                                     ",
-      "       ████ ██████           █████      ██                     ",
-      "      ███████████             █████                             ",
-      "      █████████ ███████████████████ ███   ███████████   ",
-      "     █████████  ███    █████████████ █████ ██████████████   ",
-      "    █████████ ██████████ █████████ █████ █████ ████ █████   ",
-      "  ███████████ ███    ███ █████████ █████ █████ ████ █████  ",
-      " ██████  █████████████████████ ████ █████ █████ ████ ██████ ",
-      "                                                                       ",
-    }
+  -- Set header
+  dashboard.section.header.val = require("my.configs.settings").dashboard_image
+  dashboard.section.header.opts.hl = "AlphaHeader"
 
-    -- Set menu
-    dashboard.section.buttons.val = {
-      dashboard.button("r", "󰈙 " .. " Recent file", "<cmd>Telescope oldfiles<cr>"),
-      dashboard.button("n", "󰈔 " .. " New file", "<cmd>ene <bar> startinsert<cr>"),
-      dashboard.button("f", "󰈞 " .. " Find file", "<cmd>Telescope find_files<cr>"),
-      dashboard.button("g", "󱎸 " .. " Find grep", "<cmd>Telescope live_grep<cr>"),
-      dashboard.button("e", "󰙅 " .. " Explorer", "<cmd>NvimTreeOpen<cr>"),
-      dashboard.button("c", " " .. " Config" , "<cmd>e $MYVIMRC|cd %:p:h|NvimTreeOpen<CR>"),
-      dashboard.button("p", "󰦬 " .. " Plugins", "<cmd>Lazy<cr>"),
-      -- dashboard.button("t", " " .. " Themes", "<cmd>Telescope themes<cr>"),
-      dashboard.button("h", "󰗶 " .. " Checkhealth", "<cmd>Lazy load all | checkhealth<cr>"),
-      dashboard.button("q", " " .. " Quit", "<cmd>qa!<cr>"),
-    }
+  -- Set menu
+  dashboard.section.buttons.val = {
+    dashboard.button("n", "󰈔 " .. " New File", "<cmd>ene <bar> startinsert<cr>"),
+    dashboard.button("f", "󰈞 " .. " Find File", function () require("my.keymaps.func").find_files() end),
+    dashboard.button("r", "󰈙 " .. " Recent File", function () require("my.keymaps.func").find_recent() end),
+    dashboard.button("w", "󱎸 " .. " Find Word", function () require("my.keymaps.func").find_word() end),
+    dashboard.button("e", "󰙅 " .. " Explorer", "<cmd>NvimTreeOpen<cr>"),
+    dashboard.button("c", " " .. " Config" , "<cmd>e $MYVIMRC|cd %:p:h|NvimTreeOpen<cr>"),
+    dashboard.button("h", "󰗶 " .. " Checkhealth", "<cmd>Lazy load all | checkhealth<cr>"),
+    dashboard.button("q", " " .. " Quit", "<cmd>qa!<cr>"),
+  }
+  for _, button in ipairs(dashboard.section.buttons.val) do
+    button.opts.hl = "AlphaButtons"
+    button.opts.hl_shortcut = "AlphaShortcut"
+  end
 
-    -- Set color
-    dashboard.section.header.opts.hl = "Keyword"               -- header
-    for _, button in ipairs(dashboard.section.buttons.val) do  -- buttons
-      button.opts.hl = "Function"
-      button.opts.hl_shortcut = "String"
-    end
-    dashboard.section.footer.opts.hl = "Number"                -- footer
-    dashboard.opts.layout[1].val = 6
+  -- Set footer
+  local function footer()
+    local stats = require("lazy").stats()
+    local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
+    return "   eovim"
+      .. "   "
+      .. vim.version().major
+      .. "."
+      .. vim.version().minor
+      .. "."
+      .. vim.version().patch
+      .. "  󰏓 "
+      .. stats.count
+      .. " plugins in "
+      .. ms
+      .. "ms"
+  end
 
-    -- Send config to alpha
-    alpha.setup(dashboard.opts)
+  dashboard.section.footer.val = footer()
+  dashboard.section.footer.opts.hl = "AlphaFooter"
 
-    ------------------------------ Autocmds ------------------------------------
-    local autocmd = vim.api.nvim_create_autocmd
-    local alphaaugroup = vim.api.nvim_create_augroup("Alpha", { clear = true })
+  -- Padding
+  local head_butt_padding = 2
+  local occu_height = #dashboard.section.header.val + 2 * #dashboard.section.buttons.val + head_butt_padding
+  local header_padding = math.max(0, math.ceil((vim.fn.winheight(0) - occu_height) * 0.25))
+  local foot_butt_padding = 1
 
+  dashboard.config.layout = {
+    { type = "padding", val = header_padding },
+    dashboard.section.header,
+    { type = "padding", val = head_butt_padding },
+    dashboard.section.buttons,
+    { type = "padding", val = foot_butt_padding },
+    dashboard.section.footer,
+  }
+
+  -- Send config to alpha
+  alpha.setup(dashboard.opts)
+
+  ------------------------------ Autocmds ------------------------------------
+  local autocmd = vim.api.nvim_create_autocmd
+  local alphaaugroup = vim.api.nvim_create_augroup("Alpha", { clear = true })
+
+  autocmd("User", {
+    desc = "Set footer with loading time",
+    group = alphaaugroup,
+    pattern = "LazyVimStarted",
+    callback = function()
+      dashboard.section.footer.val = footer()
+      pcall(vim.cmd.AlphaRedraw)
+    end,
+  })
+
+  if vim.o.filetype == "lazy" then
+    vim.cmd.close()
     autocmd("User", {
-      desc = "Set footer with loading time",
-      group = alphaaugroup,
-      pattern = "LazyVimStarted",
-      callback = function()
-        local stats = require("lazy").stats()
-        local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-        -- local now = os.date "%d-%m-%Y %H:%M:%S"
-        local version = " eovim -  " .. vim.version().major .. "." .. vim.version().minor .. "." .. vim.version().patch
-        -- local fortune = require "alpha.fortune"
-        -- local quote = table.concat(fortune(), "\n")
-        local plugins = "lazy-loaded " .. stats.count .. " plugins in " .. ms .. "ms"
-        local footer = version .. "\t" .. plugins -- .. "\n" .. quote
-        dashboard.section.footer.val = footer
-        pcall(vim.cmd.AlphaRedraw)
-      end,
-    })
-
-    if vim.o.filetype == "lazy" then
-      vim.cmd.close()
-      autocmd("User", {
-        desc = "Load dashboard after Lazy installing plugins",
-        group = alphaaugroup,
-        pattern = "AlphaReady",
-        callback = function()
-          require("lazy").show()
-        end,
-      })
-    end
-
-    autocmd("User", {
-      desc = "Disable folding on alpha buffer",
+      desc = "Load dashboard after Lazy installing plugins",
       group = alphaaugroup,
       pattern = "AlphaReady",
-      callback = function ()
-        vim.opt_local.foldenable = false
-      end
+      callback = function()
+        require("lazy").show()
+      end,
     })
+  end
+
+  autocmd("User", {
+    desc = "Disable folding on alpha buffer",
+    group = alphaaugroup,
+    pattern = "AlphaReady",
+    callback = function ()
+      vim.opt_local.foldenable = false
+    end
+  })
 end
 
 return Plugin

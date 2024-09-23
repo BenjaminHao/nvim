@@ -1,7 +1,9 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ MODULE: my.plugins.ui.neodim                                             │--
---│ DESC: Indentation guides for Neovim                                      │--
+--│  MODULE: my.plugins.ui.neodim                                            │--
+--│  DETAIL: Dimming the highlights of unused variables, etc.                │--
+--│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  UPDATE: 2024-09-19 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Plugin = {

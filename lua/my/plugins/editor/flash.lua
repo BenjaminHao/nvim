@@ -1,7 +1,9 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ MODULE: my.plugins.editor.flash                                          │--
---│ DESC: Enhanced motions, fast jump                                        │--
+--│  MODULE: my.plugins.editor.flash                                         │--
+--│  DETAIL: Enhanced motions, fast jump to word                             │--
+--│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  UPDATE: 2024-08-08 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Plugin = {

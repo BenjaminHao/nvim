@@ -1,16 +1,17 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ MODULE: my.plugins.editor.nvim-surround                                  │--
---│ DESC: surround selections                                                │--
+--│  MODULE: my.plugins.editor.nvim-surround                                 │--
+--│  DETAIL: Surround seletions                                              │--
+--│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  UPDATE: 2024-08-08 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Plugin = {
   "kylechui/nvim-surround",
   event = { "BufReadPost", "BufNewFile" },
-  version = "*", -- Use for stability; omit to use `main` branch for the latest features
+  version = "*",
 }
 
--- TODO: maybe need to change key binds later
 Plugin.config = function()
   require("nvim-surround").setup({
     keymaps = {

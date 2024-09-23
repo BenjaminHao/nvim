@@ -1,7 +1,9 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ MODULE: my.plugins.cmp.nvim-cmp                                          │--
---│ DESC: Auto-completion plugin                                             │--
+--│  MODULE: my.plugins.lsp.nvim-cmp                                         │--
+--│  DETAIL: Auto-completion engine                                          │--
+--│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  UPDATE: 2024-08-08 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Plugin = {
@@ -28,7 +30,6 @@ Plugin.config = function()
     type = require("my.helpers.icons").get("type"),
     cmp = require("my.helpers.icons").get("cmp"),
   }
-
   -- luasnip setup
   require("luasnip/loaders/from_vscode").lazy_load()  -- load snippets collection from plugins
 
@@ -63,9 +64,9 @@ Plugin.config = function()
     preselect = cmp.PreselectMode.None,
     window = {
       completion = {
-        border = util.set_colorborder("CmpBorder"),
+        -- border = util.set_colorborder("CmpBorder"),
         side_padding = 0,
-        col_offset = -4,
+        col_offset = -3,
         scrollbar = false,
         winhighlight = "Normal:Pmenu,CursorLine:PmenuSel,Search:None",
       },

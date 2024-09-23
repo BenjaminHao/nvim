@@ -1,7 +1,9 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ MODULE: my.plugins.completion.lspsaga                                    │--
---│ DESC: UI improvment for lsp                                              │--
+--│  MODULE: my.plugins.lsp.lspsaga                                          │--
+--│  DETAIL: UI improvement for LSP                                          │--
+--│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  UPDATE: 2024-08-08 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Plugin = {
@@ -13,7 +15,7 @@ local Plugin = {
 }
 
 Plugin.config = function()
-  require("my.helpers.color").gen_lspkind_hl()
+  -- require("my.helpers.color").gen_lspkind_hl()
 
   local icons = {
     cmp = require("my.helpers.icons").get("cmp", true),
@@ -97,7 +99,7 @@ Plugin.config = function()
       max_width = 0.45,
       max_height = 0.7,
       open_link = "gl",
-      open_cmd = "silent ! chrome-cli open"
+      open_cmd = "silent !" .. require("my.configs.settings").external_browser,
     },
     -- Impl: https://nvimdev.github.io/lspsaga/implement/
     implement = {
@@ -158,7 +160,6 @@ Plugin.config = function()
         Method = { icons.kind.Method, "LspKindMethod" },
         Module = { icons.kind.Module, "LspKindModule" },
         Namespace = { icons.kind.Namespace, "LspKindNamespace" },
-        Number = { icons.kind.Number, "LspKindNumber" },
         Operator = { icons.kind.Operator, "LspKindOperator" },
         Package = { icons.kind.Package, "LspKindPackage" },
         Property = { icons.kind.Property, "LspKindProperty" },
@@ -169,6 +170,7 @@ Plugin.config = function()
         Array = { icons.type.Array, "LspKindArray" },
         Boolean = { icons.type.Boolean, "LspKindBoolean" },
         Null = { icons.type.Null, "LspKindNull" },
+        Number = { icons.type.Number, "LspKindNumber" },
         Object = { icons.type.Object, "LspKindObject" },
         String = { icons.type.String, "LspKindString" },
         -- ccls-specific icons.
@@ -181,8 +183,7 @@ Plugin.config = function()
         Folder = { icons.kind.Folder, "LspKindFolder" },
         Unit = { icons.kind.Unit, "LspKindUnit" },
         Value = { icons.kind.Value, "LspKindValue" },
-      },
-    },
+      },    },
     -- Scrolling Keymaps: https://nvimdev.github.io/lspsaga/misc/#scrolling-keymaps
     scroll_preview = {
       scroll_down = "<C-d>",

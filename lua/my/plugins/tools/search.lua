@@ -1,7 +1,9 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ MODULE: my.plugins.tool.search                                           │--
---│ DESC: Switch search modes within the Telescope window usings tabs        │--
+--│  MODULE: my.plugins.tools.search                                         │--
+--│  DETAIL: Switching search modes within Telescope window                  │--
+--│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  UPDATE: 2024-09-19 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Plugin = {

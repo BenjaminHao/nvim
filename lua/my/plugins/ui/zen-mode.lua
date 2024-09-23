@@ -1,7 +1,9 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ MODULE: my.plugins.ui.zen-mode                                           │--
---│ DESC: Distracion-free environment                                        │--
+--│  MODULE: my.plugins.ui.zen-mode                                          │--
+--│  DETAIL: Distracion-free environment, hide ui                            │--
+--│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  UPDATE: 2024-09-19 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Plugin = {

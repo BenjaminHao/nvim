@@ -1,7 +1,9 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ MODULE: my.plugins.editor.nvim-autopairs                                 │--
---│ DESC: Auto-pair plugin for '"{[( etc.                                    │--
+--│  MODULE: my.plugins.editor.nvim-autopairs                                │--
+--│  DETAIL: Auto-pair plugin for '"{[( etc.                                 │--
+--│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  UPDATE: 2024-08-08 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Plugin = {

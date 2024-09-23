@@ -1,7 +1,9 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ MODULE: my.plugins.ui.dropbar                                            │--
---│ DESC: IDE-like winbar                                                    │--
+--│  MODULE: my.plugins.editor.dropbar                                       │--
+--│  DETAIL: IDE-like winbar                                                 │--
+--│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  UPDATE: 2024-09-19 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Plugin = {
@@ -14,6 +16,13 @@ local Plugin = {
 }
 
 Plugin.config = function()
+  local icons = {
+    kind = require("my.helpers.icons").get("kind", true),
+    type = require("my.helpers.icons").get("type", true),
+    misc = require("my.helpers.icons").get("misc", true),
+    ui = require("my.helpers.icons").get("ui", true),
+  }
+
   require("dropbar").setup({
     bar = {
       hover = false,
@@ -40,7 +49,6 @@ Plugin.config = function()
         end,
       },
     },
-    --[[
     icons = {
       enable = true,
       kinds = {
@@ -114,7 +122,6 @@ Plugin.config = function()
         menu = { indicator = icons.ui.ArrowClosed },
       },
     },
-    --]]
   })
 end
 

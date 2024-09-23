@@ -1,201 +1,104 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ MODULE: my.plugins.ui.catppuccin                                         │--
---│ DESC: Beautiful colorscheme                                              │--
+--│  MODULE: my.plugins.ui.catppuccin                                        │--
+--│  DETAIL: Beautiful colorscheme                                           │--
+--│  CREATE: nvimdots                                                        │--
+--│  UPDATE: 2024-09-19 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Plugin = {
-  "Jint-lzxy/nvim",
-  branch = "refactor/syntax-highlighting",
+  "catppuccin/nvim",
   name = "catppuccin",
   lazy = false, -- do not lazy load colorscheme
   priority = 1000,
 }
 
 Plugin.config = function()
-  local catppuccin = require("catppuccin")
-  local transparent_background = false
-  local clear = {}
-
-  catppuccin.setup({
-    background = { light = "latte", dark = "mocha" }, -- latte, frappe, macchiato, mocha
+  require("catppuccin").setup({
+    transparent_background = require("my.configs.settings").transparent_background, -- disables setting the background color.
+    show_end_of_buffer = false, -- shows the '~' characters after the end of buffers
+    term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
     dim_inactive = {
-      enabled = false,
-      -- Dim inactive splits/windows/buffers.
-      -- NOT recommended if you use old palette (a.k.a., mocha).
+      enabled = false, -- dims the background color of inactive window
       shade = "dark",
-      percentage = 0.15,
+      percentage = 0.10, -- percentage of the shade to apply to the inactive window
     },
-    transparent_background = transparent_background,
-    show_end_of_buffer = false, -- show the '~' characters after the end of buffers
-    term_colors = true,
-    compile_path = vim.fn.stdpath("cache") / "catppuccin",
-    styles = {
-      comments = { "italic" },
-      functions = { "bold" },
-      keywords = { "italic" },
-      operators = { "bold" },
-      conditionals = { "bold" },
-      loops = { "bold" },
-      booleans = { "bold", "italic" },
-      numbers = {},
-      types = {},
+    no_italic = true, -- Force no italic
+    no_bold = false, -- Force no bold
+    no_underline = false, -- Force no underline
+    styles = { -- Handles the styles of general hi groups (see `:h highlight-args`):
+      comments = {}, -- Change the style of comments
+      conditionals = {},
+      loops = {},
+      functions = {},
+      keywords = {},
       strings = {},
       variables = {},
+      numbers = {},
+      booleans = {},
       properties = {},
+      types = {},
+      operators = {},
     },
-    integrations = {
-      treesitter = true,
-      native_lsp = {
-        enabled = true,
-        virtual_text = {
-          errors = { "italic" },
-          hints = { "italic" },
-          warnings = { "italic" },
-          information = { "italic" },
-        },
-        underlines = {
-          errors = { "underline" },
-          hints = { "underline" },
-          warnings = { "underline" },
-          information = { "underline" },
-        },
+    color_overrides = {
+      mocha = {
+        dark_purple = "#c7a0dc",
+        sun = "#ffe9b6",
+        vibrant_green = "#b6f4be",
       },
-      aerial = true,
+    },
+    highlight_overrides = require("my.helpers.hl_overrides"),
+    integrations = {
+      -- disable enabled by default
       alpha = false,
-      barbar = false,
-      beacon = false,
-      cmp = true,
-      coc_nvim = false,
-      dap = true,
-      dap_ui = true,
+      cmp = false,
       dashboard = false,
-      dropbar = { enabled = true, color_mode = true },
-      fern = false,
+      neogit = false,
+      illuminate = {
+        enabled = false,
+        lsp = false,
+      },
+
+      -- enable the ones we'll use
+      grug_far = true,
+      window_picker = true,
       fidget = true,
       flash = true,
-      gitgutter = false,
       gitsigns = true,
-      harpoon = false,
-      headlines = false,
-      hop = true,
-      illuminate = true,
-      indent_blankline = { enabled = true, colored_indent_levels = false },
-      leap = false,
-      lightspeed = false,
-      lsp_saga = true,
+      indent_blankline = {
+        enabled = true,
+      },
       lsp_trouble = true,
       markdown = true,
       mason = true,
-      mini = false,
-      navic = { enabled = false },
-      neogit = false,
-      neotest = false,
-      neotree = { enabled = false, show_root = true, transparent_panel = false },
-      noice = false,
-      notify = true,
+      mini = true,
+      native_lsp = {
+        enabled = true,
+        underlines = {
+          errors = { "undercurl" },
+          hints = { "undercurl" },
+          warnings = { "undercurl" },
+          information = { "undercurl" },
+        },
+        inlay_hints = {
+          background = false,
+        },
+      },
+      neotest = true,
+      noice = true,
       nvimtree = true,
-      overseer = false,
-      pounce = false,
-      rainbow_delimiters = true,
-      render_markdown = true,
-      sandwich = false,
+      neotree = true,
       semantic_tokens = true,
-      symbols_outline = false,
-      telekasten = false,
-      telescope = { enabled = true, style = "nvchad" },
-      treesitter_context = true,
-      ts_rainbow = false,
-      vim_sneak = false,
-      vimwiki = false,
+      telescope = {
+        enabled = true,
+        style = "nvchad",
+      },
+      treesitter = true,
       which_key = true,
-    },
-    color_overrides = {},
-    highlight_overrides = {
-      ---@param cp palette
-      all = function(cp)
-        return {
-          -- For base configs
-          NormalFloat = { fg = cp.text, bg = transparent_background and cp.none or cp.mantle },
-          FloatBorder = {
-            fg = transparent_background and cp.blue or cp.mantle,
-            bg = transparent_background and cp.none or cp.mantle,
-          },
-          CursorLineNr = { fg = cp.green },
 
-          -- For native lsp configs
-          DiagnosticVirtualTextError = { bg = cp.none },
-          DiagnosticVirtualTextWarn = { bg = cp.none },
-          DiagnosticVirtualTextInfo = { bg = cp.none },
-          DiagnosticVirtualTextHint = { bg = cp.none },
-          LspInfoBorder = { link = "FloatBorder" },
-
-          -- For mason.nvim
-          MasonNormal = { link = "NormalFloat" },
-
-          -- For indent-blankline
-          IblIndent = { fg = cp.surface0 },
-          IblScope = { fg = cp.surface2, style = { "bold" } },
-
-          -- For nvim-cmp and wilder.nvim
-          Pmenu = { fg = cp.overlay2, bg = transparent_background and cp.none or cp.base },
-          PmenuBorder = { fg = cp.surface1, bg = transparent_background and cp.none or cp.base },
-          PmenuSel = { bg = cp.green, fg = cp.base },
-          CmpItemAbbr = { fg = cp.overlay2 },
-          CmpItemAbbrMatch = { fg = cp.blue, style = { "bold" } },
-          CmpDoc = { link = "NormalFloat" },
-          CmpDocBorder = {
-            fg = transparent_background and cp.surface1 or cp.mantle,
-            bg = transparent_background and cp.none or cp.mantle,
-          },
-
-          -- For fidget
-          FidgetTask = { bg = cp.none, fg = cp.surface2 },
-          FidgetTitle = { fg = cp.blue, style = { "bold" } },
-
-          -- For nvim-notify
-          NotifyBackground = { bg = cp.base },
-
-          -- For nvim-tree
-          NvimTreeRootFolder = { fg = cp.pink },
-          NvimTreeIndentMarker = { fg = cp.surface2 },
-
-          -- For trouble.nvim
-          TroubleNormal = { bg = transparent_background and cp.none or cp.base },
-          TroubleNormalNC = { bg = transparent_background and cp.none or cp.base },
-
-          -- For telescope.nvim
-          TelescopeMatching = { fg = cp.lavender },
-          TelescopeResultsDiffAdd = { fg = cp.green },
-          TelescopeResultsDiffChange = { fg = cp.yellow },
-          TelescopeResultsDiffDelete = { fg = cp.red },
-
-          -- For glance.nvim
-          GlanceWinBarFilename = { fg = cp.subtext1, style = { "bold" } },
-          GlanceWinBarFilepath = { fg = cp.subtext0, style = { "italic" } },
-          GlanceWinBarTitle = { fg = cp.teal, style = { "bold" } },
-          GlanceListCount = { fg = cp.lavender },
-          GlanceListFilepath = { link = "Comment" },
-          GlanceListFilename = { fg = cp.blue },
-          GlanceListMatch = { fg = cp.lavender, style = { "bold" } },
-          GlanceFoldIcon = { fg = cp.green },
-
-          -- For nvim-treehopper
-          TSNodeKey = {
-            fg = cp.peach,
-            bg = transparent_background and cp.none or cp.base,
-            style = { "bold", "underline" },
-          },
-
-          -- For treesitter
-          ["@keyword.return"] = { fg = cp.pink, style = clear },
-          ["@error.c"] = { fg = cp.none, style = clear },
-          ["@error.cpp"] = { fg = cp.none, style = clear },
-        }
-      end,
-    },
-  })
-  vim.cmd.colorscheme("catppuccin")
+    }
+    })
+  vim.cmd.colorscheme "catppuccin"
 end
 
 return Plugin

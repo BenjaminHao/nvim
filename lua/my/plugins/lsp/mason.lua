@@ -1,6 +1,6 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│  MODULE: my.plugins.tools.mason                                          │--
+--│  MODULE: my.plugins.lsp.mason                                            │--
 --│  DETAIL: Package manager for LSP servers                                 │--
 --│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
 --│  UPDATE: 2024-09-14 by Benjamin Hao                                      │--

@@ -6,6 +6,7 @@
 --│  UPDATE: 2024-08-08 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
+-- TODO: add goto file/link keybinds
 local Core = {}
 local map = require("my.helpers.map")
 local _ = require("my.keymaps.func")
@@ -49,7 +50,6 @@ local nvim_keymaps = {
   ["i|<C-;>"] = map.key("<End>;"):desc("Edit: Add semicolon to line end"),
   ["i|<C-Cr>"] = map.key("<End><CR>"):desc("Edit: Start a new line"),
   -- Others
-  ["n|<Esc>"] = map.func(_.esc_flash_or_noh):desc("Edit: Clear search highlight"),
   ["n|<S-Tab>"] = map.cmd("normal za"):desc("Edit: Toggle code fold"),
   ["n|<Leader>w"] = map.cmd("w"):desc("Edit: Write file"),
   ["n|<Leader>W"] = map.cmd("wa!"):desc("Edit: Write all"),
@@ -59,6 +59,7 @@ local nvim_keymaps = {
   ["n|<C-t>"] = map.func(_.toggle_term):desc("Edit: Toggle term"),
   ["c|<C-t>"] = map.key([[<C-R>=expand("%:p:h")<CR>]]):desc("Edit: Complete path of current file"),
   ---------------------------------- Window -------------------------------------
+  -- Overwrite by smart-splits
   ["n|<C-h>"] = map.key("<C-w>h"):desc("Windows: Focus Left"),
   ["n|<C-l>"] = map.key("<C-w>l"):desc("Windows: Focus Right"),
   ["n|<C-j>"] = map.key("<C-w>j"):desc("Windows: Focus Down"),
@@ -67,14 +68,15 @@ local nvim_keymaps = {
   ["n|<C-S-l>"] = map.key("<C-w>L"):desc("Windows: Move Right"),
   ["n|<C-S-j>"] = map.key("<C-w>J"):desc("Windows: Move Down"),
   ["n|<C-S-k>"] = map.key("<C-w>K"):desc("Windows: Move Up"),
-  ["n|<C-Up>"] = map.cmd("resize +3"):desc("Windows: Resize +3 horizontally"),
-  ["n|<C-Down>"] = map.cmd("resize -3"):desc("Windows: Resize -3 horizontally"),
-  ["n|<C-Right>"] = map.cmd("vertical resize +3"):desc("Windows: Resize +3 vertically"),
   ["n|<C-Left>"] = map.cmd("vertical resize -3"):desc("Windows: Resize -3 vertically"),
+  ["n|<C-Down>"] = map.cmd("resize -3"):desc("Windows: Resize -3 horizontally"),
+  ["n|<C-Up>"] = map.cmd("resize +3"):desc("Windows: Resize +3 horizontally"),
+  ["n|<C-Right>"] = map.cmd("vertical resize +3"):desc("Windows: Resize +3 vertically"),
   ---------------------------------- Buffer -------------------------------------
   ["n|]b"] = map.cmd("bn"):desc("Next: Buffer"),
   ["n|[b"] = map.cmd("bp"):desc("Prev: Buffer"),
   ------------------------------ Terminal Mode ----------------------------------
+  ["t|<Esc><Esc>"] = map.key([[<C-\><C-n>]]):desc("Terminal: Normal Mode"),
   ["t|<C-w>h"] = map.cmd("wincmd h"):desc("Windows: Focus left"),
   ["t|<C-w>l"] = map.cmd("wincmd l"):desc("Windows: Focus right"),
   ["t|<C-w>j"] = map.cmd("wincmd j"):desc("Windows: Focus down"),

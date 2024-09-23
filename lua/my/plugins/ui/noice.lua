@@ -1,7 +1,9 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ MODULE: my.plugins.ui.noice                                              │--
---│ DESC: UI replacement for Neovim                                          │--
+--│  MODULE: my.plugins.ui.noice                                             │--
+--│  DETAIL: Cmdline & Notification ui replacement                           │--
+--│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  UPDATE: 2024-09-19 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Plugin = {
@@ -12,6 +14,7 @@ local Plugin = {
     "rcarriga/nvim-notify",
   },
 }
+
 Plugin.config = function ()
   require("noice").setup({
     cmdline = {

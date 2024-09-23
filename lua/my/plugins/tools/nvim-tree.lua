@@ -1,9 +1,12 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ FILE: plugins/nvim-tree.lua                                              │--
---│ DESC: file explorer plugin                                               │--
+--│  MODULE: my.plugins.tools.nvim-tree                                      │--
+--│  DETAIL: File explorer plugin                                            │--
+--│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  UPDATE: 2024-09-19 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
+-- TODO: icons
 local Plugin = {
   "nvim-tree/nvim-tree.lua",
   cmd = { "NvimTreeToggle", "NvimTreeOpen" },
@@ -19,37 +22,37 @@ Plugin.config = function()
     local map = require("my.helpers.map")
     local api = require "nvim-tree.api"
     local keymaps = {
-      ["n|?"] = map.func(api.tree.toggle_help):desc("NvimTree: Help"):buf(bufnr),
-      ["n|l"] = map.func(api.node.open.edit):desc("NvimTree: Open"):buf(bufnr),
-      ["n|<cr>"] = map.func(api.node.open.edit):desc("NvimTree: Open"):buf(bufnr),
-      ["n|<Tab>"] = map.func(api.node.open.preview):desc("NvimTree: Open (Preview)"):buf(bufnr),
-      ["n|s"] = map.func(api.node.open.horizontal):desc("NvimTree: Open (Horizontal)"):buf(bufnr),
-      ["n|v"] = map.func(api.node.open.vertical):desc("NvimTree: Open (Vertical)"):buf(bufnr),
-      ["n|o"] = map.func(api.node.run.system):desc("NvimTree: Open (Default App)"):buf(bufnr),
-      ["n|i"] = map.func(api.node.show_info_popup):desc("NvimTree: Info"):buf(bufnr),
-      ["n|a"] = map.func(api.fs.create):desc("NvimTree: Create"):buf(bufnr),
-      ["n|r"] = map.func(api.fs.rename):desc("NvimTree: Rename"):buf(bufnr),
-      ["n|c"] = map.func(api.fs.copy.node):desc("NvimTree: Copy"):buf(bufnr),
-      ["n|x"] = map.func(api.fs.cut):desc("NvimTree: Cut"):buf(bufnr),
-      ["n|p"] = map.func(api.fs.paste):desc("NvimTree: Paste"):buf(bufnr),
-      ["n|d"] = map.func(api.fs.remove):desc("NvimTree: Delete"):buf(bufnr),
-      ["n|D"] = map.func(api.fs.trash):desc("NvimTree: Trash"):buf(bufnr),
-      ["n|y"] = map.func(api.fs.copy.filename):desc("NvimTree: Yank Filename"):buf(bufnr),  -- or .basename
-      ["n|Y"] = map.func(api.fs.copy.absolute_path):desc("NvimTree: Yank Absolute Path"):buf(bufnr),
-      ["n|."] = map.func(api.tree.toggle_hidden_filter):desc("NvimTree: Toggle Dot Files"):buf(bufnr),
-      ["n|J"] = map.func(api.node.navigate.sibling.last):desc("NvimTree: To Last Sibling"):buf(bufnr),
-      ["n|K"] = map.func(api.node.navigate.sibling.first):desc("NvimTree: To First Sibling"):buf(bufnr),
-      ["n|h"] = map.func(api.node.navigate.parent):desc("NvimTree: To Parent Directory"):buf(bufnr),
-      ["n|H"] = map.func(api.tree.change_root_to_node):desc("NvimTree: Set Root Directory"):buf(bufnr),
-      ["n|u"] = map.func(api.tree.change_root_to_parent):desc("NvimTree: Show parent root"):buf(bufnr),
-      ["n|q"] = map.func(api.tree.close):desc("NvimTree: Close"):buf(bufnr),
-      ["n|<esc>"] = map.func(api.tree.close):desc("NvimTree: Close"):buf(bufnr),
-      ["n|R"] = map.func(api.tree.reload):desc("NvimTree: Refresh"):buf(bufnr),
-      -- ["n|S"] = map.func(api.tree.search_node):desc("NvimTree: Search"):buf(bufnr), -- this sucks
-      -- ["n|t"] = map.func(api.tree.toggle_custom_filter):desc("NvimTree: Toggle Custom Filter"):buf(buf),
-      -- ["n|m"] = map.func(api.marks.toggle):desc("NvimTree: Set Bookmark"):buf(bufnr),
-      -- ["n|M"] = map.func(api.tree.toggle_no_bookmark_filter):desc("NvimTree: Toggle Bookmarks"):buf(bufnr),
-      -- ["n|e"] = map.func(api.node.run.cmd):desc("NvimTree: Execute Command"):buf(bufnr),
+      ["n|?"] = map.func(api.tree.toggle_help):buf(bufnr):desc("NvimTree: Help"),
+      ["n|l"] = map.func(api.node.open.edit):buf(bufnr):desc("NvimTree: Open"),
+      ["n|<cr>"] = map.func(api.node.open.edit):buf(bufnr):desc("NvimTree: Open"),
+      ["n|<Tab>"] = map.func(api.node.open.preview):buf(bufnr):desc("NvimTree: Open (Preview)"),
+      ["n|s"] = map.func(api.node.open.horizontal):buf(bufnr):desc("NvimTree: Open (Horizontal)"),
+      ["n|v"] = map.func(api.node.open.vertical):buf(bufnr):desc("NvimTree: Open (Vertical)"),
+      ["n|o"] = map.func(api.node.run.system):buf(bufnr):desc("NvimTree: Open (Default App)"),
+      ["n|i"] = map.func(api.node.show_info_popup):buf(bufnr):desc("NvimTree: Info"),
+      ["n|a"] = map.func(api.fs.create):buf(bufnr):desc("NvimTree: Create"),
+      ["n|r"] = map.func(api.fs.rename):buf(bufnr):desc("NvimTree: Rename"),
+      ["n|c"] = map.func(api.fs.copy.node):buf(bufnr):desc("NvimTree: Copy"),
+      ["n|x"] = map.func(api.fs.cut):buf(bufnr):desc("NvimTree: Cut"),
+      ["n|p"] = map.func(api.fs.paste):buf(bufnr):desc("NvimTree: Paste"),
+      ["n|d"] = map.func(api.fs.remove):buf(bufnr):desc("NvimTree: Delete"),
+      ["n|D"] = map.func(api.fs.trash):buf(bufnr):desc("NvimTree: Trash"),
+      ["n|y"] = map.func(api.fs.copy.filename):buf(bufnr):desc("NvimTree: Yank Filename"),  -- or .basename
+      ["n|Y"] = map.func(api.fs.copy.absolute_path):buf(bufnr):desc("NvimTree: Yank Absolute Path"),
+      ["n|."] = map.func(api.tree.toggle_hidden_filter):buf(bufnr):desc("NvimTree: Toggle Dot Files"),
+      ["n|J"] = map.func(api.node.navigate.sibling.last):buf(bufnr):desc("NvimTree: To Last Sibling"),
+      ["n|K"] = map.func(api.node.navigate.sibling.first):buf(bufnr):desc("NvimTree: To First Sibling"),
+      ["n|h"] = map.func(api.node.navigate.parent):buf(bufnr):desc("NvimTree: To Parent Directory"),
+      ["n|H"] = map.func(api.tree.change_root_to_node):buf(bufnr):desc("NvimTree: Set Root Directory"),
+      ["n|u"] = map.func(api.tree.change_root_to_parent):buf(bufnr):desc("NvimTree: Show parent root"),
+      ["n|q"] = map.func(api.tree.close):buf(bufnr):desc("NvimTree: Close"),
+      ["n|<esc>"] = map.func(api.tree.close):buf(bufnr):desc("NvimTree: Close"),
+      ["n|R"] = map.func(api.tree.reload):buf(bufnr):desc("NvimTree: Refresh"),
+      -- ["n|S"] = map.func(api.tree.search_node):buf(bufnr):desc("NvimTree: Search"), -- this sucks
+      -- ["n|t"] = map.func(api.tree.toggle_custom_filter):buf(bufnr):desc("NvimTree: Toggle Custom Filter"),
+      -- ["n|m"] = map.func(api.marks.toggle):buf(bufnr):desc("NvimTree: Set Bookmark"),
+      -- ["n|M"] = map.func(api.tree.toggle_no_bookmark_filter):buf(bufnr):desc("NvimTree: Toggle Bookmarks"),
+      -- ["n|e"] = map.func(api.node.run.cmd):buf(bufnr):desc("NvimTree: Execute Command"),
     }
     map.setup(keymaps)
   end

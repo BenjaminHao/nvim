@@ -1,7 +1,9 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ MODULE: my.plugins.editor.nvim-treesitter                                │--
---│ DESC: Syntax highlighting plugin (a C complier is required)              │--
+--│  MODULE: my.plugins.editor.nvim-treesitter                               │--
+--│  DETAIL: Syntax highlighting plugin (a C complier is required)           │--
+--│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  UPDATE: 2024-08-08 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Plugin = {
@@ -11,6 +13,7 @@ local Plugin = {
   dependencies = {
     "Wansmer/treesj", -- for splitting/joning blocks of code
     "windwp/nvim-ts-autotag",
+    "hiphish/rainbow-delimiters.nvim",
     "nvim-treesitter/nvim-treesitter-textobjects", -- syntax aware text-objects
   },
 }

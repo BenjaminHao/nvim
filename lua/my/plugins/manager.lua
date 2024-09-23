@@ -51,9 +51,9 @@ local function setup_lazy()
     },
     spec = {
       { import = "my.plugins.ui" },
+      { import = "my.plugins.lsp" },
       { import = "my.plugins.tools" },
       { import = "my.plugins.editor" },
-      { import = "my.plugins.completion" },
     },
     checker = {
       notify = false,

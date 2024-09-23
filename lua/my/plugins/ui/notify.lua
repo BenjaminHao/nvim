@@ -1,9 +1,12 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ MODULE: my.plugins.ui.notify                                             │--
---│ DESC: Notification manager for Neovim                                    │--
+--│  MODULE: my.plugins.ui.notify                                            │--
+--│  DETAIL: Notification manager for Neovim                                 │--
+--│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  UPDATE: 2024-09-19 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
+-- TODO: icons
 local Plugin = {
   "rcarriga/nvim-notify",
   event = "VeryLazy",

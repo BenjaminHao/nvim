@@ -1,7 +1,9 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ MODULE: my.plugins.ui.indent-blankline                                   │--
---│ DESC: Indentation guides for Neovim                                      │--
+--│  MODULE: my.plugins.editor.indent-blankline                              │--
+--│  DETAIL: Indentation guides for Neovim                                   │--
+--│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  UPDATE: 2024-09-19 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Plugin = {
@@ -78,6 +80,7 @@ Plugin.config = function()
       filetypes = {
         "",
         "alpha",
+        "bigfile",
         "checkhealth",
         "dashboard",
         "gitcommit",

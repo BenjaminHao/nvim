@@ -1,7 +1,9 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│ MODULE: my.plugins.ui.bufferline                                         │--
---│ DESC: UI plugin for buffers                                              │--
+--│  MODULE: my.plugins.ui.bufferline                                        │--
+--│  DETAIL: UI plugin for showing opening buffers                           │--
+--│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  UPDATE: TODO: config bufferline                                         │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Plugin = {

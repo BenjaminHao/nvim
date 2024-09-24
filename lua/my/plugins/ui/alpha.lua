@@ -22,7 +22,7 @@ Plugin.config = function()
 
   -- Set header
   dashboard.section.header.val = require("my.configs.settings").dashboard_image
-  dashboard.section.header.opts.hl = "AlphaHeader"
+  -- dashboard.section.header.opts.hl = "AlphaHeader"
 
   -- Set menu
   dashboard.section.buttons.val = {
@@ -35,10 +35,10 @@ Plugin.config = function()
     dashboard.button("h", "󰗶 " .. " Checkhealth", "<cmd>Lazy load all | checkhealth<cr>"),
     dashboard.button("q", " " .. " Quit", "<cmd>qa!<cr>"),
   }
-  for _, button in ipairs(dashboard.section.buttons.val) do
-    button.opts.hl = "AlphaButtons"
-    button.opts.hl_shortcut = "AlphaShortcut"
-  end
+  -- for _, button in ipairs(dashboard.section.buttons.val) do
+  --   button.opts.hl = "AlphaButtons"
+  --   button.opts.hl_shortcut = "AlphaShortcut"
+  -- end
 
   -- Set footer
   local function footer()
@@ -59,7 +59,7 @@ Plugin.config = function()
   end
 
   dashboard.section.footer.val = footer()
-  dashboard.section.footer.opts.hl = "AlphaFooter"
+  -- dashboard.section.footer.opts.hl = "AlphaFooter"
 
   -- Padding
   local head_butt_padding = 2

@@ -131,6 +131,8 @@ Plugin.config = function ()
             { find = "fewer lines" }, -- for deleting messages
             { find = "lines indented" }, -- for indenting messages
             { find = "lines moved" }, -- for moving messages
+            { find = "lines <ed" }, -- for > indenting messages
+            { find = "lines >ed" }, -- for < indenting messages
           },
         },
         view = "mini",

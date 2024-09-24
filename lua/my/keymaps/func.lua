@@ -76,6 +76,10 @@ Func.find_git = function()
   require("search").open({ collection = "git" })
 end
 
+Func.find_configs = function()
+   require("telescope.builtin").find_files { cwd = vim.fn.stdpath 'config' }
+end
+
 local lazygit = nil
 Func.toggle_lazygit = function()
   if vim.fn.executable("lazygit") == 1 then

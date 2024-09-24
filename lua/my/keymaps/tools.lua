@@ -19,6 +19,7 @@ local keymaps_tool = {
   ["n|<Leader>ff"] = map.func(_.find_files):desc("Find: Files"),
   ["n|<Leader>fr"] = map.func(_.find_recent):desc("Find: Recent Files"),
   ["n|<Leader>fw"] = map.func(_.find_word):desc("Find: Word"),
+  ["n|<Leader>fn"] = map.func(_.find_configs):desc("Find: Nvim Configs"),
   ["n|<Leader>fh"] = map.cmd("Telescope help_tags"):desc("Find: Help"),
   ["n|<Leader>fp"] = map.cmd("Telescope projects"):desc("Find: Projects"),
   ["n|<Leader>fk"] = map.cmd("Telescope keymaps"):desc("Find: Keymaps"),

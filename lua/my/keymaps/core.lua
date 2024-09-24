@@ -13,8 +13,8 @@ local _ = require("my.keymaps.func")
 
 local nvim_keymaps = {
   -- Line head/end
-  ["n|H"] = map.key("^"):desc("Edit: Move to head of line"), -- 0: beginning of line, ^: first non-blank character
-  ["n|L"] = map.key("g_"):desc("Edit: Move to end of line"), -- $: end of line, g_: last non-blank character
+  ["nvo|H"] = map.key("^"):desc("Edit: Move to head of line"), -- 0: beginning of line, ^: first non-blank character
+  ["nvo|L"] = map.key("g_"):desc("Edit: Move to end of line"), -- $: end of line, g_: last non-blank character
   -- Move Lines
   ["v|J"] = map.key(":m '>+1<CR>gv=gv"):desc("Edit: Move line down"),
   ["v|K"] = map.key(":m '<-2<CR>gv=gv"):desc("Edit: Move line up"),
@@ -56,7 +56,7 @@ local nvim_keymaps = {
   ["n|<Leader>q"] = map.cmd("wq"):desc("Edit: Save file and quit"),
   ["n|<Leader>Q"] = map.cmd("qa!"):desc("Edit: Force quit"),
   ["n|<Leader>Ts"] = map.cmd("setlocal spell! spelllang=en_us"):desc("Edit: Toggle spell check"),
-  ["n|<C-t>"] = map.func(_.toggle_term):desc("Edit: Toggle term"),
+  ["nx|<C-t>"] = map.func(_.toggle_term):desc("Edit: Toggle term"),
   ["c|<C-t>"] = map.key([[<C-R>=expand("%:p:h")<CR>]]):desc("Edit: Complete path of current file"),
   ---------------------------------- Window -------------------------------------
   -- Overwrite by smart-splits

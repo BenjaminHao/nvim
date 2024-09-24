@@ -53,18 +53,10 @@ function map_rhs:map_cmd(cmd_string)
 end
 
 ---@param cmd_string string
---- Clean command. No range selected.
 ---@return map_rhs
 function map_rhs:map_ccmd(cmd_string)
   -- <C-u> to eliminate the automatically inserted range in visual mode
   self.cmd = ("<Cmd><C-u>%s<Cr>"):format(cmd_string)
-  return self
-end
-
----@param cmd_string string
----@return map_rhs
-function map_rhs:map_args(cmd_string)
-  self.cmd = ("<Cmd>%s<Space>"):format(cmd_string)
   return self
 end
 
@@ -76,18 +68,35 @@ function map_rhs:map_func(fun)
   return self
 end
 
+---@param plug_string string
+---@return map_rhs
+function map_rhs:map_plug(plug_string)
+  self.cmd = ("<plug>(%s)<Cr>"):format(plug_string)
+  return self
+end
+
+---@param cmd_string string
+---@return map_rhs
+function map_rhs:map_args(cmd_string)
+  self.cmd = ("<Cmd>%s<Space>"):format(cmd_string)
+  return self
+end
+
+--- Add "noremap = false" option (Default: noremap = true)
 ---@return map_rhs
 function map_rhs:remap()
   self.options.noremap = false
   return self
 end
 
+--- Add "silent = false" option (Default: silent = true)
 ---@return map_rhs
 function map_rhs:echo()
   self.options.silent = false
   return self
 end
 
+--- Add a description for the keybind
 ---@param desc_string string
 ---@return map_rhs
 function map_rhs:desc(desc_string)
@@ -95,25 +104,29 @@ function map_rhs:desc(desc_string)
   return self
 end
 
+--- Add "expr = true" option
 ---@return map_rhs
 function map_rhs:expr()
   self.options.expr = true
   return self
 end
 
+--- Add "nowait = true" option
 ---@return map_rhs
 function map_rhs:nowait()
   self.options.nowait = true
   return self
 end
 
----@param num number
+--- Add "buffer = num" option, create buffer-local mapping
+---@param num boolean|number
 ---@return map_rhs
 function map_rhs:buf(num)
   self.options.buffer = num
   return self
 end
 
+--- Map keystrokes
 ---@param cmd_string string
 ---@return map_rhs
 function Map.key(cmd_string)
@@ -121,6 +134,7 @@ function Map.key(cmd_string)
   return ro:map_key(cmd_string)
 end
 
+--- Map commands
 ---@param cmd_string string
 ---@return map_rhs
 function Map.cmd(cmd_string)
@@ -128,6 +142,8 @@ function Map.cmd(cmd_string)
   return ro:map_cmd(cmd_string)
 end
 
+--- Map commands (Clean prefix commands first)
+--- Can cancel the selected range in visual mode
 ---@param cmd_string string
 ---@return map_rhs
 function Map.ccmd(cmd_string)
@@ -135,18 +151,28 @@ function Map.ccmd(cmd_string)
   return ro:map_ccmd(cmd_string)
 end
 
----@param cmd_string string
----@return map_rhs
-function Map.args(cmd_string)
-  local ro = map_rhs:new()
-  return ro:map_args(cmd_string)
-end
-
+--- Map a function
 ---@param fun fun():nil
 ---@return map_rhs
 function Map.func(fun)
   local ro = map_rhs:new()
   return ro:map_func(fun)
+end
+
+--- Map vim style plugin keybind: <plug>(do_things)
+---@param plug_string string
+---@return map_rhs
+function Map.plug(plug_string)
+  local ro = map_rhs:new()
+  return ro:map_plug(plug_string)
+end
+
+--- Map args, :args user_input
+---@param cmd_string string
+---@return map_rhs
+function Map.args(cmd_string)
+  local ro = map_rhs:new()
+  return ro:map_args(cmd_string)
 end
 
 ---@param cmd_string string

@@ -53,6 +53,7 @@ local nvim_keymaps = {
   ["i|<C-;>"] = map.key("<End>;"):desc("Edit: Add semicolon to line end"),
   ["i|<C-Cr>"] = map.key("<End><CR>"):desc("Edit: Start a new line"),
   -- Others
+  ["n|<C-S-v>"] = map.key("ggVG"):desc("Edit: Select all"),
   ["ni|<C-s>"] = map.cmd("w"):desc("Edit: Save file"),
   ["n|<S-Tab>"] = map.cmd("normal za"):desc("Edit: Toggle code fold"),
   ["n|<Leader>Ts"] = map.cmd("setlocal spell! spelllang=en_us"):desc("Edit: Toggle spell check"),

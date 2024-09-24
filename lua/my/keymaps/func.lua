@@ -1,7 +1,7 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
 --│  MODULE: my.keymaps.func                                                 │--
---│  DETAIL: Functions to be binded (for better readability)                 │--
+--│  DETAIL: Functions to be binded (for readability & plugin lazy-loading)  │--
 --│  CREATE: 2024-09-16 by Benjamin Hao                                      │--
 --│  UPDATE: 2024-09-16 by Benjamin Hao                                      │--
 --│                                                                          │--

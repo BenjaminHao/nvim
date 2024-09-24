@@ -18,8 +18,8 @@ local keymaps_editor = {
   -- Comment
   ["n|<C-/>"] = map.func(_.comment_line):expr():desc("Edit: Comment line(s)"),
   ["n|<C-?>"] = map.func(_.comment_block):expr():desc("Edit: Comment block(s)"),
-  ["v|<C-/>"] = map.key("<Plug>(comment_toggle_linewise_visual)"):desc("Edit: Comment selected lines"),
-  ["v|<C-?>"] = map.key("<Plug>(comment_toggle_blockwise_visual)"):desc("Edit: Comment selected blocks"),
+  ["v|<C-/>"] = map.plug("comment_toggle_linewise_visual"):desc("Edit: Comment selected lines"),
+  ["v|<C-?>"] = map.plug("comment_toggle_blockwise_visual"):desc("Edit: Comment selected blocks"),
   -- TreeSJ
   ["n|<tab>"] = map.cmd("TSJToggle"):desc("Edit: Split/joining Code Block"),
   -- Smart-splits

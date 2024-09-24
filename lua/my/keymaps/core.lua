@@ -12,7 +12,7 @@ local map = require("my.helpers.map")
 local _ = require("my.keymaps.func")
 
 local nvim_keymaps = {
-  -- Line head/end
+  -- Additional Motions
   ["nvo|H"] = map.key("^"):desc("Edit: Move to head of line"), -- 0: beginning of line, ^: first non-blank character
   ["nvo|L"] = map.key("g_"):desc("Edit: Move to end of line"), -- $: end of line, g_: last non-blank character
   -- Move Lines
@@ -26,7 +26,7 @@ local nvim_keymaps = {
   ["n|<C-u>"] = map.key("<C-u>zz"):desc("Edit: Move screen up half pages"),
   ["n|<C-f>"] = map.key("<C-f>zz"):desc("Edit: Move screen down one page"),
   ["n|<C-b>"] = map.key("<C-b>zz"):desc("Edit: Move screen up one page"),
-  -- better yanking
+  -- Deleting and yanking
   ["n|D"] = map.key("d$"):desc("Edit: Delete text to EOL"),
   ["n|dd"] = map.func(_.better_dd):expr():desc("Edit: Delete line"),
   ["n|x"] = map.key('"_x'):desc("Edit: Delete a character"),
@@ -37,7 +37,10 @@ local nvim_keymaps = {
   ["v|<"] = map.key("<gv"):desc("Edit: Decrease indent"),
   ["v|>"] = map.key(">gv"):desc("Edit: Increase indent"),
   ["n|i"] = map.func(_.better_insert):expr():desc("Edit: Insert"),
-  -- Insert mode QoL
+  -- Insert mode
+  ["i|<C-c>"] = map.key("<Esc>"):desc("Quit Insert Mode"),
+  ["i|<C-v>"] = map.key("<C-r>*"):desc("Edit: Paste"),
+  ["i|<C-=>"] = map.key("<C-r>="):desc("Edit: Calculator"),
   ["ic|<C-h>"] = map.key("<Left>"):desc("Edit: Move cursor left"),
   ["ic|<C-j>"] = map.key("<Down>"):desc("Edit: Move cursor down"),
   ["ic|<C-k>"] = map.key("<Up>"):desc("Edit: Move cursor up"),
@@ -50,13 +53,10 @@ local nvim_keymaps = {
   ["i|<C-;>"] = map.key("<End>;"):desc("Edit: Add semicolon to line end"),
   ["i|<C-Cr>"] = map.key("<End><CR>"):desc("Edit: Start a new line"),
   -- Others
+  ["ni|<C-s>"] = map.cmd("w"):desc("Edit: Save file"),
   ["n|<S-Tab>"] = map.cmd("normal za"):desc("Edit: Toggle code fold"),
-  ["n|<Leader>w"] = map.cmd("w"):desc("Edit: Write file"),
-  ["n|<Leader>W"] = map.cmd("wa!"):desc("Edit: Write all"),
-  ["n|<Leader>q"] = map.cmd("wq"):desc("Edit: Save file and quit"),
-  ["n|<Leader>Q"] = map.cmd("qa!"):desc("Edit: Force quit"),
   ["n|<Leader>Ts"] = map.cmd("setlocal spell! spelllang=en_us"):desc("Edit: Toggle spell check"),
-  ["nx|<C-t>"] = map.func(_.toggle_term):desc("Edit: Toggle term"),
+  ["nv|<C-t>"] = map.func(_.toggle_term):desc("Edit: Toggle term"),
   ["c|<C-t>"] = map.key([[<C-R>=expand("%:p:h")<CR>]]):desc("Edit: Complete path of current file"),
   ---------------------------------- Window -------------------------------------
   -- Overwrite by smart-splits

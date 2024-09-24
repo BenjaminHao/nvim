@@ -23,10 +23,6 @@ Plugin.config = function()
 
   require("flash").setup({
     labels = "asdfghjklqwertyuiopzxcvbnm",
-    jump = {
-      -- automatically jump when there is only one match
-      autojump = true,
-    },
     label = {
       -- allow uppercase labels
       uppercase = true,

@@ -15,8 +15,6 @@ local Plugin = {
 }
 
 Plugin.config = function()
-  require("my.helpers.colors").gen_lspkind_hl()
-
   local icons = {
     cmp = require("my.helpers.icons").get("cmp", true),
     diagnostics = require("my.helpers.icons").get("diagnostics", true),

@@ -13,11 +13,12 @@ local Plugin = {
     "hrsh7th/cmp-buffer", -- source for text in buffer
     "hrsh7th/cmp-path", -- source for file system paths
     "hrsh7th/cmp-cmdline",  -- source for command line
+    "hrsh7th/cmp-nvim-lsp", -- for lsp completion
+    "hrsh7th/cmp-nvim-lua", -- for neovim lua api
     "saadparwaiz1/cmp_luasnip", -- for autocompletion
     "L3MON4D3/LuaSnip", -- snippet engine
     "rafamadriz/friendly-snippets",  -- some snippets collection
     "lukas-reineke/cmp-under-comparator",
-    "hrsh7th/cmp-nvim-lsp", -- for lsp completion
   }
 }
 
@@ -69,7 +70,7 @@ Plugin.config = function()
         side_padding = 0,
         col_offset = -3,
         scrollbar = false,
-        winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:PmenuSel,Search:None",
+        winhighlight = "Normal:Pmenu,CursorLine:CmpSel,Search:None",
       },
       documentation = {
         border = util.set_colorborder("CmpDocBorder"),
@@ -78,6 +79,7 @@ Plugin.config = function()
     },
     sources = cmp.config.sources({  -- sources for autocompletion
       { name = "nvim_lsp" },  -- lsp
+      { name = "nvim_lua" }, -- lua api
       { name = "luasnip" }, -- snippets
       { name = "buffer" }, -- text within current buffer
       { name = "path" }, -- file system paths
@@ -100,6 +102,7 @@ Plugin.config = function()
         vim_item.menu = setmetatable({
           buffer = "│ BUF",
           nvim_lsp = "│ LSP",
+          nvim_lua = "| LUA",
           path = "│ PATH",
           luasnip = "│ SNIP",
           cmdline = "│ CMD",
@@ -138,7 +141,7 @@ Plugin.config = function()
     mapping = cmp.mapping.preset.insert({
       ["<C-y>"] = cmp.config.disable,
       ["<C-e>"] = cmp.config.disable,
-      ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestions
+      ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestionscmp
       ["<C-h>"] = cmp.mapping.abort(), -- close completion window
       ["<C-l>"] = cmp.mapping.confirm({ select = true }), -- confirm suggestions
       ["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
@@ -199,8 +202,9 @@ Plugin.config = function()
   cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(cmdline_mapping),
     sources = {
+      { name = "cmdline" },
       { name = "path" },
-      { name = "cmdline" }
+      { name = "nvim_lua" },
     }
   })
 end

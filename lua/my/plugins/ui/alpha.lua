@@ -18,7 +18,6 @@ local Plugin = {
 Plugin.config = function()
   local alpha = require("alpha")
   local dashboard = require("alpha.themes.dashboard")
-  require("my.helpers.colors").gen_alpha_hl()
 
   -- Set header
   dashboard.section.header.val = require("my.configs.settings").dashboard_image

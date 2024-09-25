@@ -64,7 +64,7 @@ Plugin.config = function()
         },
       },
       aerial = true,
-      alpha = false,
+      alpha = true,
       barbar = false,
       beacon = false,
       cmp = true,
@@ -123,12 +123,19 @@ Plugin.config = function()
       all = function(color)
         return {
           -- For base configs
-          NormalFloat = { fg = color.text, bg = transparent_background and color.none or color.mantle },
+          Cursor = { bg = color.none, fg = color.green },
+          NormalFloat = {
+            bg = transparent_background and color.none or color.mantle,
+          },
           FloatBorder = {
             fg = transparent_background and color.blue or color.mantle,
             bg = transparent_background and color.none or color.mantle,
           },
+          FloatTitle = { bg = color.mantle, fg = color.surface1 },
           CursorLineNr = { fg = color.green },
+          WinSeparator = { bg = color.none, fg = color.mantle },
+          VertSplit = { bg = color.none, fg = color.mantle },
+          ModeMsg = { fg = color.peach }, -- for recording macro msg
 
           -- nvim status bar
           StatusLine = { bg = color.base },
@@ -138,6 +145,21 @@ Plugin.config = function()
           ["@keyword.return"] = { fg = color.pink, style = clear },
           ["@error.c"] = { fg = color.none, style = clear },
           ["@error.cpp"] = { fg = color.none, style = clear },
+          ["@punctuation.special.markdown"] = { fg = color.teal },
+          ["@text.title.1.markdown"] = { fg = color.red },
+          ["@text.title.1.marker.markdown"] = { fg = color.red },
+          ["@text.title.2.markdown"] = { fg = color.peach },
+          ["@text.title.2.marker.markdown"] = { fg = color.peach },
+          ["@text.title.3.markdown"] = { fg = color.yellow },
+          ["@text.title.3.marker.markdown"] = { fg = color.yellow },
+          ["@text.title.4.markdown"] = { fg = color.green },
+          ["@text.title.4.marker.markdown"] = { fg = color.green },
+          ["@text.title.5.markdown"] = { fg = color.blue },
+          ["@text.title.5.marker.markdown"] = { fg = color.blue },
+          ["@text.literal.markdown_inline"] = { fg = color.green },
+          ["@text.reference.markdown_inline"] = { fg = color.lavender },
+          ["@text.strong.markdown_inline"] = { fg = color.red },
+          ["@text.uri.markdown_inline"] = { fg = color.blue },
 
           -- nvim-web-devicons
           DevIconDefault = { fg = color.red },
@@ -175,12 +197,30 @@ Plugin.config = function()
           DevIconJava = { fg = color.peach },
           DevIconDart = { fg = color.teal },
 
-          -- For native lsp configs
+          -- Diagnostics
           DiagnosticVirtualTextError = { bg = color.none },
           DiagnosticVirtualTextWarn = { bg = color.none },
           DiagnosticVirtualTextInfo = { bg = color.none },
           DiagnosticVirtualTextHint = { bg = color.none },
           LspInfoBorder = { link = "FloatBorder" },
+          DiagnosticUnderlineError = { undercurl = true, sp = color.red }, -- Used to underline "Error" diagnostics
+          DiagnosticUnderlineWarn = { undercurl = true, sp = color.peach }, -- Used to underline "Warning" diagnostics
+          DiagnosticUnderlineInfo = { undercurl = true, sp = color.blue }, -- Used to underline "Information" diagnostics
+          DiagnosticUnderlineHint = { undercurl = true, sp = color.mauve }, -- Used to underline "Hint" diagnostics
+          ErrorMsg = { fg = color.red }, -- error messages on the command line
+          SpellBad = { sp = color.red, undercurl = true }, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
+          SpellCap = { sp = color.peach, undercurl = true }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
+          SpellLocal = { sp = color.blue, undercurl = true }, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
+          SpellRare = { sp = color.mauve, undercurl = true }, -- Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
+          DiagnosticError = { fg = color.red }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
+          DiagnosticWarn = { fg = color.peach }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
+          DiagnosticInfo = { fg = color.blue }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
+          DiagnosticHint = { fg = color.mauve }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
+          -- DiagnosticUnnecessary = { fg = color.sun, link = nil },
+          DiagnosticFloatingError = { fg = color.red }, -- Used to color "Error" diagnostic messages in diagnostics float
+          DiagnosticFloatingWarn = { fg = color.peach }, -- Used to color "Warn" diagnostic messages in diagnostics float
+          DiagnosticFloatingInfo = { fg = color.blue }, -- Used to color "Info" diagnostic messages in diagnostics float
+          DiagnosticFloatingHint = { fg = color.mauve }, -- Used to color "Hint" diagnostic messages in diagnostics float
 
           -- For mason.nvim
           MasonNormal = { link = "NormalFloat" },
@@ -194,42 +234,81 @@ Plugin.config = function()
           IblScope = { fg = color.surface2, style = { "bold" } },
 
           -- Flash
+          FlashMatch = { bg = color.none, fg = color.blue },
+          FlashCurrent = { bg = color.none, fg = color.blue },
+          FlashLabel = { bg = color.green, fg = color.base, underline = true, bold = true },
           FlashPrompt = { link = "Normal" },
-          FlashPromptMode = { bg = "NONE", fg = color.yellow },
+          FlashPromptMode = { bg = color.none, fg = color.yellow },
 
-          -- For nvim-cmp
-          CmpItemKindSnippet = { bg = color.mauve, fg = color.base},
-          CmpItemKindKeyword = { bg = color.red, fg = color.base},
-          CmpItemKindText = { bg = color.teal, fg = color.base},
-          CmpItemKindMethod = { bg = color.blue, fg = color.base},
-          CmpItemKindConstructor = { bg = color.blue, fg = color.base},
-          CmpItemKindFunction = { bg = color.blue, fg = color.base},
-          CmpItemKindFolder = { bg = color.blue, fg = color.base},
-          CmpItemKindModule = { bg = color.blue, fg = color.base},
-          CmpItemKindConstant = { bg = color.peach, fg = color.base},
-          CmpItemKindField = { bg = color.green, fg = color.base},
-          CmpItemKindProperty = { bg = color.green, fg = color.base},
-          CmpItemKindEnum = { bg = color.green, fg = color.base},
-          CmpItemKindUnit = { bg = color.green, fg = color.base},
-          CmpItemKindClass = { bg = color.yellow, fg = color.base},
-          CmpItemKindVariable = { bg = color.flamingo, fg = color.base},
-          CmpItemKindFile = { bg = color.blue, fg = color.base},
-          CmpItemKindInterface = { bg = color.yellow, fg = color.base},
-          CmpItemKindColor = { bg = color.red, fg = color.base},
-          CmpItemKindReference = { bg = color.red, fg = color.base},
-          CmpItemKindEnumMember = { bg = color.red, fg = color.base},
-          CmpItemKindStruct = { bg = color.blue, fg = color.base},
-          CmpItemKindValue = { bg = color.peach, fg = color.base},
-          CmpItemKindEvent = { bg = color.blue, fg = color.base},
-          CmpItemKindOperator = { bg = color.blue, fg = color.base},
-          CmpItemKindTypeParameter = { bg = color.blue, fg = color.base},
-          CmpItemKindCopilot = { bg = color.teal, fg = color.base},
-          PmenuSel = { bg = color.green, fg = color.base },
+          -- LspKindIcons
+          LspKindClass = { fg = color.yellow },
+          LspKindConstant = { fg = color.peach },
+          LspKindConstructor = { fg = color.sapphire },
+          LspKindEnum = { fg = color.yellow },
+          LspKindEnumMember = { fg = color.teal },
+          LspKindEvent = { fg = color.yellow },
+          LspKindField = { fg = color.teal },
+          LspKindFile = { fg = color.rosewater },
+          LspKindFunction = { fg = color.blue },
+          LspKindInterface = { fg = color.yellow },
+          LspKindKey = { fg = color.red },
+          LspKindMethod = { fg = color.blue },
+          LspKindModule = { fg = color.blue },
+          LspKindNamespace = { fg = color.blue },
+          LspKindNumber = { fg = color.peach },
+          LspKindOperator = { fg = color.sky },
+          LspKindPackage = { fg = color.blue },
+          LspKindProperty = { fg = color.teal },
+          LspKindStruct = { fg = color.yellow },
+          LspKindTypeParameter = { fg = color.blue },
+          LspKindVariable = { fg = color.peach },
+          LspKindArray = { fg = color.peach },
+          LspKindBoolean = { fg = color.peach },
+          LspKindNull = { fg = color.yellow },
+          LspKindObject = { fg = color.yellow },
+          LspKindString = { fg = color.green },
+          LspKindTypeAlias = { fg = color.green },
+          LspKindParameter = { fg = color.blue },
+          LspKindStaticMethod = { fg = color.peach },
+          LspKindText = { fg = color.green },
+          LspKindSnippet = { fg = color.mauve },
+          LspKindFolder = { fg = color.blue },
+          LspKindUnit = { fg = color.green },
+          LspKindValue = { fg = color.peach },
+
+          -- Nvim-cmp
+          CmpItemKindSnippet = { bg = color.mauve, fg = color.base, bold = true },
+          CmpItemKindKeyword = { bg = color.red, fg = color.base, bold = true },
+          CmpItemKindText = { bg = color.teal, fg = color.base, bold = true },
+          CmpItemKindMethod = { bg = color.blue, fg = color.base, bold = true },
+          CmpItemKindConstructor = { bg = color.blue, fg = color.base, bold = true },
+          CmpItemKindFunction = { bg = color.blue, fg = color.base, bold = true },
+          CmpItemKindFolder = { bg = color.blue, fg = color.base, bold = true },
+          CmpItemKindModule = { bg = color.blue, fg = color.base, bold = true },
+          CmpItemKindConstant = { bg = color.peach, fg = color.base, bold = true },
+          CmpItemKindField = { bg = color.green, fg = color.base, bold = true },
+          CmpItemKindProperty = { bg = color.green, fg = color.base, bold = true },
+          CmpItemKindEnum = { bg = color.green, fg = color.base, bold = true },
+          CmpItemKindUnit = { bg = color.green, fg = color.base, bold = true },
+          CmpItemKindClass = { bg = color.yellow, fg = color.base, bold = true },
+          CmpItemKindVariable = { bg = color.flamingo, fg = color.base, bold = true },
+          CmpItemKindFile = { bg = color.blue, fg = color.base, bold = true },
+          CmpItemKindInterface = { bg = color.yellow, fg = color.base, bold = true },
+          CmpItemKindColor = { bg = color.red, fg = color.base, bold = true },
+          CmpItemKindReference = { bg = color.red, fg = color.base, bold = true },
+          CmpItemKindEnumMember = { bg = color.red, fg = color.base, bold = true },
+          CmpItemKindStruct = { bg = color.blue, fg = color.base, bold = true },
+          CmpItemKindValue = { bg = color.peach, fg = color.base, bold = true },
+          CmpItemKindEvent = { bg = color.blue, fg = color.base, bold = true },
+          CmpItemKindOperator = { bg = color.blue, fg = color.base, bold = true },
+          CmpItemKindTypeParameter = { bg = color.blue, fg = color.base, bold = true },
+          CmpItemKindCopilot = { bg = color.teal, fg = color.base, bold = true },
+          Pmenu = { fg = color.overlay2, bg = transparent_background and color.none or color.base },
           PmenuBorder = { fg = color.surface1, bg = transparent_background and color.none or color.base },
+          PmenuSel = { bg = color.green, fg = color.base },
           CmpItemAbbr = { fg = color.text },
           CmpItemAbbrMatch = { fg = color.blue, bold = true },
           CmpSel = { link = "PmenuSel", bold = true },
-          CmpPmenu = { bg = color.mantle },
           CmpDoc = { link = "NormalFloat" },
           CmpDocBorder = {
             fg = transparent_background and color.surface1 or color.mantle,
@@ -244,7 +323,7 @@ Plugin.config = function()
           NotifyBackground = { bg = color.base },
 
           -- For nvim-tree
-          -- NvimTreeRootFolder = { fg = color.pink },
+          NvimTreeRootFolder = { fg = color.pink },
           NvimTreeNormal = { bg = color.base },
           NvimTreeWinSeparator = { fg = color.mantle, bg = color.none },
           NvimTreeEmptyFolderName = { fg = color.text },
@@ -305,6 +384,12 @@ Plugin.config = function()
 
           -- which-key.nvim
           WhichKey = { bg = "NONE", fg = color.text },
+
+          -- Alpha
+          AlphaHeader = { fg = color.lavender },
+          AlphaButtons = { fg = color.green },
+          AlphaShortcut = { fg = color.pink, style = { "bold" } },
+          AlphaFooter = { fg = color.yellow },
         }
       end,
     },

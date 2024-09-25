@@ -14,7 +14,7 @@ local Plugin = {
 
 Plugin.config = function()
   local has_catppuccin = vim.g.colors_name:find("catppuccin") ~= nil
-  local colors = require("my.helpers.colors").get_palette()
+  local colors = require("catppuccin.palettes").get_palette "mocha"
   local icons = {
     diagnostics = require("my.helpers.icons").get("diagnostics", true),
     git = require("my.helpers.icons").get("git", true),
@@ -295,8 +295,8 @@ Plugin.config = function()
     options = {
       icons_enabled = true,
       globalstatus = true,
-      -- theme = custom_theme(),
-      theme = "auto",
+      theme = custom_theme(),
+      -- theme = "auto",
       component_separators = "",
       section_separators = { left = "", right = "" },
       disabled_filetypes = { statusline = { "alpha" } },

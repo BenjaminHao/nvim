@@ -38,8 +38,8 @@ Plugin.config = function()
         -- When using jump labels, don't use these keys
         -- This allows using those keys directly after the motion
         label = { exclude = "hjkliardc" },
-        -- IMPORTANT: NOT using ;/, keep pressing f/t to go to the next
-        keys = { "f", "F", "t", "T", },
+        -- Can map to something else, e.g., { [";"] = "L", [","] = H }
+        keys = { "f", "F", "t", "T", ";", "," },
       },
     },
     prompt = {

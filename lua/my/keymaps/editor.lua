@@ -14,7 +14,7 @@ local keymaps_editor = {
   -- Nvim-surround ==> <s> key: surround, acted just like vim motions
   -- Treesitter ==> <cr> - incremental selection, <bs> - decremental
   -- Flash
-  ["nxo|;"] = map.func(function() require("flash").jump() end):desc("Edit: Jump to word"),
+  ["nxo|`"] = map.func(function() require("flash").jump() end):desc("Edit: Jump to word"),
   -- Comment
   ["n|<C-/>"] = map.func(_.comment_line):expr():desc("Edit: Comment line(s)"),
   ["n|<C-?>"] = map.func(_.comment_block):expr():desc("Edit: Comment block(s)"),

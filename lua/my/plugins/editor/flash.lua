@@ -12,15 +12,6 @@ local Plugin = {
 }
 
 Plugin.config = function()
-  vim.api.nvim_set_hl(0, "FlashLabel", {
-    underline = true,
-    bold = true,
-    fg = "Orange",
-    bg = "NONE",
-    ctermfg = "Red",
-    ctermbg = "NONE",
-  })
-
   require("flash").setup({
     labels = "asdfghjklqwertyuiopzxcvbnm",
     label = {

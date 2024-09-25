@@ -18,11 +18,11 @@ local Plugin = {
 Plugin.config = function()
   local alpha = require("alpha")
   local dashboard = require("alpha.themes.dashboard")
-  -- require("my.helpers.color").gen_alpha_hl()
+  require("my.helpers.colors").gen_alpha_hl()
 
   -- Set header
   dashboard.section.header.val = require("my.configs.settings").dashboard_image
-  -- dashboard.section.header.opts.hl = "AlphaHeader"
+  dashboard.section.header.opts.hl = "AlphaHeader"
 
   -- Set menu
   dashboard.section.buttons.val = {
@@ -35,10 +35,10 @@ Plugin.config = function()
     dashboard.button("h", "󰗶 " .. " Checkhealth", "<cmd>Lazy load all | checkhealth<cr>"),
     dashboard.button("q", " " .. " Quit", "<cmd>qa!<cr>"),
   }
-  -- for _, button in ipairs(dashboard.section.buttons.val) do
-  --   button.opts.hl = "AlphaButtons"
-  --   button.opts.hl_shortcut = "AlphaShortcut"
-  -- end
+  for _, button in ipairs(dashboard.section.buttons.val) do
+    button.opts.hl = "AlphaButtons"
+    button.opts.hl_shortcut = "AlphaShortcut"
+  end
 
   -- Set footer
   local function footer()
@@ -59,7 +59,7 @@ Plugin.config = function()
   end
 
   dashboard.section.footer.val = footer()
-  -- dashboard.section.footer.opts.hl = "AlphaFooter"
+  dashboard.section.footer.opts.hl = "AlphaFooter"
 
   -- Padding
   local head_butt_padding = 2
@@ -93,6 +93,15 @@ Plugin.config = function()
     end,
   })
 
+  autocmd("User", {
+    desc = "Disable folding on alpha buffer",
+    group = alphaaugroup,
+    pattern = "AlphaReady",
+    callback = function ()
+      vim.opt_local.foldenable = false
+    end
+  })
+
   if vim.o.filetype == "lazy" then
     vim.cmd.close()
     autocmd("User", {
@@ -104,15 +113,6 @@ Plugin.config = function()
       end,
     })
   end
-
-  autocmd("User", {
-    desc = "Disable folding on alpha buffer",
-    group = alphaaugroup,
-    pattern = "AlphaReady",
-    callback = function ()
-      vim.opt_local.foldenable = false
-    end
-  })
 end
 
 return Plugin

@@ -15,7 +15,7 @@ local Plugin = {
 }
 
 Plugin.config = function()
-  -- require("my.helpers.color").gen_lspkind_hl()
+  require("my.helpers.colors").gen_lspkind_hl()
 
   local icons = {
     cmp = require("my.helpers.icons").get("cmp", true),
@@ -40,7 +40,7 @@ Plugin.config = function()
   require("lspsaga").setup({
     -- Breadcrumbs: https://nvimdev.github.io/lspsaga/breadcrumbs/
     symbol_in_winbar = {
-      enable = false, -- used dropbar
+      enable = true,
       separator = " " .. icons.ui.Separator,
       hide_keyword = false,
       show_file = false,
@@ -183,7 +183,8 @@ Plugin.config = function()
         Folder = { icons.kind.Folder, "LspKindFolder" },
         Unit = { icons.kind.Unit, "LspKindUnit" },
         Value = { icons.kind.Value, "LspKindValue" },
-      },    },
+      },
+    },
     -- Scrolling Keymaps: https://nvimdev.github.io/lspsaga/misc/#scrolling-keymaps
     scroll_preview = {
       scroll_down = "<C-d>",

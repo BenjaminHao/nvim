@@ -30,6 +30,7 @@ Plugin.config = function()
     type = require("my.helpers.icons").get("type"),
     cmp = require("my.helpers.icons").get("cmp"),
   }
+
   -- luasnip setup
   require("luasnip/loaders/from_vscode").lazy_load()  -- load snippets collection from plugins
 
@@ -68,11 +69,11 @@ Plugin.config = function()
         side_padding = 0,
         col_offset = -3,
         scrollbar = false,
-        winhighlight = "Normal:Pmenu,CursorLine:PmenuSel,Search:None",
+        winhighlight = "Normal:CmpPmenu,CursorLine:CmpSel,Search:PmenuSel,Search:None",
       },
       documentation = {
         border = util.set_colorborder("CmpDocBorder"),
-        winhighlight = "Normal:CmpDoc",
+        winhighlight = "Normal:CmpDoc,Search:None",
       },
     },
     sources = cmp.config.sources({  -- sources for autocompletion

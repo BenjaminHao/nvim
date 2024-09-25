@@ -8,7 +8,7 @@
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Plugin = {
   "mrjones2014/smart-splits.nvim",
-  event = { "BufReadPre", "BufNewFile" },
+  event = "VeryLazy",
 }
 
 Plugin.config = function()

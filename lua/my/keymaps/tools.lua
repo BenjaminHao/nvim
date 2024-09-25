@@ -25,9 +25,12 @@ local keymaps_tool = {
   ["n|<Leader>fk"] = map.cmd("Telescope keymaps"):desc("Find: Keymaps"),
   ["n|<Leader>fu"] = map.cmd("Telescope undo"):desc("Find: Undo history"),
   ["n|<Leader>fb"] = map.cmd("Telescope buffers"):desc("Find: Buffers"),
-  ["n|<Leader>ft"] = map.cmd("TodoTelescope"):desc("Find: Todo"),
   ["n|<Leader>fm"] = map.cmd("Telescope notify"):desc("Find: Notifications"),
   ["n|<Leader>f<Cr>"] = map.cmd("Telescope resume"):desc("Find: Resume Last"),
+  -- Todo-comments
+  ["n|<Leader>ft"] = map.cmd("TodoTelescope"):desc("Find: Todo"),
+  ["n|]t"] = map.func(_.next_todo):desc("Next: Todo"),
+  ["n|[t"] = map.func(_.prev_todo):desc("Prev: Todo"),
   -- nvim-spectre
 	["n|<Leader>r"] = map.cmd("Spectre"):desc("Tool: Replace"),
   -- ToggleTerm

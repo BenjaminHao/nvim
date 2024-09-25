@@ -80,6 +80,14 @@ Func.find_configs = function()
    require("telescope.builtin").find_files { cwd = vim.fn.stdpath 'config' }
 end
 
+Func.next_todo = function()
+  require("todo-comments").jump_next()
+end
+
+Func.prev_todo = function()
+  require("todo-comments").jump_prev()
+end
+
 local lazygit = nil
 Func.toggle_lazygit = function()
   if vim.fn.executable("lazygit") == 1 then

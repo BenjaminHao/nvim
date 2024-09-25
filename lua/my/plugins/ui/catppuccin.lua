@@ -122,8 +122,7 @@ Plugin.config = function()
     highlight_overrides = {
       all = function(color)
         return {
-          -- For base configs
-          Cursor = { bg = color.none, fg = color.green },
+          -- Base configs
           NormalFloat = {
             bg = transparent_background and color.none or color.mantle,
           },
@@ -136,11 +135,11 @@ Plugin.config = function()
           WinSeparator = { bg = color.none, fg = color.mantle },
           VertSplit = { bg = color.none, fg = color.mantle },
           ModeMsg = { fg = color.peach }, -- for recording macro msg
+          LspReferenceText = { bg = color.none, underline = true },
+          LspReferenceRead = { bg = color.none, underline = true },
+          LspReferenceWrite = { bg = color.none, underline = true },
 
-          -- nvim status bar
-          StatusLine = { bg = color.base },
-
-          -- For treesitter
+          -- Treesitter
           ["@variable"] = { link = "Variable" },
           ["@keyword.return"] = { fg = color.pink, style = clear },
           ["@error.c"] = { fg = color.none, style = clear },
@@ -161,7 +160,7 @@ Plugin.config = function()
           ["@text.strong.markdown_inline"] = { fg = color.red },
           ["@text.uri.markdown_inline"] = { fg = color.blue },
 
-          -- nvim-web-devicons
+          -- Nvim-web-devicons
           DevIconDefault = { fg = color.red },
           DevIconc = { fg = color.blue },
           DevIconcss = { fg = color.blue },
@@ -222,14 +221,14 @@ Plugin.config = function()
           DiagnosticFloatingInfo = { fg = color.blue }, -- Used to color "Info" diagnostic messages in diagnostics float
           DiagnosticFloatingHint = { fg = color.mauve }, -- Used to color "Hint" diagnostic messages in diagnostics float
 
-          -- For mason.nvim
+          -- Mason
           MasonNormal = { link = "NormalFloat" },
 
-          -- Bufferline.nvim
+          -- Bufferline
           BufferLineOffset = { bg = color.mantle, fg = color.lavender },
           DevIconDimmed = { fg = color.surface1 },
 
-          -- For indent-blankline
+          -- Indent-blankline
           IblIndent = { fg = color.surface0 },
           IblScope = { fg = color.surface2, style = { "bold" } },
 
@@ -315,14 +314,14 @@ Plugin.config = function()
             bg = transparent_background and color.none or color.mantle,
           },
 
-          -- For fidget
+          -- Fidget
           FidgetTask = { bg = color.none, fg = color.surface2 },
           FidgetTitle = { fg = color.blue, style = { "bold" } },
 
           -- For nvim-notify
           NotifyBackground = { bg = color.base },
 
-          -- For nvim-tree
+          -- Nvim-tree
           NvimTreeRootFolder = { fg = color.pink },
           NvimTreeNormal = { bg = color.base },
           NvimTreeWinSeparator = { fg = color.mantle, bg = color.none },
@@ -348,7 +347,7 @@ Plugin.config = function()
           TroubleNormal = { bg = transparent_background and color.none or color.base },
           TroubleNormalNC = { bg = transparent_background and color.none or color.base },
 
-          -- For telescope.nvim
+          -- Telescope
           TelescopeMatching = { fg = color.lavender },
           TelescopeResultsDiffAdd = { fg = color.green },
           TelescopeResultsDiffChange = { fg = color.yellow },
@@ -363,7 +362,7 @@ Plugin.config = function()
           TelescopeResultsTitle = { fg = color.mantle, bg = color.lavender },
           TelescopeSelection = { fg = color.text, bg = color.surface0 },
 
-          -- For glance.nvim
+          -- Glance
           GlanceWinBarFilename = { fg = color.subtext1, style = { "bold" } },
           GlanceWinBarFilepath = { fg = color.subtext0, style = { "italic" } },
           GlanceWinBarTitle = { fg = color.teal, style = { "bold" } },
@@ -373,7 +372,7 @@ Plugin.config = function()
           GlanceListMatch = { fg = color.lavender, style = { "bold" } },
           GlanceFoldIcon = { fg = color.green },
 
-          -- noice.nvim
+          -- Noice
           NoiceCmdlinePopupNormal = { fg = color.text, bg = color.crust },
           NoiceCmdlinePopupBorder = { fg = color.crust, bg = color.crust },
           NoiceConfirm = { link = "NormalFloat" },
@@ -382,7 +381,7 @@ Plugin.config = function()
           NoiceSplitBorder = { link = "FloatBorder" },
           NoiceMini = { link = "Comment" },
 
-          -- which-key.nvim
+          -- Which-key
           WhichKey = { bg = "NONE", fg = color.text },
 
           -- Alpha

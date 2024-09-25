@@ -93,7 +93,6 @@ please REMOVE your LSP configuration (rust_analyzer.lua) from the `servers` dire
     group = vim.api.nvim_create_augroup("LSP", { clear = true }),
     callback = function(event)
       require("my.keymaps.lsp").lsp_on_attach(event.buf)
-      -- TODO: change highlight color
       -- The following two autocommands are used to highlight references of the
       -- word under your cursor when your cursor rests there for a little while.
       --    See `:help CursorHold` for information about when this is executed

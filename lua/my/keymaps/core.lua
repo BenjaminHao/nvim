@@ -11,10 +11,21 @@ local Core = {}
 local map = require("my.helpers.map")
 local _ = require("my.keymaps.func")
 
-local nvim_keymaps = {
+-- Make Vim keybinds suck less
+local default_override = {
+  ["nvo|q"] = map.key("<Esc>"):desc("Quit"), -- Default: Macro, rarely used, map to other keys
+  ["n|<S-q>"] = map.cmd("bd"):desc("Quit buffer"), -- Default: Run macro
+  ["n|<C-q>"] = map.cmd("close"):desc("Quit Window"), -- Default: V-block mode, same as <C-v>
+  ["n|<C-w>"] = map.cmd("w"):desc("Write buffer"), -- Default: Window managemnt, change to <leader>w
+  ["n|<S-u>"] = map.key("<C-r>"):desc("Redo"), -- Default: Useless undo mode
+  ["n|<`>"] = map.key("m"):desc("Mark"), -- Default: Goto marks, same as <'>
+  ["nvo|<C-.>"] = map.key("q"):desc("Macro"), -- Default: Repeat, same as <.>
   -- Additional Motions
-  ["nvo|H"] = map.key("^"):desc("Edit: Move to head of line"), -- 0: beginning of line, ^: first non-blank character
-  ["nvo|L"] = map.key("g_"):desc("Edit: Move to end of line"), -- $: end of line, g_: last non-blank character
+  ["nvo|H"] = map.key("^"):desc("Motion: Move to head of line"), -- 0: beginning of line, ^: first non-blank character
+  ["nvo|L"] = map.key("g_"):desc("Motion: Move to end of line"), -- $: end of line, g_: last non-blank character
+}
+
+local nvim_keymaps = {
   -- Move Lines
   ["v|J"] = map.key(":m '>+1<CR>gv=gv"):desc("Edit: Move line down"),
   ["v|K"] = map.key(":m '<-2<CR>gv=gv"):desc("Edit: Move line up"),
@@ -38,7 +49,7 @@ local nvim_keymaps = {
   ["v|>"] = map.key(">gv"):desc("Edit: Increase indent"),
   ["n|i"] = map.func(_.better_insert):expr():desc("Edit: Insert"),
   -- Insert mode
-  ["i|<C-c>"] = map.key("<Esc>"):desc("Quit Insert Mode"),
+  ["i|<C-q>"] = map.key("<Esc>"):desc("Quit Insert Mode"),
   ["i|<C-v>"] = map.key("<C-r>*"):desc("Edit: Paste"),
   ["i|<C-=>"] = map.key("<C-r>="):desc("Edit: Calculator"),
   ["ic|<C-h>"] = map.key("<Left>"):desc("Edit: Move cursor left"),
@@ -54,13 +65,13 @@ local nvim_keymaps = {
   ["i|<C-Cr>"] = map.key("<End><CR>"):desc("Edit: Start a new line"),
   -- Others
   ["n|<C-S-v>"] = map.key("ggVG"):desc("Edit: Select all"),
-  ["ni|<C-s>"] = map.cmd("w"):desc("Edit: Save file"),
   ["n|<S-Tab>"] = map.cmd("normal za"):desc("Edit: Toggle code fold"),
   ["n|<Leader>Ts"] = map.cmd("setlocal spell! spelllang=en_us"):desc("Edit: Toggle spell check"),
   ["nv|<C-t>"] = map.func(_.toggle_term):desc("Edit: Toggle term"),
   ["c|<C-t>"] = map.key([[<C-R>=expand("%:p:h")<CR>]]):desc("Edit: Complete path of current file"),
   ---------------------------------- Window -------------------------------------
-  -- Overwrite by smart-splits
+  -- Override by smart-splits
+  ["n|<Leader>w"] = map.key("<C-w>"):desc("Windows"),
   ["n|<C-h>"] = map.key("<C-w>h"):desc("Windows: Focus Left"),
   ["n|<C-l>"] = map.key("<C-w>l"):desc("Windows: Focus Right"),
   ["n|<C-j>"] = map.key("<C-w>j"):desc("Windows: Focus Down"),
@@ -92,6 +103,7 @@ local function set_leader_key()
 end
 
 local function set_neovim_key()
+  map.setup(default_override)
   map.setup(nvim_keymaps)
 end
 

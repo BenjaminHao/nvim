@@ -7,8 +7,7 @@
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Plugin = {
-  "Jint-lzxy/nvim",
-  branch = "refactor/syntax-highlighting",
+  "catppuccin/nvim",
   name = "catppuccin",
   lazy = false, -- do not lazy load colorscheme
   priority = 1000,
@@ -72,15 +71,15 @@ Plugin.config = function()
       dap = true,
       dap_ui = true,
       dashboard = false,
-      dropbar = { enabled = true, color_mode = true },
+      dropbar = { enabled = false, color_mode = true },
       fern = false,
-      fidget = true,
+      fidget = false,
       flash = true,
       gitgutter = false,
       gitsigns = true,
       harpoon = false,
       headlines = false,
-      hop = true,
+      hop = false,
       illuminate = true,
       indent_blankline = { enabled = true, colored_indent_levels = false },
       leap = false,
@@ -94,7 +93,7 @@ Plugin.config = function()
       neogit = false,
       neotest = false,
       neotree = { enabled = false, show_root = true, transparent_panel = false },
-      noice = false,
+      noice = true,
       notify = true,
       nvimtree = true,
       overseer = false,
@@ -107,7 +106,7 @@ Plugin.config = function()
       telekasten = false,
       telescope = { enabled = true, style = "nvchad" },
       treesitter_context = true,
-      ts_rainbow = false,
+      ts_rainbow = true,
       vim_sneak = false,
       vimwiki = false,
       which_key = true,
@@ -386,7 +385,7 @@ Plugin.config = function()
 
           -- Alpha
           AlphaHeader = { fg = color.lavender },
-          AlphaButtons = { fg = color.green },
+          AlphaButtons = { fg = color.blue },
           AlphaShortcut = { fg = color.pink, style = { "bold" } },
           AlphaFooter = { fg = color.yellow },
         }

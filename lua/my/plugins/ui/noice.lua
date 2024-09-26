@@ -115,12 +115,8 @@ Plugin.config = function ()
       },
     },
     routes = {
-      -- { -- show @recording message
-      --   view = "mini",
-      --   filter = { event = "msg_showmode" },
-      -- },
-      {
-        filter = { -- Showing with mini (bottom right cornor)
+      { -- Showing with mini (bottom right cornor)
+        filter = {
           event = "msg_show",
           any = {
             { find = "%d+L, %d+B written" }, -- for written messages
@@ -137,8 +133,8 @@ Plugin.config = function ()
         },
         view = "mini",
       },
-      {
-        filter = { -- Hide Message
+      { -- Hide Message
+        filter = {
           event = "msg_show",
           any = {
             { find = "lines to indent..." }, -- for indenting messages
@@ -146,6 +142,23 @@ Plugin.config = function ()
         },
         opts = { skip = true },
       },
+      { -- Show long notifications in split
+        filter = {
+          event = "msg_show",
+          min_height = 20,
+        },
+        view = "cmdline_output",
+      },
+      { -- Show cmd output in split
+        filter = {
+          cmdline = "^:",
+        },
+        view = "cmdline_output",
+      },
+      -- { -- show @recording message
+      --   view = "mini",
+      --   filter = { event = "msg_showmode" },
+      -- },
     },
     presets = {
       -- you can enable a preset by setting it to true, or a table that will override the preset config

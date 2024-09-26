@@ -14,12 +14,12 @@ local keymaps_editor = {
   -- Nvim-surround ==> <s> key: surround, acted just like vim motions
   -- Treesitter ==> <cr> - incremental selection, <bs> - decremental
   -- Flash
-  ["nxo|`"] = map.func(function() require("flash").jump() end):desc("Edit: Jump to word"),
+  ["nxo|m"] = map.func(function() require("flash").jump() end):desc("Motion: Move to"),
   -- Comment
-  ["n|<C-/>"] = map.func(_.comment_line):expr():desc("Edit: Comment line(s)"),
-  ["n|<C-?>"] = map.func(_.comment_block):expr():desc("Edit: Comment block(s)"),
-  ["v|<C-/>"] = map.plug("comment_toggle_linewise_visual"):desc("Edit: Comment selected lines"),
-  ["v|<C-?>"] = map.plug("comment_toggle_blockwise_visual"):desc("Edit: Comment selected blocks"),
+  ["n|<C-c>"] = map.func(_.comment_line):expr():desc("Edit: Comment line(s)"),
+  ["n|<C-S-c>"] = map.func(_.comment_block):expr():desc("Edit: Comment block(s)"),
+  ["v|<C-c>"] = map.plug("comment_toggle_linewise_visual"):desc("Edit: Comment selected lines"),
+  ["v|<C-S-c>"] = map.plug("comment_toggle_blockwise_visual"):desc("Edit: Comment selected blocks"),
   -- TreeSJ
   ["n|<tab>"] = map.cmd("TSJToggle"):desc("Edit: Split/joining Code Block"),
   -- Smart-splits

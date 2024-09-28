@@ -234,7 +234,8 @@ Plugin.config = function()
           -- Flash
           FlashMatch = { bg = color.none, fg = color.blue },
           FlashCurrent = { bg = color.none, fg = color.blue },
-          FlashLabel = { bg = color.green, fg = color.base, underline = true, bold = true },
+          FlashLabel = { bg = color.none, fg = color.red, underline = true, bold = true },
+          FlashCursor = { reverse = true },
           FlashPrompt = { link = "Normal" },
           FlashPromptMode = { bg = color.none, fg = color.yellow },
 

@@ -225,7 +225,7 @@ Plugin.config = function()
         return next(available_servers) == nil and icons.misc.NoActiveLsp
           or string.format("%s[%s]", icons.misc.LspAvailable, table.concat(available_servers, ", "))
       end,
-      color = utils.gen_hl("blue", true, true, nil, "bold"),
+      color = utils.gen_hl("subtext0", true, true, nil, "bold"),
       cond = conditionals.has_enough_room,
     },
 
@@ -262,7 +262,7 @@ Plugin.config = function()
       function()
         return "󰌒 " .. vim.api.nvim_get_option_value("tabstop", { scope = "local" })
       end,
-      padding = 1,
+      padding = { left = 1 },
       cond = conditionals.has_enough_room,
     },
 
@@ -296,7 +296,6 @@ Plugin.config = function()
       icons_enabled = true,
       globalstatus = true,
       theme = custom_theme(),
-      -- theme = "auto",
       component_separators = "",
       section_separators = { left = "", right = "" },
       disabled_filetypes = { statusline = { "alpha" } },
@@ -321,7 +320,7 @@ Plugin.config = function()
         {
           "branch",
           icon = icons.git_nosep.Branch,
-          color = utils.gen_hl("subtext0", true, true, nil, "bold"),
+          color = utils.gen_hl("blue", true, true, nil, "bold"),
           cond = conditionals.has_git,
         },
         {
@@ -332,8 +331,12 @@ Plugin.config = function()
             removed = icons.git.Remove,
           },
           source = diff_source,
-          colored = false,
-          color = utils.gen_hl("subtext0", true, true),
+          colored = true,
+          color = {
+            modified = utils.gen_hl("peach", true, true),
+            add = utils.gen_hl("green", true, true),
+            removed = utils.gen_hl("red", true, true),
+          },
           cond = conditionals.has_git,
           padding = { right = 1 },
         },
@@ -351,7 +354,6 @@ Plugin.config = function()
             hint = icons.diagnostics.Hint_alt,
           },
         },
-        components.lsp,
       },
       lualine_x = {
         {
@@ -371,6 +373,7 @@ Plugin.config = function()
           cond = conditionals.has_enough_room,
         },
         components.tabwidth,
+        components.lsp,
       },
       lualine_y = {
         components.separator,

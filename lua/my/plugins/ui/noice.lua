@@ -149,12 +149,12 @@ Plugin.config = function ()
         },
         view = "cmdline_output",
       },
-      { -- Show cmd output in split
-        filter = {
-          cmdline = "^:",
-        },
-        view = "cmdline_output",
-      },
+      -- { -- Show cmd output in split
+      --   filter = {
+      --     cmdline = "^:",
+      --   },
+      --   view = "cmdline_output",
+      -- },
       -- { -- show @recording message
       --   view = "mini",
       --   filter = { event = "msg_showmode" },

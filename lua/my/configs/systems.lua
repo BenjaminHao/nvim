@@ -10,19 +10,18 @@ local Systems = {}
 local system = require("my.helpers.system")
 
 local function create_cache_dir()
-  local data_dir = {
+  local data_dirs = {
     system.cache_dir / "backup",
     system.cache_dir / "session",
     system.cache_dir / "swap",
     system.cache_dir / "tags",
     system.cache_dir / "undo",
   }
-  -- Only check whether cache_dir exists, this would be enough.
   if vim.fn.isdirectory(system.cache_dir) == 0 then
-    os.execute("mkdir -p " .. system.cache_dir)
-    for _, v in pairs(data_dir) do
-      if vim.fn.isdirectory(v) == 0 then
-        os.execute("mkdir -p " .. v)
+    vim.fn.mkdir(system.cache_dir, "p")
+    for _, dir in pairs(data_dirs) do
+      if vim.fn.isdirectory(dir) == 0 then
+        vim.fn.mkdir(dir, "p")
       end
     end
   end
@@ -64,19 +63,20 @@ cmd.exe will be used instead for `:!` (shell bang) and toggleterm.nvim.
 
 You're recommended to install PowerShell for better experience.]],
         vim.log.levels.WARN,
-        { title = "[my.config.systems] Runtime Warning" }
+        { title = "[my.configs.systems] Runtime Warning" }
       )
       return
     end
 
     local basecmd = "-NoLogo -MTA -ExecutionPolicy RemoteSigned"
     local ctrlcmd = "-Command [console]::InputEncoding = [console]::OutputEncoding = [System.Text.Encoding]::UTF8"
-    vim.opt.shell = vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell"
-    vim.opt.shellcmdflag = string.format("%s %s;", basecmd, ctrlcmd)
-    vim.opt.shellredir = "-RedirectStandardOutput %s -NoNewWindow -Wait"
-    vim.opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode"
-    vim.opt.shellquote = nil
-    vim.opt.shellxquote = nil
+    local set_opts = vim.api.nvim_set_option_value
+    set_opts("shell", vim.fn.executable("pwsh") == 1 and "pwsh" or "powershell", {})
+    set_opts("shellcmdflag", string.format("%s %s;", basecmd, ctrlcmd), {})
+    set_opts("shellredir", "-RedirectStandardOutput %s -NoNewWindow -Wait", {})
+    set_opts("shellpipe", "2>&1 | Out-File -Encoding UTF8 %s; exit $LastExitCode", {})
+    set_opts("shellquote", "", {})
+    set_opts("shellxquote", "", {})
   end
 end
 

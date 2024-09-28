@@ -65,7 +65,7 @@ Plugin.config = function()
     },
     spec = {
       { "<leader>g", group = icons.git.Git .. "Git" },
-      { "<leader>T", group = icons.ui.ToggleOff .. " Toggle" },
+      { "<leader>t", group = icons.ui.ToggleOff .. " Toggle" },
       { "<leader>b", group = icons.ui.Buffer .. " Buffer" },
       { "<leader>l", group = icons.misc.LspAvailable .. " Lsp" },
       { "<leader>f", group = icons.ui.Telescope .. " Find" },

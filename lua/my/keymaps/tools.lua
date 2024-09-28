@@ -36,7 +36,8 @@ local keymaps_tool = {
   -- ToggleTerm
   ["n|<C-\\>"] = map.cmd("ToggleTerm direction=horizontal"):desc("Terminal: Toggle Horizontal"),
   ["n|<C-`>"] = map.cmd("ToggleTerm direction=vertical"):desc("Terminal: Toggle Vertical"),
-  ["n|<Leader>t"] = map.cmd("ToggleTerm direction=float"):desc("Terminal: Toggle Float"),
+  ["n|<Leader>T"] = map.cmd("ToggleTerm direction=float"):desc("Terminal: Toggle Float"),
+  ["n|<leader>G"] = map.func(_.toggle_lazygit):desc("Git: Lazygit"),
 }
 
 Keymaps.setup = function()

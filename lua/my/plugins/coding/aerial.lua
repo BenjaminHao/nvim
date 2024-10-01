@@ -1,6 +1,6 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│  MODULE: my.plugins.lsp.aerial                                           │--
+--│  MODULE: my.plugins.coding.aerial                                        │--
 --│  DETAIL: Code outline window                                             │--
 --│  CREATE: 2024-09-19 by Benjamin Hao                                      │--
 --│  UPDATE: 2024-09-19 by Benjamin Hao                                      │--

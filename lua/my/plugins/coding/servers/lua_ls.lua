@@ -1,6 +1,6 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│  MODULE: my.plugins.lsp.servers.lua_ls                                   │--
+--│  MODULE: my.plugins.coding.servers.lua_ls                                │--
 --│  DETAIL: Config for lua_ls                                               │--
 --│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
 --│  UPDATE: 2024-08-08 by Benjamin Hao                                      │--

@@ -1,6 +1,6 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│  MODULE: my.plugins.lsp.glance                                           │--
+--│  MODULE: my.plugins.coding.glance                                        │--
 --│  DETAIL: Previewing & navigating for LSP                                 │--
 --│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
 --│  UPDATE: 2024-08-08 by Benjamin Hao                                      │--

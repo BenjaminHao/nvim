@@ -1,6 +1,6 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│  MODULE: my.plugins.lsp.lspsaga                                          │--
+--│  MODULE: my.plugins.coding.lspsaga                                       │--
 --│  DETAIL: UI improvement for LSP                                          │--
 --│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
 --│  UPDATE: 2024-08-08 by Benjamin Hao                                      │--

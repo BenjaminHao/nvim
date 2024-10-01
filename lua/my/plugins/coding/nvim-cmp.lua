@@ -1,6 +1,6 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│  MODULE: my.plugins.lsp.nvim-cmp                                         │--
+--│  MODULE: my.plugins.coding.nvim-cmp                                      │--
 --│  DETAIL: Auto-completion engine                                          │--
 --│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
 --│  UPDATE: 2024-08-08 by Benjamin Hao                                      │--

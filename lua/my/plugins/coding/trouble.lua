@@ -1,6 +1,6 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│  MODULE: my.plugins.lsp.trouble                                          │--
+--│  MODULE: my.plugins.coding.trouble                                       │--
 --│  DETAIL: Diagnostics & quickfix plugin                                   │--
 --│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
 --│  UPDATE: 2024-09-19 by Benjamin Hao                                      │--

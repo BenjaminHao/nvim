@@ -1,6 +1,6 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│  MODULE: my.plugins.lsp.nvim-lspconfig                                   │--
+--│  MODULE: my.plugins.coding.nvim-lspconfig                                │--
 --│  DETAIL: Nvim lsp config core plugin (npm is required)                   │--
 --│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
 --│  UPDATE: 2024-08-08 by Benjamin Hao                                      │--
@@ -42,13 +42,13 @@ Plugin.config = function()
     ),
   }
 
-  ---A handler to setup all servers defined under `lsp/servers/*.lua`
+  ---A handler to setup all servers defined under `coding/servers/*.lua`
   ---@param lsp_name string
   local function mason_lsp_handler(lsp_name)
     -- rust_analyzer is configured using mrcjkb/rustaceanvim
     -- warn users if they have set it up manually
     if lsp_name == "rust_analyzer" then
-      local config_exist = pcall(require, "my.plugins.lsp.servers." .. lsp_name)
+      local config_exist = pcall(require, "my.plugins.coding.servers." .. lsp_name)
       if config_exist then
         vim.notify(
           [[
@@ -62,7 +62,7 @@ please REMOVE your LSP configuration (rust_analyzer.lua) from the `servers` dire
       return
     end
 
-    local ok, custom_handler = pcall(require, "my.plugins.lsp.servers." .. lsp_name)
+    local ok, custom_handler = pcall(require, "my.plugins.coding.servers." .. lsp_name)
     if not ok then
       -- Default to use factory config for server(s) that doesn't include a spec
       nvim_lspconfig[lsp_name].setup(opts)
@@ -77,7 +77,7 @@ please REMOVE your LSP configuration (rust_analyzer.lua) from the `servers` dire
     else
       vim.notify(
         string.format(
-          "Failed to setup [%s].\n\nServer definition under `lsp/servers` must return\neither a fun(opts) or a table (got '%s' instead)",
+          "Failed to setup [%s].\n\nServer definition under `coding/servers` must return\neither a fun(opts) or a table (got '%s' instead)",
           lsp_name,
           type(custom_handler)
         ),
@@ -92,7 +92,7 @@ please REMOVE your LSP configuration (rust_analyzer.lua) from the `servers` dire
   vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup("LSP", { clear = true }),
     callback = function(event)
-      require("my.keymaps.lsp").lsp_on_attach(event.buf)
+      require("my.keymaps.coding").lsp_on_attach(event.buf)
       -- The following two autocommands are used to highlight references of the
       -- word under your cursor when your cursor rests there for a little while.
       --    See `:help CursorHold` for information about when this is executed

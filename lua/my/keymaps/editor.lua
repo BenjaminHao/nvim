@@ -39,7 +39,7 @@ local keymaps_editor = {
 
 Keymaps.git_on_attach = function(bufnr)
   local gs = package.loaded.gitsigns
-  local keymaps_git_onattach = {
+  local keymaps_git = {
     ["n|<Leader>fg"] = map.func(_.find_git):desc("Find: Git"),
     ["n|]h"] = map.func(_.next_hunk):expr():buf(bufnr):desc("Next: Hunk"),
     ["n|[h"] = map.func(_.prev_hunk):expr():buf(bufnr):desc("Prev: Hunk"),
@@ -58,7 +58,7 @@ Keymaps.git_on_attach = function(bufnr)
     ["n|<Leader>tb"] = map.func(gs.toggle_current_line_blame):buf(bufnr):desc("Toggle: Blame Line"),
     ["n|<Leader>td"] = map.func(gs.toggle_deleted):buf(bufnr):desc("Toggle: Git Deleted"),
   }
-  map.setup(keymaps_git_onattach)
+  map.setup(keymaps_git)
 end
 
 Keymaps.setup = function()

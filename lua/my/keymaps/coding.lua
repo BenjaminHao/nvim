@@ -1,7 +1,7 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│  MODULE: my.keymaps.lsp                                                  │--
---│  DETAIL: Keybinds for lsp related plugins                                │--
+--│  MODULE: my.keymaps.coding                                               │--
+--│  DETAIL: Keybinds for coding related plugins                             │--
 --│  CREATE: 2024-09-16 by Benjamin Hao                                      │--
 --│  UPDATE: 2024-09-16 by Benjamin Hao                                      │--
 --│                                                                          │--
@@ -10,14 +10,14 @@ local Keymaps = {}
 local map = require("my.helpers.map")
 local _ = require("my.keymaps.func")
 
-local keymaps_lsp = {
+local keymaps_coding = {
   -- Mason
   ["n|<Leader>L"] = map.cmd("Mason"):desc("LSP Manager"),
 }
 
 -- TODO: change lsp keybinds
 Keymaps.lsp_on_attach = function(bufnr)
-  local keymaps_lsp_onattach = {
+  local keymaps_lsp = {
     ["n|]d"] = map.func(vim.diagnostic.goto_next):buf(bufnr):desc("Next: Diagnostic message"),
     ["n|[d"] = map.func(vim.diagnostic.goto_prev):buf(bufnr):desc("Prev: Diagnostic message"),
     ["n|M"] = map.cmd("Lspsaga hover_doc"):buf(bufnr):desc("LSP: Show Doc"),
@@ -39,11 +39,11 @@ Keymaps.lsp_on_attach = function(bufnr)
     -- Telescope (lsp related)
     ["n|<Leader>fd"] = map.cmd("Telescope diagnostics"):buf(bufnr):desc("Find: Diagnostics"),
   }
-  map.setup(keymaps_lsp_onattach)
+  map.setup(keymaps_lsp)
 end
 
 Keymaps.setup = function()
-  map.setup(keymaps_lsp)
+  map.setup(keymaps_coding)
 end
 
 return Keymaps

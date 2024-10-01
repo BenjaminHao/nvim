@@ -77,7 +77,10 @@ Func.find_git = function()
 end
 
 Func.find_configs = function()
-   require("telescope.builtin").find_files { cwd = vim.fn.stdpath 'config' }
+  require("telescope.builtin").find_files {
+    cwd = vim.fn.stdpath 'config',
+    prompt_title = 'Nvim Config Files',
+  }
 end
 
 Func.next_todo = function()

@@ -84,10 +84,10 @@ local data = {
     Remove = "",
     Rename = "",
     Repo = "",
-    Unmerged = "󰘬",
-    Untracked = "󰞋",
+    Unmerged = "",
+    Untracked = "",
     Unstaged = "",
-    Staged = "",
+    Staged = "",
     Conflict = "",
   },
   ui = {

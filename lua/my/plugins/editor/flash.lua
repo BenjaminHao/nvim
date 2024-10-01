@@ -39,7 +39,7 @@ Plugin.config = function()
         -- This allows using those keys directly after the motion
         label = { exclude = "hjkliardc" },
         -- Can map to something else, e.g., { [";"] = "L", [","] = H }
-        keys = { "f", "F", "t", "T", ";", "," },
+        keys = { "f", "F", "t", "T", },
       },
     },
     prompt = {

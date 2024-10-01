@@ -336,7 +336,7 @@ Plugin.config = function()
           NvimTreeGitNew = { fg = color.green },
           NvimTreeGitDirty = { fg = color.peach },
           NvimTreeGitDeleted = { fg = color.red },
-          NvimTreeGitStaged = { fg = color.mauve },
+          NvimTreeGitStaged = { fg = color.blue },
           NvimTreeGitIgnored = { fg = color.surface1_fg },
           -- NvimTreeGitStagedIcon = { fg = color.green },
           -- NvimTreeGitFileStagedHL = { link = "NvimTreeGitStaged" },

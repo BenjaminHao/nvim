@@ -333,8 +333,8 @@ Plugin.config = function()
           source = diff_source,
           colored = true,
           color = {
-            modified = utils.gen_hl("peach", true, true),
             add = utils.gen_hl("green", true, true),
+            modified = utils.gen_hl("peach", true, true),
             removed = utils.gen_hl("red", true, true),
           },
           cond = conditionals.has_git,

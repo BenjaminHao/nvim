@@ -1,6 +1,6 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│  MODULE: my.plugins.tools.telescope                                      │--
+--│  MODULE: my.plugins.tool.telescope                                       │--
 --│  DETAIL: Fuzzy finder plugin                                             │--
 --│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
 --│  UPDATE: 2024-09-19 by Benjamin Hao                                      │--

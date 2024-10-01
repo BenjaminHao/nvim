@@ -1,6 +1,6 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│  MODULE: my.plugins.tools.search                                         │--
+--│  MODULE: my.plugins.tool.search                                          │--
 --│  DETAIL: Switching search modes within Telescope window                  │--
 --│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
 --│  UPDATE: 2024-09-19 by Benjamin Hao                                      │--

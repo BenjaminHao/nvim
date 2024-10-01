@@ -13,8 +13,8 @@ require("my.configs.autocmds").setup()
 -- Keymaps
 require("my.keymaps.core").setup()
 require("my.keymaps.ui").setup()
-require("my.keymaps.lsp").setup()
-require("my.keymaps.tools").setup()
+require("my.keymaps.tool").setup()
 require("my.keymaps.editor").setup()
+require("my.keymaps.coding").setup()
 -- Plugins
 require("my.plugins.manager").setup()

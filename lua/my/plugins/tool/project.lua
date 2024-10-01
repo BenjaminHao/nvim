@@ -1,6 +1,6 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│  MODULE: my.plugins.tools.project                                        │--
+--│  MODULE: my.plugins.tool.project                                         │--
 --│  DETAIL: Find projects using telescope                                   │--
 --│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
 --│  UPDATE: 2024-09-19 by Benjamin Hao                                      │--

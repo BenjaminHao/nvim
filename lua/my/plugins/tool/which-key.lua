@@ -1,6 +1,6 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│  MODULE: my.plugins.tools.which-key                                      │--
+--│  MODULE: my.plugins.tool.which-key                                       │--
 --│  DETAIL: Showing pending keybinds                                        │--
 --│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
 --│  UPDATE: 2024-09-19 by Benjamin Hao                                      │--

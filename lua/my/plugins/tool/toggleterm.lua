@@ -1,6 +1,6 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│  MODULE: my.plugins.tools.toggleterm                                     │--
+--│  MODULE: my.plugins.tool.toggleterm                                      │--
 --│  DETAIL: Highlight and search for todo comments                          │--
 --│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
 --│  UPDATE: 2024-09-19 by Benjamin Hao                                      │--

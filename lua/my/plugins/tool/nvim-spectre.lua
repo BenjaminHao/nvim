@@ -1,6 +1,6 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│  MODULE: my.plugins.tools.nvim-spectre                                   │--
+--│  MODULE: my.plugins.tool.nvim-spectre                                    │--
 --│  DETAIL: Search and Replace in projects                                  │--
 --│  CREATE: 2024-09-19 by Benjamin Hao                                      │--
 --│  UPDATE: 2024-09-19 by Benjamin Hao                                      │--

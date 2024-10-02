@@ -103,4 +103,20 @@ Utils.command_panel = function()
   })
 end
 
+Utils.telescope_reveal_in_neotree = function()
+  local selection = require("telescope.actions.state").get_selected_entry()
+  local file_path = selection.path
+  if file_path == nil then
+    file_path = selection[1]
+  end
+  require('neo-tree.command').execute {
+    action = 'focus', -- OPTIONAL, this is the default value
+    source = 'filesystem', -- OPTIONAL, this is the default value
+    position = 'left', -- OPTIONAL, this is the default value
+    reveal_file = file_path, -- path to file or folder to reveal
+    reveal_force_cwd = true, -- change cwd without asking if needed
+  }
+  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'n', true)
+end
+
 return Utils

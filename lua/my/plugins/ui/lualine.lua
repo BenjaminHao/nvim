@@ -391,7 +391,7 @@ Plugin.config = function()
       lualine_z = {},
     },
     tabline = {},
-    extensions = { "quickfix", "toggleterm", "nvim-tree", "lazy", "mason" },
+    extensions = { "quickfix", "toggleterm", "neo-tree", "lazy", "mason" },
   })
 end
 

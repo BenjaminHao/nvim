@@ -52,8 +52,8 @@ Plugin.config = function()
       hover = { enabled = true, delay = 30, reveal = { 'close' } },
       offsets = {
         {
-          filetype = "NvimTree",
-          text = "NvimTree",
+          filetype = "neo-tree",
+          text = "Neo-Tree",
           -- text = function()
           --   return vim.fn.fnamemodify(vim.fn.getcwd(), ":~") --(".", ":p:h:t")
           -- end,

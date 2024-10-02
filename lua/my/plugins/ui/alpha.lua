@@ -30,7 +30,7 @@ Plugin.config = function()
     dashboard.button("r", "󰈙 " .. " Recent File", function () require("my.keymaps.func").find_recent() end),
     dashboard.button("w", "󱎸 " .. " Find Word", function () require("my.keymaps.func").find_word() end),
     dashboard.button("e", "󰙅 " .. " Explorer", "<cmd>NvimTreeOpen<cr>"),
-    dashboard.button("c", " " .. " Config" , "<cmd>e $MYVIMRC|cd %:p:h|NvimTreeOpen<cr>"),
+    dashboard.button("c", " " .. " Config" , "<cmd>e $MYVIMRC|cd %:p:h|Neotree<cr>"),
     dashboard.button("h", "󰗶 " .. " Checkhealth", "<cmd>Lazy load all | checkhealth<cr>"),
     dashboard.button("q", " " .. " Quit", "<cmd>qa!<cr>"),
   }

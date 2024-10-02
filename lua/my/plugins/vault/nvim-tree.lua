@@ -14,12 +14,50 @@ local Plugin = {
     { "nvim-tree/nvim-web-devicons" },
   },
 }
-
+--[[
+Keymaps.nvimtree_on_attach = function(bufnr)
+  local api = require "nvim-tree.api"
+  local keymaps_nvimtree = {
+    ["n|?"] = map.func(api.tree.toggle_help):buf(bufnr):desc("NvimTree: Help"),
+    ["n|l"] = map.func(api.node.open.edit):buf(bufnr):desc("NvimTree: Open"),
+    ["n|<cr>"] = map.func(api.node.open.edit):buf(bufnr):desc("NvimTree: Open"),
+    ["n|<Tab>"] = map.func(api.node.open.preview):buf(bufnr):desc("NvimTree: Open (Preview)"),
+    ["n|s"] = map.func(api.node.open.horizontal):buf(bufnr):desc("NvimTree: Open (Horizontal)"),
+    ["n|v"] = map.func(api.node.open.vertical):buf(bufnr):desc("NvimTree: Open (Vertical)"),
+    ["n|o"] = map.func(api.node.run.system):buf(bufnr):desc("NvimTree: Open (Default App)"),
+    ["n|i"] = map.func(api.node.show_info_popup):buf(bufnr):desc("NvimTree: Info"),
+    ["n|a"] = map.func(api.fs.create):buf(bufnr):desc("NvimTree: Create"),
+    ["n|r"] = map.func(api.fs.rename):buf(bufnr):desc("NvimTree: Rename"),
+    ["n|c"] = map.func(api.fs.copy.node):buf(bufnr):desc("NvimTree: Copy"),
+    ["n|x"] = map.func(api.fs.cut):buf(bufnr):desc("NvimTree: Cut"),
+    ["n|p"] = map.func(api.fs.paste):buf(bufnr):desc("NvimTree: Paste"),
+    ["n|d"] = map.func(api.fs.remove):buf(bufnr):desc("NvimTree: Delete"),
+    ["n|D"] = map.func(api.fs.trash):buf(bufnr):desc("NvimTree: Trash"),
+    ["n|y"] = map.func(api.fs.copy.filename):buf(bufnr):desc("NvimTree: Yank Filename"),  -- or .basename
+    ["n|Y"] = map.func(api.fs.copy.absolute_path):buf(bufnr):desc("NvimTree: Yank Absolute Path"),
+    ["n|."] = map.func(api.tree.toggle_hidden_filter):buf(bufnr):desc("NvimTree: Toggle Dot Files"),
+    ["n|J"] = map.func(api.node.navigate.sibling.last):buf(bufnr):desc("NvimTree: To Last Sibling"),
+    ["n|K"] = map.func(api.node.navigate.sibling.first):buf(bufnr):desc("NvimTree: To First Sibling"),
+    ["n|h"] = map.func(api.node.navigate.parent):buf(bufnr):desc("NvimTree: To Parent Directory"),
+    ["n|H"] = map.func(api.tree.change_root_to_node):buf(bufnr):desc("NvimTree: Set Root Directory"),
+    ["n|u"] = map.func(api.tree.change_root_to_parent):buf(bufnr):desc("NvimTree: Show parent root"),
+    ["n|q"] = map.func(api.tree.close):buf(bufnr):desc("NvimTree: Close"),
+    ["n|<esc>"] = map.func(api.tree.close):buf(bufnr):desc("NvimTree: Close"),
+    ["n|R"] = map.func(api.tree.reload):buf(bufnr):desc("NvimTree: Refresh"),
+    ["n|b"] = map.func(api.marks.toggle):buf(bufnr):desc("NvimTree: Set Bookmark"),
+    ["n|B"] = map.func(api.tree.toggle_no_bookmark_filter):buf(bufnr):desc("NvimTree: Toggle Bookmarks"),
+    -- ["n|S"] = map.func(api.tree.search_node):buf(bufnr):desc("NvimTree: Search"), -- this sucks
+    -- ["n|t"] = map.func(api.tree.toggle_custom_filter):buf(bufnr):desc("NvimTree: Toggle Custom Filter"),
+    -- ["n|e"] = map.func(api.node.run.cmd):buf(bufnr):desc("NvimTree: Execute Command"),
+  }
+  map.setup(keymaps_nvimtree)
+end
+]]
 Plugin.config = function()
   local nvimtree = require("nvim-tree")
 
   nvimtree.setup({
-    on_attach = require("my.keymaps.tool").nvimtree_on_attach,
+    -- on_attach = require("my.keymaps.tool").nvimtree_on_attach, -- uncomment after putting keybinds above to my.keymaps.tool
     disable_netrw = true,
     hijack_netrw = true,
     auto_reload_on_write = true,
@@ -79,14 +117,10 @@ Plugin.config = function()
         close_window = true,
       },
     },
-    modified = {
+    git = {
       enable = true,
       show_on_dirs = true,
       show_on_open_dirs = false,
-    },
-    git = {
-      enable = true,
-      ignore = true,
       timeout = 400,
     },
     diagnostics = {
@@ -104,6 +138,11 @@ Plugin.config = function()
         warning = "",
         error = "",
       },
+    },
+    modified = {
+      enable = true,
+      show_on_dirs = true,
+      show_on_open_dirs = false,
     },
     view = {
       width = 30,

@@ -92,7 +92,7 @@ Plugin.config = function()
       navic = { enabled = false },
       neogit = false,
       neotest = false,
-      neotree = { enabled = false, show_root = true, transparent_panel = false },
+      neotree = { enabled = true, show_root = true, transparent_panel = false },
       noice = true,
       notify = true,
       nvimtree = true,
@@ -129,14 +129,38 @@ Plugin.config = function()
             fg = transparent_background and color.blue or color.mantle,
             bg = transparent_background and color.none or color.mantle,
           },
-          FloatTitle = { bg = color.mantle, fg = color.surface1 },
+          FloatTitle = { bg = color.sky, fg = color.base },
           CursorLineNr = { fg = color.green },
           WinSeparator = { bg = color.none, fg = color.mantle },
           VertSplit = { bg = color.none, fg = color.mantle },
           ModeMsg = { fg = color.peach }, -- for recording macro msg
-          LspReferenceText = { bg = color.none, underline = true },
-          LspReferenceRead = { bg = color.none, underline = true },
-          LspReferenceWrite = { bg = color.none, underline = true },
+          LspReferenceText = { underline = true },
+          LspReferenceRead = { underline = true },
+          LspReferenceWrite = { underline = true },
+
+          -- Lazy
+          LazyH1 = { bg = color.green, fg = color.base },
+          LazyButton = { bg = color.base, fg = color.subtext1 },
+          LazyH2 = { fg = color.red, bold = true, underline = true },
+          LazyReasonPlugin = { fg = color.red },
+          LazyValue = { fg = color.teal },
+          LazyDir = { fg = color.sky },
+          LazyUrl = { fg = color.sky },
+          LazyCommit = { fg = color.green },
+          LazyNoCond = { fg = color.red },
+          LazySpecial = { fg = color.blue },
+          LazyReasonFt = { fg = color.purple },
+          LazyOperator = { fg = color.white },
+          LazyReasonKeys = { fg = color.teal },
+          LazyTaskOutput = { fg = color.white },
+          LazyCommitIssue = { fg = color.pink },
+          LazyReasonEvent = { fg = color.yellow },
+          LazyReasonStart = { fg = color.white },
+          LazyReasonRuntime = { fg = color.blue },
+          LazyReasonCmd = { fg = color.sun },
+          LazyReasonSource = { fg = color.cyan },
+          LazyReasonImport = { fg = color.white },
+          LazyProgressDone = { fg = color.green },
 
           -- Treesitter
           ["@variable"] = { link = "Variable" },
@@ -203,21 +227,21 @@ Plugin.config = function()
           LspInfoBorder = { link = "FloatBorder" },
           DiagnosticUnderlineError = { undercurl = true, sp = color.red }, -- Used to underline "Error" diagnostics
           DiagnosticUnderlineWarn = { undercurl = true, sp = color.peach }, -- Used to underline "Warning" diagnostics
-          DiagnosticUnderlineInfo = { undercurl = true, sp = color.blue }, -- Used to underline "Information" diagnostics
+          DiagnosticUnderlineInfo = { undercurl = true, sp = color.sky }, -- Used to underline "Information" diagnostics
           DiagnosticUnderlineHint = { undercurl = true, sp = color.mauve }, -- Used to underline "Hint" diagnostics
           ErrorMsg = { fg = color.red }, -- error messages on the command line
           SpellBad = { sp = color.red, undercurl = true }, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
           SpellCap = { sp = color.peach, undercurl = true }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
-          SpellLocal = { sp = color.blue, undercurl = true }, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
+          SpellLocal = { sp = color.sky, undercurl = true }, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
           SpellRare = { sp = color.mauve, undercurl = true }, -- Word that is recognized by the spellchecker as one that is hardly ever used.  |spell| Combined with the highlighting used otherwise.
           DiagnosticError = { fg = color.red }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
           DiagnosticWarn = { fg = color.peach }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
-          DiagnosticInfo = { fg = color.blue }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
+          DiagnosticInfo = { fg = color.sky }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
           DiagnosticHint = { fg = color.mauve }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
           -- DiagnosticUnnecessary = { fg = color.sun, link = nil },
           DiagnosticFloatingError = { fg = color.red }, -- Used to color "Error" diagnostic messages in diagnostics float
           DiagnosticFloatingWarn = { fg = color.peach }, -- Used to color "Warn" diagnostic messages in diagnostics float
-          DiagnosticFloatingInfo = { fg = color.blue }, -- Used to color "Info" diagnostic messages in diagnostics float
+          DiagnosticFloatingInfo = { fg = color.sky }, -- Used to color "Info" diagnostic messages in diagnostics float
           DiagnosticFloatingHint = { fg = color.mauve }, -- Used to color "Hint" diagnostic messages in diagnostics float
 
           -- Mason
@@ -314,34 +338,23 @@ Plugin.config = function()
             bg = transparent_background and color.none or color.mantle,
           },
 
+          -- Neo-tree
+          -- NeoTreeFloatTitle = { bg = color.sky, fg = color.base },
+          NeoTreeGitAdded = { fg = color.green },
+          NeoTreeGitConflict = { fg = color.peach },
+          NeoTreeGitDeleted = { fg = color.red },
+          NeoTreeGitIgnored = { fg= color.surface1_fg },
+          NeoTreeGitModified = { fg = color.flamingo },
+          NeoTreeGitUntracked = { fg = color.sky },
+          NeoTreeGitUnstaged = { fg = color.sapphire },
+          NeoTreeGitStaged = { fg = color.blue },
+
           -- Fidget
           FidgetTask = { bg = color.none, fg = color.surface2 },
           FidgetTitle = { fg = color.blue, style = { "bold" } },
 
           -- For nvim-notify
           NotifyBackground = { bg = color.base },
-
-          -- Nvim-tree
-          NvimTreeRootFolder = { fg = color.pink },
-          -- NvimTreeNormal = { bg = color.base },
-          -- NvimTreeWinSeparator = { fg = color.mantle, bg = color.none },
-          -- NvimTreeEmptyFolderName = { fg = color.text },
-          -- NvimTreeExecFile = { fg = color.text },
-          -- NvimTreeFolderIcon = { fg = color.blue },
-          -- NvimTreeFolderName = { fg = color.text },
-          -- NvimTreeImageFile = { fg = color.text },
-          -- NvimTreeIndentMarker = { fg = color.surface1 },
-          -- NvimTreeOpenedFolderName = { fg = color.text },
-          -- NvimTreeSymlink = { fg = color.text },
-          NvimTreeGitNew = { fg = color.green },
-          NvimTreeGitDirty = { fg = color.peach },
-          NvimTreeGitDeleted = { fg = color.red },
-          NvimTreeGitStaged = { fg = color.blue },
-          NvimTreeGitIgnored = { fg = color.surface1_fg },
-          -- NvimTreeGitStagedIcon = { fg = color.green },
-          -- NvimTreeGitFileStagedHL = { link = "NvimTreeGitStaged" },
-          -- NvimTreeGitDirtyIcon = { fg = color.red },
-          -- NvimTreeGitFileDirtyHL = { link = "NvimTreeGitDirty" },
 
           -- Trouble
           TroubleNormal = { bg = transparent_background and color.none or color.base },

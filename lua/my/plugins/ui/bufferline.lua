@@ -24,34 +24,40 @@ Plugin.config = function()
     options = {
       mode = "buffers",
       themable = true,
+      style_preset = bufferline.style_preset.no_italic,
+      separator_style = "slant",
+      always_show_bufferline = true,
       show_buffer_icons = true,
       show_buffer_close_icons = false,
       show_close_icon = false,
-      always_show_bufferline = true,
-      -- style_preset = bufferline.style_preset.minimal,
-      separator_style = "slant",
+      left_trunc_marker = "❮",
+      right_trunc_marker = "❯",
+      indicator = { style = "none" },
+      -- TODO: change to relitive numbers when avaliable
+      -- numbers = function(_opts)
+      --   return string.format("%s", _opts.raise(_opts.ordinal))
+      -- end,
       get_element_icon = function(element)
         local icon, hl = require('nvim-web-devicons').get_icon_by_filetype(element.filetype, { default = false })
-        return icon, hl
+        if vim.api.nvim_buf_get_name(0) == element.path then
+          return icon, hl
+        end
+        return icon, "DevIconDimmed"
       end,
       close_command = function(n) bufremove.delete(n, false) end,
-      diagnostics = false,           -- OR: | "nvim_lsp" 
+      right_mouse_command = function(n) bufremove.delete(n, false) end,
+      diagnostics = false, -- OR: | "nvim_lsp" 
       diagnostics_update_in_insert = false,
       sort_by = "insert_at_end",
-      hover = {
-        enabled = true,
-        delay = 30,
-        reveal = { 'close' }
-      },
+      hover = { enabled = true, delay = 30, reveal = { 'close' } },
       offsets = {
         {
           filetype = "NvimTree",
           text = "NvimTree",
           -- text = function()
-          --   return vim.fn.fnamemodify(".", ":p:h:t")
-          --   -- return vim.fn.getcwd()
+          --   return vim.fn.fnamemodify(vim.fn.getcwd(), ":~") --(".", ":p:h:t")
           -- end,
-          -- highlight = "Directory",
+          highlight = "BufferLineOffset",
           separator = false, -- use a "true" to enable the default, or set your own character
         },
       },

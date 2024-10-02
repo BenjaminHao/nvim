@@ -17,58 +17,93 @@ local Plugin = {
 
 Plugin.config = function()
   local nvimtree = require("nvim-tree")
-  ---------------------------- nvimtree setup --------------------------------
+
   nvimtree.setup({
-    on_attach = require("my.keymaps.tool").nvimtree_on_attach(),
+    on_attach = require("my.keymaps.tool").nvimtree_on_attach,
     disable_netrw = true,
     hijack_netrw = true,
     auto_reload_on_write = true,
     open_on_tab = false,
     hijack_cursor = true,
     sync_root_with_cwd = true,
-    -- respect_buf_cwd = true,  -- will change cwd every time entering a buffer
-    -- reload_on_bufenter = true,
-    actions = {
-      use_system_clipboard = true,
-      open_file = {
-        quit_on_open = true,
-        eject = true,
-        resize_window = true,
-        window_picker = {
-          enable = true,
-          chars = "1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-          exclude = {
-            filetype = { "notify", "packer", "qf", "diff", "fugitive", "fugitiveblame", "dbui", "dbout" },
-            buftype = { "nofile", "terminal", "help" },
-          },
-        },
-      },
-      change_dir = {
-        enable = true,
-        global = true,  -- also change other plugins cwd (eg. Telescope)
-        restrict_above_cwd = false,
-      },
-      remove_file = {
-        close_window = true,
-      }
+    respect_buf_cwd = false,
+    update_cwd = false,
+    hijack_directories = {
+      enable = true,
+      auto_open = true,
     },
     update_focused_file = {
       enable = true,
       update_root = true,
       ignore_list = { "help" },
     },
-    system_open = {
-      cmd = "",
-      args = {},
+    actions = {
+      use_system_clipboard = true,
+      change_dir = {
+        enable = true,
+        global = false,
+      },
+      open_file = {
+        quit_on_open = true,
+        eject = true,
+        resize_window = true,
+        window_picker = {
+          enable = true,
+          chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890",
+          exclude = {
+            buftype = {
+              "help",
+              "nofile",
+              "prompt",
+              "quickfix",
+              "terminal",
+            },
+            filetype = {
+              "dap-repl",
+              "diff",
+              "fugitive",
+              "fugitiveblame",
+              "git",
+              "notify",
+              "NvimTree",
+              "Outline",
+              "qf",
+              "TelescopePrompt",
+              "toggleterm",
+              "undotree",
+            },
+          },
+        },
+      },
+      remove_file = {
+        close_window = true,
+      },
     },
-    filters = {
-      dotfiles = false, -- show dot files by default
-      custom = { "^.git$" }, -- not showing .git folder
+    modified = {
+      enable = true,
+      show_on_dirs = true,
+      show_on_open_dirs = false,
     },
     git = {
       enable = true,
       ignore = true,
       timeout = 400,
+    },
+    diagnostics = {
+      enable = false,
+      show_on_dirs = true,
+      show_on_open_dirs = false,
+      debounce_delay = 50,
+      severity = {
+        min = vim.diagnostic.severity.HINT,
+        max = vim.diagnostic.severity.ERROR,
+      },
+      icons = {
+        hint = "󰻂",
+        info = "",
+        warning = "",
+        error = "",
+      },
     },
     view = {
       width = 30,
@@ -81,7 +116,7 @@ Plugin.config = function()
     renderer = {
       root_folder_label = ":t",
       add_trailing = false,
-      group_empty = true,
+      group_empty = false,
       full_name = true,
       highlight_git = "none",
       highlight_diagnostics = "none",
@@ -91,21 +126,21 @@ Plugin.config = function()
       indent_markers = {
         enable = true,
         icons = {
-          corner = "┗",
-          edge = "┃",
-          item = "┣",
-          bottom = "━",
+          corner = "└",
+          edge = "│",
+          item = "├",
+          bottom = "─",
           none = " ",
         },
       },
       icons = {
         webdev_colors = true,
-        git_placement = "before",
-        modified_placement = "after",
+        git_placement = "after",
+        modified_placement = "before",
         diagnostics_placement = "signcolumn",
         bookmarks_placement = "signcolumn",
         padding = " ",
-        symlink_arrow = " ➛ ",
+        symlink_arrow = " 󰁔 ",
         show = {
           file = true,
           folder = true,
@@ -116,58 +151,32 @@ Plugin.config = function()
           bookmarks = true,
         },
         glyphs = {
-          default = "",
-          symlink = "",
-          bookmark = "󱝵",
-          modified = "󱇨",
+          default = "󰈔",
+          symlink = "󱅷",
+          bookmark = "󱝴",
+          modified = "󱇧",
+          hidden = "󰘓",
           folder = {
-            arrow_closed = "",
-            arrow_open = "",
-            default = "",
-            open = "",
+            arrow_closed = "",
+            arrow_open = "",
+            default = "",
+            open = "",
             empty = "",
             empty_open = "",
             symlink = "",
             symlink_open = "",
           },
           git = {
-            unstaged = "",
-            staged = "",
-            unmerged = "󰽜",
-            renamed = "",
-            untracked = "",
-            deleted = "",
-            ignored = "",
+            unstaged = "󰦓",
+            staged = "󰄲",
+            unmerged = "󰀧",
+            renamed = "󰑕",
+            untracked = "󰐖",
+            deleted = "󰍵",
+            ignored = "󰿠",
           },
         },
       },
-    },
-    diagnostics = {
-      enable = true,
-      show_on_dirs = true,
-      show_on_open_dirs = false,
-      debounce_delay = 50,
-      severity = {
-        min = vim.diagnostic.severity.HINT,
-        max = vim.diagnostic.severity.ERROR,
-      },
-      icons = {
-        hint = "",
-        info = "",
-        warning = "",
-        error = "",
-      },
-    },
-    trash = {
-      cmd = "trash",
-      require_confirm = true,
-    },
-    notify = {
-      threshold = vim.log.levels.INFO,
-      absolute_path = true,
-    },
-    help = {
-      sort_by = "desc",
     },
     ui = {
       confirm = {
@@ -175,6 +184,25 @@ Plugin.config = function()
         trash = true,
         default_yes = true,
       },
+    },
+    notify = {
+      threshold = vim.log.levels.INFO,
+      absolute_path = true,
+    },
+    trash = {
+      cmd = "gio trash",
+      require_confirm = true,
+    },
+    filesystem_watchers = {
+      enable = true,
+      debounce_delay = 50,
+    },
+    filters = {
+      dotfiles = false, -- show dot files
+      custom = { "^.git$", ".DS_Store" },
+    },
+    help = {
+      sort_by = "desc",
     },
   })
 end

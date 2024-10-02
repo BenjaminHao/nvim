@@ -42,7 +42,7 @@ local keymaps_tool = {
 
 Keymaps.nvimtree_on_attach = function(bufnr)
   local api = require "nvim-tree.api"
-  local keymaps = {
+  local keymaps_nvimtree = {
     ["n|?"] = map.func(api.tree.toggle_help):buf(bufnr):desc("NvimTree: Help"),
     ["n|l"] = map.func(api.node.open.edit):buf(bufnr):desc("NvimTree: Open"),
     ["n|<cr>"] = map.func(api.node.open.edit):buf(bufnr):desc("NvimTree: Open"),
@@ -69,13 +69,13 @@ Keymaps.nvimtree_on_attach = function(bufnr)
     ["n|q"] = map.func(api.tree.close):buf(bufnr):desc("NvimTree: Close"),
     ["n|<esc>"] = map.func(api.tree.close):buf(bufnr):desc("NvimTree: Close"),
     ["n|R"] = map.func(api.tree.reload):buf(bufnr):desc("NvimTree: Refresh"),
+    ["n|b"] = map.func(api.marks.toggle):buf(bufnr):desc("NvimTree: Set Bookmark"),
+    ["n|B"] = map.func(api.tree.toggle_no_bookmark_filter):buf(bufnr):desc("NvimTree: Toggle Bookmarks"),
     -- ["n|S"] = map.func(api.tree.search_node):buf(bufnr):desc("NvimTree: Search"), -- this sucks
     -- ["n|t"] = map.func(api.tree.toggle_custom_filter):buf(bufnr):desc("NvimTree: Toggle Custom Filter"),
-    -- ["n|m"] = map.func(api.marks.toggle):buf(bufnr):desc("NvimTree: Set Bookmark"),
-    -- ["n|M"] = map.func(api.tree.toggle_no_bookmark_filter):buf(bufnr):desc("NvimTree: Toggle Bookmarks"),
     -- ["n|e"] = map.func(api.node.run.cmd):buf(bufnr):desc("NvimTree: Execute Command"),
   }
-  map.setup(keymaps)
+  map.setup(keymaps_nvimtree)
 end
 
 Keymaps.setup = function()

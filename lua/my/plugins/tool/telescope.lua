@@ -75,10 +75,12 @@ Plugin.config = function()
           ["<C-l>"] = actions.select_default,
           ["<C-d>"] = actions.preview_scrolling_down,
           ["<C-u>"] = actions.preview_scrolling_up,
+          ["<C-cr>"] = require("my.helpers.utils").telescope_reveal_in_neotree
         },
         n = {
           ["q"] = actions.close,
           ["?"] = actions.which_key,
+          ["<C-cr>"] = require("my.helpers.utils").telescope_reveal_in_neotree
         },
       },
     },
@@ -117,6 +119,7 @@ Plugin.config = function()
         },
       },
       undo = {
+        -- TODO: change keybinds
         side_by_side = true,
         mappings = {
           i = {

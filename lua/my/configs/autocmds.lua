@@ -64,6 +64,19 @@ local function create_autocmds()
     end,
   })
 
+  autocmd("BufWinEnter", {
+    desc = "Do not open file on specific windows",
+    group = general,
+    callback = function()
+      local filetypes = { "OverseerList", "neo-tree" }
+      local buftypes = { "nofile", "terminal" }
+      if vim.tbl_contains(buftypes, vim.bo.buftype) or vim.tbl_contains(filetypes, vim.bo.filetype) then
+        vim.cmd "set winfixbuf"
+      end
+    end
+
+  })
+
   autocmd("BufReadPost", {
     desc = "Go to last location when opening a buffer",
     group = general,
@@ -99,7 +112,7 @@ local function create_autocmds()
     end,
   })
 
-  autocmd({ "VimResized" }, {
+  autocmd("VimResized", {
     desc = "Resize splits if window got resized",
     group = general,
     callback = function()
@@ -132,7 +145,7 @@ local function create_autocmds()
     end,
   })
 
-  autocmd({ "BufEnter" }, {
+  autocmd("BufEnter", {
     desc = "Auto show/hide hlsearch",
     group = general,
     callback = function(opt)

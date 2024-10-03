@@ -141,7 +141,7 @@ Plugin.config = function()
     mapping = cmp.mapping.preset.insert({
       ["<C-y>"] = cmp.config.disable,
       ["<C-e>"] = cmp.config.disable,
-      ["<C-Space>"] = cmp.mapping.complete(), -- show completion suggestionscmp
+      ["<C-c>"] = cmp.mapping.complete(), -- show completion suggestionscmp
       ["<C-h>"] = cmp.mapping.abort(), -- close completion window
       ["<C-l>"] = cmp.mapping.confirm({ select = true }), -- confirm suggestions
       ["<C-j>"] = cmp.mapping.select_next_item(), -- next suggestion
@@ -202,9 +202,9 @@ Plugin.config = function()
   cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(cmdline_mapping),
     sources = {
+      { name = "nvim_lua" },
       { name = "cmdline" },
       { name = "path" },
-      { name = "nvim_lua" },
     }
   })
 end

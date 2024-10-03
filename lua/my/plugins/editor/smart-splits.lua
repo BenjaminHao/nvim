@@ -20,11 +20,14 @@ Plugin.config = function()
       "prompt",
     },
     -- Ignored filetypes (only while resizing)
-    ignored_filetypes = { "NvimTree" },
+    ignored_filetypes = {
+      "neo-tree",
+      "NvimTree",
+    },
     -- the default number of lines/columns to resize by at a time
     default_amount = 3,
     -- whether the cursor should follow the buffer when swapping
-    cursor_follows_swapped_bufs = true,
+    cursor_follows_swapped_bufs = false,
   })
 end
 

@@ -134,9 +134,9 @@ Plugin.config = function()
           WinSeparator = { bg = color.none, fg = color.mantle },
           VertSplit = { bg = color.none, fg = color.mantle },
           ModeMsg = { fg = color.peach }, -- for recording macro msg
-          LspReferenceText = { underline = true },
-          LspReferenceRead = { underline = true },
-          LspReferenceWrite = { underline = true },
+          LspReferenceText = { bg = color.none, underline = true },
+          LspReferenceRead = { bg = color.none, underline = true },
+          LspReferenceWrite = { bg = color.none, underline = true },
 
           -- Lazy
           LazyH1 = { bg = color.green, fg = color.base },
@@ -339,7 +339,7 @@ Plugin.config = function()
           },
 
           -- Neo-tree
-          -- NeoTreeFloatTitle = { bg = color.sky, fg = color.base },
+          NeoTreeFloatTitle = { bg = color.sky, fg = color.base },
           NeoTreeGitAdded = { fg = color.green },
           NeoTreeGitConflict = { fg = color.peach },
           NeoTreeGitDeleted = { fg = color.red },

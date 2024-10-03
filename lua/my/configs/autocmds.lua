@@ -64,19 +64,6 @@ local function create_autocmds()
     end,
   })
 
-  autocmd("BufWinEnter", {
-    desc = "Do not open file on specific windows",
-    group = general,
-    callback = function()
-      local filetypes = { "OverseerList", "neo-tree" }
-      local buftypes = { "nofile", "terminal" }
-      if vim.tbl_contains(buftypes, vim.bo.buftype) or vim.tbl_contains(filetypes, vim.bo.filetype) then
-        vim.cmd "set winfixbuf"
-      end
-    end
-
-  })
-
   autocmd("BufReadPost", {
     desc = "Go to last location when opening a buffer",
     group = general,

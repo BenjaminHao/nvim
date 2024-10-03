@@ -15,7 +15,7 @@ local keymaps_tool = {
   ["n|<Leader>P"] = map.cmd("Lazy"):desc("Plugin Manager"),
   -- NvimTree
   ["n|<Leader>e"] = map.cmd("Neotree toggle"):desc("File Explorer"),
-  ["n|<Leader>E"] = map.cmd("Neotree reveal"):desc("File Explorer Reveal"),
+  ["n|<Leader>fe"] = map.cmd("Neotree reveal"):desc("Find in Explorer"),
   -- Telescope
   ["n|<Leader>ff"] = map.func(_.find_files):desc("Find: Files"),
   ["n|<Leader>fr"] = map.func(_.find_recent):desc("Find: Recent Files"),
@@ -33,7 +33,7 @@ local keymaps_tool = {
   ["n|]t"] = map.func(_.next_todo):desc("Next: Todo"),
   ["n|[t"] = map.func(_.prev_todo):desc("Prev: Todo"),
   -- nvim-spectre
-	["n|<Leader>r"] = map.cmd("Spectre"):desc("Tool: Replace"),
+	["n|<Leader>S"] = map.cmd("Spectre"):desc("Tool: Spectre Search"),
   -- ToggleTerm
   ["n|<C-\\>"] = map.cmd("ToggleTerm direction=horizontal"):desc("Terminal: Toggle Horizontal"),
   ["n|<C-`>"] = map.cmd("ToggleTerm direction=vertical"):desc("Terminal: Toggle Vertical"),

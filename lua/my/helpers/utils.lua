@@ -109,13 +109,13 @@ Utils.telescope_reveal_in_nvimtree = function()
   if file_path == nil then
     file_path = selection[1]
   end
-  require('neo-tree.command').execute {
-    action = 'focus', -- OPTIONAL, this is the default value
-    source = 'filesystem', -- OPTIONAL, this is the default value
-    position = 'left', -- OPTIONAL, this is the default value
-    reveal_file = file_path, -- path to file or folder to reveal
-    reveal_force_cwd = true, -- change cwd without asking if needed
-  }
+  require("nvim-tree.api").tree.find_file({
+    buf = file_path,
+    open = true,
+    current_window = false,
+    update_root = true,
+    focus = true,
+  })
   vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<Esc>', true, false, true), 'n', true)
 end
 

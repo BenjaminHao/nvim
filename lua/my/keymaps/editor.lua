@@ -14,7 +14,11 @@ local keymaps_editor = {
   -- Nvim-surround ==> <s> key: surround, acted just like vim motions
   -- Treesitter ==> <cr> - incremental selection, <bs> - decremental
   -- Flash
-  ["nxo|m"] = map.func(function() require("flash").jump() end):desc("Motion: Move to"),
+  ["nvo|m"] = map.func(function() require("flash").jump() end):desc("Motion: Move to word"),
+  -- Spider
+  ["n|L"] = map.cmd("SpiderW"):desc("Motion: Move to next subword"),
+  ["ov|L"] = map.cmd("SpiderE"):desc("Motion: Move to next subword"),
+  ["nvo|H"] = map.cmd("SpiderB"):desc("Motion: Move to prev subword"),
   -- Comment
   ["n|<C-c>"] = map.func(_.comment_line):expr():desc("Edit: Comment line(s)"),
   ["n|<C-S-c>"] = map.func(_.comment_block):expr():desc("Edit: Comment block(s)"),
@@ -40,7 +44,7 @@ local keymaps_editor = {
 Keymaps.git_on_attach = function(bufnr)
   local gs = package.loaded.gitsigns
   local keymaps_git = {
-    ["n|<Leader>fg"] = map.func(_.find_git):desc("Find: Git"),
+    ["n|<Leader>fg"] = map.func(_.find_git):desc("Find: Git Info"),
     ["n|]h"] = map.func(_.next_hunk):expr():buf(bufnr):desc("Next: Hunk"),
     ["n|[h"] = map.func(_.prev_hunk):expr():buf(bufnr):desc("Prev: Hunk"),
     ["n|<Leader>gs"] = map.func(gs.stage_hunk):buf(bufnr):desc("Git: Stage Hunk"),

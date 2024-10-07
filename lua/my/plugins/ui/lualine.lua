@@ -337,8 +337,8 @@ Plugin.config = function()
             modified = utils.gen_hl("peach", true, true),
             removed = utils.gen_hl("red", true, true),
           },
-          cond = conditionals.has_git,
           padding = { right = 1 },
+          cond = conditionals.has_git,
         },
 
         { utils.force_centering },

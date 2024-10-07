@@ -6,11 +6,13 @@
 --│  UPDATE: 2024-10-02 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
+-- TODO: config neotree
 local Plugin = {
   'nvim-neo-tree/neo-tree.nvim',
   cmd = "Neotree",
   dependencies = {
     "nvim-tree/nvim-web-devicons",
+    "MunifTanjim/nui.nvim",
   },
 }
 
@@ -37,27 +39,64 @@ local function getTelescopeOpts(state, path)
 end
 
 Plugin.config = function()
-  local neotree = require 'neo-tree'
+  local neotree = require("neo-tree")
+  local system = require("my.helpers.system")
 
   neotree.setup {
+    sort_case_insensitive = true,
+    auto_clean_after_session_restore = true,
     close_if_last_window = true,
     enable_git_status = true,
-    enable_diagnostics = false,
-    sources = { 'filesystem' },
-    source_selector = {
-      statusline = false,
+    enable_diagnostics = true,
+    sources = {
+      "filesystem",
+      "git_status",
     },
-    open_files_do_not_replace_types = {
-      'terminal',
-      'trouble',
-      'qf',
-      'edgy',
-      'telescopeprompt',
-      'overseerlist',
-      'OverseerList',
+    source_selector = {
+      winbar = true,
+      sources = {
+        { source = "filesystem", display_name = " 󰉓 Files " },
+        { source = "git_status", display_name = " 󰊢 Git " },
+      },
+      content_layout = "center",
+    },
+    default_component_configs = {
+      container = {
+        enable_character_fade = true,
+      },
+      indent = {
+        padding = 0,
+      },
+      icon = {
+        folder_empty = "",
+        default = "",
+        highlight = "None",
+      },
+      modified = {
+        symbol = "[+]",
+      },
+      git_status = {
+        symbols = {
+          -- Change type
+          added = '󰐖',
+          modified = '󰏬',
+          deleted = '󰍵',
+          renamed = '󰑕', -- this can only be used in the git_status source
+          untracked = '󰦓',
+          ignored = '󰿠',
+          unstaged = '󱗜',
+          staged = '󰄲',
+          conflict = '󰀧',
+        },
+      },
+      file_size = { enabled = true },
+      type = { enabled = false },
+      last_modified = { enabled = true },
+      created = { enabled = false },
+      symlink_target = { enabled = true },
     },
     commands = {
-      copy_selector = function(state)
+      yank_selector = function(state)
         local node = state.tree:get_node()
         local filepath = node:get_id()
         local filename = node.name
@@ -77,19 +116,19 @@ Plugin.config = function()
           return vals[val] ~= ''
         end, vim.tbl_keys(vals))
         if vim.tbl_isempty(options) then
-          vim.notify('No values to copy', vim.log.levels.WARN)
+          vim.notify('No values to yank', vim.log.levels.WARN)
           return
         end
         table.sort(options)
         vim.ui.select(options, {
-          prompt = 'Choose to copy to clipboard:',
+          prompt = 'Choose to yank to clipboard:',
           format_item = function(item)
             return ('%s: %s'):format(item, vals[item])
           end,
         }, function(choice)
             local result = vals[choice]
             if result then
-              vim.notify(('Copied: `%s`'):format(result))
+              vim.notify(('Yanked: `%s`'):format(result))
               vim.fn.setreg('+', result)
             end
           end)
@@ -106,103 +145,92 @@ Plugin.config = function()
       end,
       telescope_find_current_buffer = function()
         require('telescope.builtin').current_buffer_fuzzy_find(require('telescope.themes').get_ivy {
+          prompt_title = "Fuzzy Find Neo-Tree",
           previewer = false,
           skip_empty_lines = true,
         })
       end,
-      open_externally = function(state)
-        local node = state.tree:get_node()
-        vim.notify('Opening ' .. node.path)
-        if node.type == 'directory' or node:has_children() then
-          if not node:is_expanded() then -- if unexpanded, expand
-            state.commands.toggle_node(state)
-          else -- if expanded and has children, seleect the next child
-            require('neo-tree.ui.renderer').focus_node(state, node:get_child_ids()[1])
+      system_open = function(state)
+        local command = function()
+          if system.is_windows then return "start"
+          elseif system.is_mac then return "open"
+          elseif system.is_linux then return "xdg-open"
+          elseif system.is_wsl then return "wslview"
           end
-        elseif node.ext == 'jpg' or node.ext == 'png' or node.ext == 'pdf' or node.ext == 'svg' then
-          if vim.fn.has 'mac' == 1 then
-            vim.fn.system('open ' .. node.path)
-          else
-            vim.fn.jobstart("export DISPLAY=$(tmux show-env | sed -n 's/^DISPLAY=//p'); xdg-open " .. node.path .. ' || evince ' .. node.path)
-          end
-        elseif node.ext == 'root' then
-          local tmux = require 'tmux-awesome-manager.src.term'
-          tmux.run {
-            cmd = "bash -i -c 'root -l " .. node.path .. "'",
-            name = 'Open ROOT File',
-            open_as = 'pane',
-            orientation = 'horizontal',
-            close_on_timer = 1,
-            visit_first_call = true, -- will not focus the pane
-            focus_when_call = true, -- Instead of focusing, will open a new pane in the same place as before
-          }()
-        else
-          state.commands.open(state)
         end
-      end,
-      open_check_images = function(state)
-        local node = state.tree:get_node()
-        if node.ext == 'jpg' or node.ext == 'png' or node.ext == 'pdf' then
-          local command = vim.fn.has 'mac' == 1 and 'open' or 'xdg-open'
-          vim.notify('Open with ' .. command)
-          vim.fn.jobstart(command .. ' ' .. node.path)
-        else
-          vim.cmd.edit(node.path)
-        end
+        local file = state.tree:get_node():get_id()
+        vim.notify(string.format("Open with system app: '%s'", file))
+        vim.api.nvim_command(string.format("silent !%s '%s'", command(), file))
       end,
     },
     window = {
       position = 'left',
       mappings = {
-        ['t'] = false,
-        ['tf'] = 'telescope_find',
-        ['tg'] = 'telescope_grep',
-        ['O'] = 'open_externally',
-        ['l'] = 'open',
-        ['u'] = 'navigate_up',
-        ['h'] = 'close_node',
-        ['C'] = false,
-        ['s'] = 'open_split',
-        ['v'] = 'open_vsplit',
-        ['D'] = 'delete',
-        ['d'] = false,
-        ['A'] = false,
-        ['zh'] = 'toggle_hidden',
-        ['z'] = false,
+        ["Space"] = false, -- toggle_node
+        ['t'] = false, -- open_tab_new
+        ["<Tab>"] = "next_source",
+        ["<S-Tab>"] = "prev_source",
+        ["l"] = "open",
+        ["s"] = "open_split",
+        ["v"] = "open_vsplit",
+        ["h"] = "close_node",
+        ["a"] = { "add", config = { show_path = "relative" } },
+        ["A"] = "add_directory",
+        ["O"] = "system_open",
+        ["P"] = { "toggle_preview", config = { use_float = true, use_image_nvim = true } },
+        ["b"] = "toggle_node",
+        -- ['tf'] = 'telescope_find',
+        -- ['tg'] = 'telescope_grep',
         ['Z'] = 'close_all_nodes',
-        ['H'] = 'close_window',
-        ['L'] = 'close_window',
-        ['Y'] = 'copy_selector',
-        ['<Space>'] = false,
-        ['f'] = 'telescope_find_current_buffer',
+        ['y'] = 'yank_selector',
+        ['/'] = 'telescope_find_current_buffer',
       },
     },
     filesystem = {
-      filtered_items = {
-        always_show = {
-          '.config',
-          '.gitignore',
-          '.rgignore',
-          'config.json',
-          'histo.root',
-          'tuple.root',
-          'yaml',
-          '.schema.json',
-        },
-        hide_by_name = { 'GeneratorLog.xml', 'NewCatalog.xml' },
-        hide_by_pattern = {
-          '[0-9]*.py',
-          '*.gif',
-          '*.pdf',
-          '*.png',
-          '*.sim',
-          '*.digi',
-          '*.root',
-          '*.mdf',
-          '*.dst',
-          'test_catalog-*.000000.xml',
+      window = {
+        mappings = {
+          ['H'] = "set_root",
+          ['u'] = 'navigate_up',
+          ["f"] = "filter_on_submit",
+          ['.'] = 'toggle_hidden',
         },
       },
+      bind_to_cwd = false,
+      filtered_items = {
+        hide_dotfiles = false,
+        hide_gitignored = false,
+        hide_by_name = {
+          ".DS_Store",
+          "thumbs.db",
+        },
+        hide_by_pattern = {
+          "*.meta",
+          "*:Zone.Identifier",
+        },
+        never_show = {
+          ".DS_Store",
+          "thumbs.db",
+        },
+        never_show_by_pattern = {
+          ".null-ls_*",
+        },
+      },
+      find_by_full_path_words = true,
+      follow_current_file = {
+        enabled = true,
+        leave_dirs_open = true,
+      },
+      hijack_netrw_behavior = "open_current",
+      use_libuv_file_watcher = true,
+    },
+    open_files_do_not_replace_types = {
+      'terminal',
+      'trouble',
+      'qf',
+      'edgy',
+      'telescopeprompt',
+      'overseerlist',
+      'OverseerList',
     },
     event_handlers = {
       {
@@ -212,22 +240,7 @@ Plugin.config = function()
         end,
       },
     },
-    default_component_configs = {
-      git_status = {
-        symbols = {
-          -- Change type
-          added = '󰐖',
-          modified = '󰏬',
-          deleted = '󰍵',
-          renamed = '󰑕', -- this can only be used in the git_status source
-          untracked = '󰦓',
-          ignored = '󰿠',
-          unstaged = '󱗜',
-          staged = '󰄲',
-          conflict = '󰀧',
-        },
-      },
-    },
+
   }
 end
 

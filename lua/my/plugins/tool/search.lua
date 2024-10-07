@@ -8,6 +8,9 @@
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Plugin = {
   "FabianWirth/search.nvim",
+  dependencies = {
+    "nvim-telescope/telescope.nvim",
+  },
 }
 
 Plugin.config = function()
@@ -16,21 +19,23 @@ Plugin.config = function()
 
   require("search").setup({
     collections = {
-      -- Search using filenames
+      -- Search files
       file = {
         initial_tab = 1,
         tabs = {
-          -- TODO: add file search tabs
           {
-            name = "Files",
-            tele_func = function(opts)
-              opts = opts or {}
-              if vim.fn.isdirectory(".git") == 1 then
-                builtin.git_files(opts)
-              else
-                builtin.find_files(opts)
-              end
-            end,
+            name = "Find Files (CWD)",
+            tele_func = builtin.find_files,
+          },
+          {
+            name = "Find Files (Git)",
+            tele_func = builtin.git_files,
+            available = function() return vim.fn.isdirectory(".git") == 1 end,
+          },
+          {
+            name = "Find Files (All)",
+            tele_func = builtin.find_files,
+            tele_opts = { cwd = vim.env.HOME, no_ignore = true, hidden = true }
           },
         },
       },
@@ -38,16 +43,12 @@ Plugin.config = function()
         initial_tab = 1,
         tabs = {
           {
-            name = "Oldfiles",
-            tele_func = function()
-              builtin.oldfiles()
-            end,
+            name = "Recent Files (History)",
+            tele_func = builtin.oldfiles
           },
           {
-            name = "Frecency",
-            tele_func = function()
-              extensions.frecency.frecency()
-            end,
+            name = "Recent Files (Frecency)",
+            tele_func = extensions.frecency.frecency
           },
         },
       },
@@ -56,25 +57,17 @@ Plugin.config = function()
         initial_tab = 1,
         tabs = {
           {
-            name = "Current Buffer",
-            tele_func = function()
-              builtin.current_buffer_fuzzy_find()
-            end,
+            name = "Fuzzy Find Current",
+            tele_func = builtin.current_buffer_fuzzy_find
           },
           {
-            name = "Opened Files",
-            tele_func = function()
-              builtin.live_grep {
-                grep_open_files = true,
-                prompt_title = 'Live Grep in Open Files',
-              }
-            end,
+            name = "Grep Opened Files",
+            tele_func = builtin.live_grep,
+            tele_opts = { grep_open_files = true },
           },
           {
-            name = "Whole Project",
-            tele_func = function()
-              extensions.live_grep_args.live_grep_args()
-            end,
+            name = "Grep Whole Project",
+            tele_func = extensions.live_grep_args.live_grep_args
           },
         },
       },
@@ -83,28 +76,12 @@ Plugin.config = function()
         initial_tab = 1,
         tabs = {
           {
-            name = "Branches",
-            tele_func = function()
-              builtin.git_branches()
-            end,
+            name = "Git Branches",
+            tele_func = builtin.git_branches,
           },
           {
-            name = "Commits",
-            tele_func = function()
-              builtin.git_commits()
-            end,
-          },
-          {
-            name = "Commit content",
-            tele_func = function()
-              extensions.advanced_git_search.search_log_content()
-            end,
-          },
-          {
-            name = "Diff current file with commit",
-            tele_func = function()
-              extensions.advanced_git_search.diff_commit_file()
-            end,
+            name = "Git Commits",
+            tele_func = builtin.git_commits,
           },
         },
       },

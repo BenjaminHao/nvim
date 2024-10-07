@@ -8,7 +8,7 @@
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Colors = {}
 
----@param hex_str string @The color in hexadecimal.
+---@param hex_str string @The color in hexadecimal
 local function hex_to_rgb(hex_str)
   local hex = "[abcdef0-9][abcdef0-9]"
   local pat = "^#(" .. hex .. ")(" .. hex .. ")(" .. hex .. ")$"
@@ -21,13 +21,13 @@ local function hex_to_rgb(hex_str)
 end
 
 ---Blend foreground with background
----@param foreground string @The foreground color
----@param background string @The background color to blend with
----@param alpha number|string @Number between 0 and 1. 0 results in bg, 1 results in fg
-Colors.blend = function(foreground, background, alpha)
+---@param fg_color string @Foreground color
+---@param bg_color string @Background color
+---@param alpha number|string @Number between 0 and 1 for blending amount. 0 results in bg, 1 results in fg
+Colors.blend = function(fg_color, bg_color, alpha)
   alpha = type(alpha) == "string" and (tonumber(alpha, 16) / 0xff) or alpha
-  local bg = hex_to_rgb(background)
-  local fg = hex_to_rgb(foreground)
+  local bg = hex_to_rgb(bg_color)
+  local fg = hex_to_rgb(fg_color)
 
   local blend_channel = function(i)
     local ret = (alpha * fg[i] + ((1 - alpha) * bg[i]))
@@ -35,6 +35,20 @@ Colors.blend = function(foreground, background, alpha)
   end
 
   return string.format("#%02x%02x%02x", blend_channel(1), blend_channel(2), blend_channel(3))
+end
+
+---@param hex string @The color in hexadecimal
+---@param percent number @Percentage of darken, 100 results in black
+---@param custom string? @Custom black color to mix (in hexadecimal)
+Colors.darken = function(hex, percent, custom)
+  return Colors.blend(custom or "#000000", hex, math.abs(percent / 100))
+end
+
+---@param hex string @The color in hexadecimal
+---@param percent number @Percentage of lighten, 100 results in white
+---@param custom string? @Custom white color to mix (in hexadecimal)
+Colors.lighten = function(hex, percent, custom)
+  return Colors.blend(custom or "#FFFFFF", hex, math.abs(percent / 100))
 end
 
 ---Get RGB highlight by highlight group

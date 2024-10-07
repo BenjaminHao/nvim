@@ -1,12 +1,12 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│  MODULE: my.plugins.editor.hlchunk                                       │--
+--│  MODULE: my.plugins.ui.hlchunk                                           │--
 --│  DETAIL: Indentation guides for Neovim                                   │--
 --│  CREATE: 2024-10-02 by Benjamin Hao                                      │--
 --│  UPDATE: 2024-10-02 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
--- TODO: config hlchunk
+-- TODO: add toggle functions for hlchunk
 local Plugin = {
   "shellRaining/hlchunk.nvim",
   event = { "BufReadPre", "BufNewFile" },

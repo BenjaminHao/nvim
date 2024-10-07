@@ -25,12 +25,12 @@ Plugin.config = function()
 
   -- Set menu
   dashboard.section.buttons.val = {
-    dashboard.button("n", "󰈔 " .. " New File", "<cmd>ene <bar> startinsert<cr>"),
-    dashboard.button("f", "󰈞 " .. " Find File", function () require("my.keymaps.func").find_files() end),
-    dashboard.button("r", "󰈙 " .. " Recent File", function () require("my.keymaps.func").find_recent() end),
-    dashboard.button("w", "󱎸 " .. " Find Word", function () require("my.keymaps.func").find_word() end),
-    dashboard.button("e", "󰙅 " .. " Explorer", "<cmd>Neotree<cr>"),
-    dashboard.button("c", " " .. " Config" , "<cmd>e $MYVIMRC|cd %:p:h|Neotree<cr>"),
+    dashboard.button("n", "󱇧 " .. " New File", "<Cmd>ene <bar> startinsert<Cr>"),
+    dashboard.button("r", "󱋡 " .. " Recent File", function () require("my.keymaps.func").find_recent() end),
+    dashboard.button("f", "󰱼 " .. " Find File", function () require("my.keymaps.func").find_files() end),
+    dashboard.button("p", " " .. " Project", "<Cmd>Telescope projects<Cr>"),
+    dashboard.button("e", "󰙅 " .. " Explorer", "<cmd>NvimTreeToggle<cr>"),
+    dashboard.button("c", " " .. " Config" , "<cmd>e $MYVIMRC|cd %:p:h|NvimTreeOpen<cr>"),
     dashboard.button("h", "󰗶 " .. " Checkhealth", "<cmd>Lazy load all | checkhealth<cr>"),
     dashboard.button("q", " " .. " Quit", "<cmd>qa!<cr>"),
   }

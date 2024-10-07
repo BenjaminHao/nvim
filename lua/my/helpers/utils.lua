@@ -103,7 +103,7 @@ Utils.command_panel = function()
   })
 end
 
-Utils.telescope_reveal_in_neotree = function()
+Utils.telescope_reveal_in_nvimtree = function()
   local selection = require("telescope.actions.state").get_selected_entry()
   local file_path = selection.path
   if file_path == nil then

@@ -11,14 +11,14 @@ local Plugin = {
   branch = "0.1.x",
   cmd = "Telescope",
   dependencies = {
-    { "nvim-lua/plenary.nvim" }, -- lua functions library
-    { "nvim-tree/nvim-web-devicons" },  -- icons for ui
-    { "ahmedkhalf/project.nvim" }, -- project management
-    { "FabianWirth/search.nvim" }, -- Tabs support
-    { "debugloop/telescope-undo.nvim" }, -- fuzzy-search undo tree
-    { "nvim-telescope/telescope-frecency.nvim" }, -- sorting by frequency and recency
-    { "nvim-telescope/telescope-live-grep-args.nvim" }, -- live grep args picker
+    "nvim-lua/plenary.nvim", -- lua functions library
+    "nvim-tree/nvim-web-devicons",  -- icons for ui
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" }, -- a C port of fzf, Cmake required
+    "debugloop/telescope-undo.nvim", -- fuzzy-search undo tree
+    "nvim-telescope/telescope-frecency.nvim", -- sorting by frequency and recency
+    "nvim-telescope/telescope-live-grep-args.nvim", -- live grep args picker
+    -- "ahmedkhalf/project.nvim", -- project management
+    "FabianWirth/search.nvim", -- Tabs support
     -- TODO: check { "jvgrootveld/telescope-zoxide" },
   }
 }
@@ -75,12 +75,12 @@ Plugin.config = function()
           ["<C-l>"] = actions.select_default,
           ["<C-d>"] = actions.preview_scrolling_down,
           ["<C-u>"] = actions.preview_scrolling_up,
-          ["<C-cr>"] = require("my.helpers.utils").telescope_reveal_in_neotree
+          ["<C-cr>"] = require("my.helpers.utils").telescope_reveal_in_nvimtree
         },
         n = {
           ["q"] = actions.close,
           ["?"] = actions.which_key,
-          ["<C-cr>"] = require("my.helpers.utils").telescope_reveal_in_neotree
+          ["<C-cr>"] = require("my.helpers.utils").telescope_reveal_in_nvimtree
         },
       },
     },
@@ -89,7 +89,6 @@ Plugin.config = function()
       "aerial",
       "frecency",
       "fzf",
-      "lazygit",
       "live_grep_args",
       "notify",
       "projects",

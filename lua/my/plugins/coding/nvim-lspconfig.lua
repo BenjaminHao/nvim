@@ -90,24 +90,50 @@ please REMOVE your LSP configuration (rust_analyzer.lua) from the `servers` dire
   mason_lspconfig.setup_handlers({ mason_lsp_handler })
 
   vim.api.nvim_create_autocmd("LspAttach", {
-    group = vim.api.nvim_create_augroup("LSP", { clear = true }),
-    callback = function(event)
-      require("my.keymaps.coding").lsp_on_attach(event.buf)
+    group = vim.api.nvim_create_augroup("LSP-attach", { clear = true }),
+    callback = function(event_attach)
+      require("my.keymaps.coding").lsp_on_attach(event_attach.buf)
       -- The following two autocommands are used to highlight references of the
       -- word under your cursor when your cursor rests there for a little while.
       --    See `:help CursorHold` for information about when this is executed
       --
       -- When you move your cursor, the highlights will be cleared (the second autocommand).
-      local client = vim.lsp.get_client_by_id(event.data.client_id)
-      if client and client.server_capabilities.documentHighlightProvider then
-        vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
-          buffer = event.buf,
+      local client = vim.lsp.get_client_by_id(event_attach.data.client_id)
+      if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+        local highlight_augroup = vim.api.nvim_create_augroup('LSP-highlight', { clear = false })
+        vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+          buffer = event_attach.buf,
+          group = highlight_augroup,
           callback = vim.lsp.buf.document_highlight,
         })
 
-        vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
-          buffer = event.buf,
+        vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+          buffer = event_attach.buf,
+          group = highlight_augroup,
           callback = vim.lsp.buf.clear_references,
+        })
+
+        vim.api.nvim_create_autocmd('LspDetach', {
+          group = vim.api.nvim_create_augroup('LSP-detach', { clear = true }),
+          callback = function(event_detach)
+            vim.lsp.buf.clear_references()
+            vim.api.nvim_clear_autocmds { group = 'LSP-highlight', buffer = event_detach.buf }
+          end,
+        })
+      end
+
+      -- The following code creates a keymap to toggle inlay hints in your
+      -- code, if the language server you are using supports them
+      --
+      -- This may be unwanted, since they displace some of your code
+      if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+        vim.keymap.set("n", "<Leader>th", function()
+          vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = event_attach.buf })
+        end, {
+          buffer = event_attach.buf,
+          desc = "Toggle: LSP Inlay Hints",
+          silent = true,
+          noremap = true,
         })
       end
     end,

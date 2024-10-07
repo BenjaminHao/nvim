@@ -48,12 +48,25 @@ Plugin.config = function()
       right_mouse_command = function(n) bufremove.delete(n, false) end,
       diagnostics = false, -- OR: | "nvim_lsp" 
       diagnostics_update_in_insert = false,
-      sort_by = "insert_at_end",
+      sort_by = function(a, b)
+        -- sort by modified time (newer to left)
+        ---@diagnostic disable-line
+        local mod_a = vim.uv.fs_stat(a.path)
+        local mod_b = vim.uv.fs_stat(b.path)
+        if mod_a == nil and mod_b == nil then
+          return a.name > b.name
+        elseif mod_a == nil then
+          return true
+        elseif mod_b == nil then
+          return false
+        end
+        return mod_a.mtime.sec > mod_b.mtime.sec
+      end,
       hover = { enabled = true, delay = 30, reveal = { 'close' } },
       offsets = {
         {
-          filetype = "neo-tree",
-          text = "Neo-Tree",
+          filetype = "NvimTree",
+          text = "NvimTree",
           -- text = function()
           --   return vim.fn.fnamemodify(vim.fn.getcwd(), ":~") --(".", ":p:h:t")
           -- end,

@@ -14,17 +14,17 @@ local Plugin = {
     "hrsh7th/cmp-path", -- source for file system paths
     "hrsh7th/cmp-cmdline",  -- source for command line
     "hrsh7th/cmp-nvim-lsp", -- for lsp completion
-    "hrsh7th/cmp-nvim-lua", -- for neovim lua api
     "saadparwaiz1/cmp_luasnip", -- for autocompletion
     "L3MON4D3/LuaSnip", -- snippet engine
     "rafamadriz/friendly-snippets",  -- some snippets collection
-    "lukas-reineke/cmp-under-comparator",
   }
 }
 
 Plugin.config = function()
   local cmp = require("cmp")
   local luasnip = require("luasnip")
+  local types = require("cmp.types")
+  local compare = require("cmp.config.compare")
   local util = require("my.helpers.utils")
   local icons = {
     kind = require("my.helpers.icons").get("kind"),
@@ -35,54 +35,49 @@ Plugin.config = function()
   -- luasnip setup
   require("luasnip/loaders/from_vscode").lazy_load()  -- load snippets collection from plugins
 
-  local compare = require("cmp.config.compare")
-  compare.lsp_scores = function(entry1, entry2)
-    local diff
-    if entry1.completion_item.score and entry2.completion_item.score then
-      diff = (entry2.completion_item.score * entry2.score) - (entry1.completion_item.score * entry1.score)
-    else
-      diff = entry2.score - entry1.score
-    end
-    return (diff < 0)
-  end
-
-  local comparators = {
-    compare.offset, -- Items closer to cursor will have lower priority
-    compare.exact,
-    -- compare.scopes,
-    compare.lsp_scores,
-    compare.sort_text,
-    compare.score,
-    compare.recently_used,
-    -- compare.locality, -- Items closer to cursor will have higher priority, conflicts with `offset`
-    require("cmp-under-comparator").under,
-    compare.kind,
-    compare.length,
-    compare.order,
+  ---@type table<integer, integer>
+  local modified_priority = {
+    [types.lsp.CompletionItemKind.Variable] = types.lsp.CompletionItemKind.Method,
+    [types.lsp.CompletionItemKind.Snippet] = 0, -- top
+    [types.lsp.CompletionItemKind.Keyword] = 0, -- top
+    [types.lsp.CompletionItemKind.Text] = 100, -- bottom
   }
+  ---@param kind integer: kind of completion entry
+  local function modified_kind(kind)
+    return modified_priority[kind] or kind
+  end
 
   -- cmp setup
   cmp.setup({
     preselect = cmp.PreselectMode.None,
-    window = {
-      completion = {
-        -- border = util.set_colorborder("CmpBorder"),
-        side_padding = 0,
-        col_offset = -3,
-        scrollbar = false,
-        winhighlight = "Normal:Pmenu,CursorLine:CmpSel,Search:None",
-      },
-      documentation = {
-        border = util.set_colorborder("CmpDocBorder"),
-        winhighlight = "Normal:CmpDoc,Search:None",
-      },
-    },
     sources = cmp.config.sources({  -- sources for autocompletion
-      { name = "nvim_lsp" },  -- lsp
-      { name = "nvim_lua" }, -- lua api
+      { name = "nvim_lsp", keyword_length = 3 },  -- lsp
       { name = "luasnip" }, -- snippets
-      { name = "buffer" }, -- text within current buffer
-      { name = "path" }, -- file system paths
+      { -- text within current buffer
+        name = "buffer",
+        option = {
+          keyword_length = 3,
+          get_bufnrs = function() -- from all buffers (less than 1MB)
+            local bufs = {}
+            for _, bufn in ipairs(vim.api.nvim_list_bufs()) do
+              local buf_size = vim.api.nvim_buf_get_offset(bufn, vim.api.nvim_buf_line_count(bufn))
+              if buf_size < 10 * 1024 then
+                table.insert(bufs, bufn)
+              end
+            end
+            return bufs
+          end,
+        },
+      },
+      { -- file system paths
+        name = "path",
+        option = {
+          get_cwd = function(params)
+            return { vim.fn.expand(("#%d:p:h"):format(params.context.bufnr)), vim.fn.getcwd()
+            }
+          end,
+        },
+      }
     }),
     snippet = { -- configure how nvim-cmp interacts with snippet engine
       expand = function(args)
@@ -91,7 +86,41 @@ Plugin.config = function()
     },
     sorting = {
       priority_weight = 2,
-      comparators = comparators,
+      comparators = {
+        compare.offset,
+        compare.exact,
+        function(entry1, entry2) -- sort by length ignoring "=~"
+          local len1 = string.len(string.gsub(entry1.completion_item.label, "[=~()_]", ""))
+          local len2 = string.len(string.gsub(entry2.completion_item.label, "[=~()_]", ""))
+          if len1 ~= len2 then
+            return len1 - len2 < 0
+          end
+        end,
+        compare.recently_used, ---@diagnostic disable-line
+        function(entry1, entry2) -- sort by compare kind (Variable, Function etc)
+          local kind1 = modified_kind(entry1:get_kind())
+          local kind2 = modified_kind(entry2:get_kind())
+          if kind1 ~= kind2 then
+            return kind1 - kind2 < 0
+          end
+        end,
+        function(entry1, entry2) -- score by lsp, if available
+          local t1 = entry1.completion_item.sortText
+          local t2 = entry2.completion_item.sortText
+          if t1 ~= nil and t2 ~= nil and t1 ~= t2 then
+            return t1 < t2
+          end
+        end,
+        compare.score,
+        compare.order,
+      },
+    },
+    matching = {
+      disallow_fuzzy_matching = false, -- fmodify -> fnamemodify
+      disallow_fullfuzzy_matching = true,
+      disallow_partial_fuzzy_matching = true,
+      disallow_partial_matching = false, -- fb -> foo_bar
+      disallow_prefix_unmatching = true, -- bar -> foo_bar 
     },
     formatting = {
       fields = { "kind", "abbr", "menu" },
@@ -102,15 +131,14 @@ Plugin.config = function()
         vim_item.menu = setmetatable({
           buffer = "│ BUF",
           nvim_lsp = "│ LSP",
-          nvim_lua = "| LUA",
           path = "│ PATH",
           luasnip = "│ SNIP",
           cmdline = "│ CMD",
-          }, {
+        }, {
             __index = function()
               return "│ NVIM" -- builtin/unknown source names
             end,
-        })[entry.source.name]
+          })[entry.source.name]
 
         local label = vim_item.abbr
         local truncated_label = vim.fn.strcharpart(label, 0, 80)
@@ -126,17 +154,33 @@ Plugin.config = function()
         return vim_item
       end,
     },
-    matching = {
-      disallow_partial_fuzzy_matching = false,
+    window = {
+      completion = {
+        -- border = util.set_colorborder("CmpBorder"),
+        side_padding = 0,
+        col_offset = -3,
+        scrollbar = false,
+        winhighlight = "Normal:Pmenu,CursorLine:CmpSel,Search:None",
+      },
+      documentation = {
+        border = util.set_colorborder("CmpDocBorder"),
+        winhighlight = "Normal:CmpDoc,Search:None",
+      },
+    },
+    confirm_opts = {
+      behavior = cmp.ConfirmBehavior.Replace,
+      select = false,
     },
     performance = {
+      debounce = 60,
+      throttle = 30,
+      fetching_timeout = 500,
+      confirm_resolve_timeout = 80,
       async_budget = 1,
-      max_view_entries = 120,
+      max_view_entries = 200,
     },
     experimental = {
-      ghost_text = {
-        hl_group = "Whitespace",
-      },
+      ghost_text = false, -- { hl_group = "Whitespace" },
     },
     mapping = cmp.mapping.preset.insert({
       ["<C-y>"] = cmp.config.disable,
@@ -159,25 +203,25 @@ Plugin.config = function()
         end
       end, { "i", "s" }),
       -- regular tab completion
-      ["<Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
-        elseif luasnip.expand_or_jumpable() then
-          luasnip.expand_or_jump()
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
-      ["<S-Tab>"] = cmp.mapping(function(fallback)
-        if cmp.visible() then
-          cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
-        elseif luasnip.jumpable(-1) then
-          luasnip.jump(-1)
-        else
-          fallback()
-        end
-      end, { "i", "s" }),
-      ["<CR>"] = cmp.mapping.confirm({ select = false }),
+      -- ["<Tab>"] = cmp.mapping(function(fallback)
+      --   if cmp.visible() then
+      --     cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+      --   elseif luasnip.expand_or_jumpable() then
+      --     luasnip.expand_or_jump()
+      --   else
+      --     fallback()
+      --   end
+      -- end, { "i", "s" }),
+      -- ["<S-Tab>"] = cmp.mapping(function(fallback)
+      --   if cmp.visible() then
+      --     cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+      --   elseif luasnip.jumpable(-1) then
+      --     luasnip.jump(-1)
+      --   else
+      --     fallback()
+      --   end
+      -- end, { "i", "s" }),
+      -- ["<CR>"] = cmp.mapping.confirm({ select = false }),
     })
   })
 
@@ -202,7 +246,6 @@ Plugin.config = function()
   cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(cmdline_mapping),
     sources = {
-      { name = "nvim_lua" },
       { name = "cmdline" },
       { name = "path" },
     }

@@ -14,7 +14,8 @@ local _ = require("my.keymaps.func")
 local nvim_keymaps = {
   ["nvo|gh"] = map.key("^"):desc("Goto: First non-blank character"),
   ["nvo|gl"] = map.key("g_"):desc("Goto: Last non-blank character"),
-  -- Move Lines ["v|H"] = map.key("<gv"):desc("Edit: Decrease indent"),
+  -- Move Lines
+  ["v|H"] = map.key("<gv"):desc("Edit: Decrease indent"),
   ["v|L"] = map.key(">gv"):desc("Edit: Increase indent"),
   ["v|J"] = map.key(":m '>+1<CR>gv=gv"):desc("Edit: Move line down"),
   ["v|K"] = map.key(":m '<-2<CR>gv=gv"):desc("Edit: Move line up"),
@@ -28,15 +29,16 @@ local nvim_keymaps = {
   -- Deleting and yanking
   ["n|D"] = map.key("d$"):desc("Edit: Delete text to EOL"),
   ["n|dd"] = map.func(_.better_dd):expr():desc("Edit: Delete line"),
+  ["v|d"] = map.key('"_d'):desc("Edit: Delete"), -- d: delete, x: cut
   ["n|x"] = map.key('"_x'):desc("Edit: Delete a character"),
-  ["v|x"] = map.key('"_d'):desc("Edit: Delete"),
   ["n|Y"] = map.key("y$"):desc("Edit: Yank text to end of line"),
   ["v|p"] = map.key('"_dP'):desc("Edit: Paste"), -- Visual overwrite paste
+  ["nv|c"] = map.key('"_c'):desc("Edit: Change"),
   -- Insert mode
   ["n|i"] = map.func(_.better_insert):expr():desc("Edit: Insert"),
-  ["i|<C-Space>"] = map.key("<Esc>"):desc("Quit Insert Mode"),
-  ["i|<C-v>"] = map.key("<C-r>*"):desc("Edit: Paste"),
+  -- ["i|<C-Space>"] = map.key("<Esc>"):desc("Quit Insert Mode"),
   ["i|<C-=>"] = map.key("<C-r>="):desc("Edit: Calculator"),
+  ["ic|<C-v>"] = map.key("<C-r>*"):desc("Edit: Paste"),
   ["ic|<C-h>"] = map.key("<Left>"):desc("Motion: Move cursor left"),
   ["ic|<C-j>"] = map.key("<Down>"):desc("Motion: Move cursor down"),
   ["ic|<C-k>"] = map.key("<Up>"):desc("Motion: Move cursor up"),
@@ -57,11 +59,11 @@ local nvim_keymaps = {
   ["n|`"] = map.key("m"):desc("Mark"), -- Default: Goto marks, same as <'>
   ["n|<C-S-v>"] = map.key("ggVG"):desc("Edit: Select all"),
   ["n|<S-Tab>"] = map.cmd("normal za"):desc("Edit: Toggle code fold"),
-  ["n|<Leader>ts"] = map.cmd("setlocal spell! spelllang=en_us"):desc("Edit: Toggle spell check"),
+  ["n|<Leader>ts"] = map.cmd("setlocal spell! spelllang=en_us"):desc("Toggle: Spell Check"),
   ["nv|<C-t>"] = map.func(_.toggle_term):desc("Edit: Toggle term"),
   ["c|<C-t>"] = map.key([[<C-R>=expand("%:p:h")<CR>]]):desc("Edit: Complete path of current file"),
   ---------------------------------- Window -------------------------------------
-  -- TODO: find lua api for this
+  -- TODO: find vim api for this
   ["n|<A-d>"] = map.key("<C-w>p<C-d><C-w>p"):desc("Windows: Scroll last window down half pages"),
   ["n|<A-u>"] = map.key("<C-w>p<C-u><C-w>p"):desc("Windows: Scroll last window up half pages"),
   ["n|<A-f>"] = map.key("<C-w>p<C-f><C-w>p"):desc("Windows: Scroll last window down one page"),

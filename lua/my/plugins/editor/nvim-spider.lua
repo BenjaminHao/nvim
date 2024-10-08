@@ -1,9 +1,9 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
 --│  MODULE: my.plugins.editor.nvim-spider                                   │--
---│  DETAIL: Auto-pair plugin for '"{[( etc.                                 │--
---│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
---│  UPDATE: 2024-08-08 by Benjamin Hao                                      │--
+--│  DETAIL: Jump to subwords                                                │--
+--│  CREATE: 2024-10-07 by Benjamin Hao                                      │--
+--│  UPDATE: 2024-10-07 by Benjamin Hao                                      │--
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Plugin = {

@@ -48,7 +48,7 @@ Plugin.config = function()
               { open = "'", close = "'" },
               { open = '"', close = '"' },
             },
-            format = "%s ", -- ", "
+            format = "%s",
           },
           ["="] = {
             pairs = {

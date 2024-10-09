@@ -1,6 +1,6 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│  MODULE: my.plugins.editor.dropbar                                       │--
+--│  MODULE: my.plugins.ui.dropbar                                           │--
 --│  DETAIL: IDE-like winbar                                                 │--
 --│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
 --│  UPDATE: 2024-09-19 by Benjamin Hao                                      │--

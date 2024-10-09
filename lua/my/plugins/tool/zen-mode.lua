@@ -1,6 +1,6 @@
 --╭──────────────────────────────────────────────────────────────────────────╮--
 --│                                                                          │--
---│  MODULE: my.plugins.ui.zen-mode                                          │--
+--│  MODULE: my.plugins.tool.zen-mode                                        │--
 --│  DETAIL: Distracion-free environment, hide ui                            │--
 --│  CREATE: 2024-08-08 by Benjamin Hao                                      │--
 --│  UPDATE: 2024-09-19 by Benjamin Hao                                      │--

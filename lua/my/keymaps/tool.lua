@@ -38,6 +38,8 @@ local keymaps_tool = {
   ["n|<C-`>"] = map.cmd("ToggleTerm direction=vertical"):desc("Terminal: Toggle Vertical"),
   ["n|<Leader>T"] = map.cmd("ToggleTerm direction=float"):desc("Terminal: Toggle Float"),
   ["n|<leader>G"] = map.func(_.toggle_lazygit):desc("Git: Lazygit"),
+  -- Zen-mode
+  ["n|<Leader>z"] = map.cmd("ZenMode"):desc("Zen Mode")
 }
 
 Keymaps.nvimtree_on_attach = function(bufnr)

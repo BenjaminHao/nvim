@@ -36,8 +36,6 @@ local keymaps_ui = {
   ["n|<Leader>ml"] = map.cmd("Noice last"):desc("Message: Show Last"),
   ["n|<Leader>me"] = map.cmd("Noice error"):desc("Message: Show Error"),
   ["n|<Leader>mh"] = map.cmd("Noice history"):desc("Message: Show History"),
-  -- Zen-mode
-  ["n|<Leader>z"] = map.cmd("ZenMode"):desc("Zen Mode")
 }
 
 Keymaps.setup = function()

@@ -9,7 +9,7 @@
 -- TODO: icons
 local Plugin = {
   "williamboman/mason.nvim",
-  event = "VeryLazy",
+  lazy = false,
   cmd = { "Mason", "MasonUpdate", "MasonInstall", "MasonInstall" },
   dependencies = {
     "williamboman/mason-lspconfig.nvim", -- auto install lsp servers
@@ -44,27 +44,27 @@ Plugin.config = function()
     -- list of servers for mason to install
     -- https://github.com/williamboman/mason-lspconfig.nvim?tab=readme-ov-file#available-lsp-servers
     ensure_installed = {
-      "clangd",    -- C/C++
-      "html",      -- HTML
-      "jdtls",     -- Java
-      "jsonls",    -- Json
-      "lua_ls",    -- Lua
-      "pylsp",     -- Python
-      "marksman",  -- Markdown
+      "clangd", -- C/C++
+      "html", -- HTML
+      "jdtls", -- Java
+      "jsonls", -- Json
+      "lua_ls", -- Lua
+      "pylsp", -- Python
+      "marksman", -- Markdown
     },
     -- auto-install configured servers (with lspconfig)
     automatic_installation = true, -- not the same as ensure_installed
   })
 
-  require('mason-tool-installer').setup({
+  require("mason-tool-installer").setup({
     -- a list of all tools you want to ensure are installed upon start
     ensure_installed = {
       -- Formatters
-      "black",              -- Python
-      "clang_format",       -- C/C++
+      "black", -- Python
+      "clang-format", -- C/C++
       "google-java-format", -- Java
-      "prettier",           -- HTML/JavaScript/Json/Markdown etc.
-      "stylua",             -- Lua
+      "prettier", -- HTML/JavaScript/Json/Markdown etc.
+      "stylua", -- Lua
     },
     run_on_start = true,
     auto_update = false,

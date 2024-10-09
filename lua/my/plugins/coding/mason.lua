@@ -12,15 +12,13 @@ local Plugin = {
   event = "VeryLazy",
   cmd = { "Mason", "MasonUpdate", "MasonInstall", "MasonInstall" },
   dependencies = {
-    "williamboman/mason-lspconfig.nvim"
+    "williamboman/mason-lspconfig.nvim", -- auto install lsp servers
+    "WhoIsSethDaniel/mason-tool-installer.nvim", -- auto install linters & formatters
   },
 }
 
 Plugin.config = function()
-  local mason = require("mason")
-  local mason_lspconfig = require("mason-lspconfig")
-
-  mason.setup({
+  require("mason").setup({
     ui = {
       border = "rounded",
       icons = {
@@ -42,7 +40,7 @@ Plugin.config = function()
     },
   })
 
-  mason_lspconfig.setup({
+  require("mason-lspconfig").setup({
     -- list of servers for mason to install
     -- https://github.com/williamboman/mason-lspconfig.nvim?tab=readme-ov-file#available-lsp-servers
     ensure_installed = {
@@ -56,6 +54,20 @@ Plugin.config = function()
     },
     -- auto-install configured servers (with lspconfig)
     automatic_installation = true, -- not the same as ensure_installed
+  })
+
+  require('mason-tool-installer').setup({
+    -- a list of all tools you want to ensure are installed upon start
+    ensure_installed = {
+      -- Formatters
+      "black",              -- Python
+      "clang_format",       -- C/C++
+      "google-java-format", -- Java
+      "prettier",           -- HTML/JavaScript/Json/Markdown etc.
+      "stylua",             -- Lua
+    },
+    run_on_start = true,
+    auto_update = false,
   })
 end
 

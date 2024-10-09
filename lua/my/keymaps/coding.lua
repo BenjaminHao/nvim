@@ -13,6 +13,8 @@ local _ = require("my.keymaps.func")
 local keymaps_coding = {
   -- Mason
   ["n|<Leader>L"] = map.cmd("Mason"):desc("LSP Manager"),
+  -- Conform
+  ["nv|<C-=>"] = map.func(_.format_file_or_selected):desc("Format Code"),
 }
 
 -- TODO: change lsp keybinds

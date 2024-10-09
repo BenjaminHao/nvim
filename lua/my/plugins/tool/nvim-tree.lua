@@ -71,10 +71,10 @@ Plugin.config = function()
           bookmarks = true,
         },
         glyphs = {
-          default = "󰧮",
-          symlink = "󱅸",
-          bookmark = "󱀻",
-          modified = "󱀾",
+          default = "󰈔",
+          symlink = "",
+          bookmark = "󰓎",
+          modified = "󱦹",
           hidden = "󰘓",
           folder = {
             arrow_closed = "",
@@ -118,7 +118,7 @@ Plugin.config = function()
         max = vim.diagnostic.severity.ERROR,
       },
       icons = {
-        hint = "󰻂",
+        hint = "󰠠",
         info = "",
         warning = "",
         error = "",

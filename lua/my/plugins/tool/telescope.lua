@@ -75,6 +75,8 @@ Plugin.config = function()
           ["<C-l>"] = actions.select_default,
           ["<C-d>"] = actions.preview_scrolling_down,
           ["<C-u>"] = actions.preview_scrolling_up,
+          ["<C-s>"] = actions.select_horizontal,
+          ["<C-v>"] = actions.select_vertical,
           ["<C-cr>"] = require("my.helpers.utils").telescope_reveal_in_nvimtree
         },
         n = {

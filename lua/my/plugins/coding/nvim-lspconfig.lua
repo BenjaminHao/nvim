@@ -25,13 +25,19 @@ Plugin.config = function()
   local mason_lspconfig = require("mason-lspconfig")
   require("lspconfig.ui.windows").default_options.border = "rounded"
 
+  -- Change the Diagnostic symbols in the sign column (gutter)
+  local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }
+  for type, icon in pairs(signs) do
+    local hl = "DiagnosticSign" .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
+  end
+
   vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     signs = true,
     underline = true,
     virtual_text = true,
     severity_limit = "Hint", -- "Error"|"Warning"|"Information"|"Hint"
-    -- set update_in_insert to false because it was enabled by lspsaga
-    update_in_insert = false,
+    update_in_insert = true,
   })
 
   local opts = {

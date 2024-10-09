@@ -39,7 +39,7 @@ Plugin.config = function ()
         search_down = { title = " Search Downwards ", kind = "search", pattern = "^/", icon = "  ", lang = "regex" },
         search_up = { title = " Search Upwards ", kind = "search", pattern = "^%?", icon = "  ", lang = "regex" },
         lua = { title = " Lua ", pattern = { "^:%s*lua%s+", "^:%s*lua%s*=%s*", "^:%s*=%s*" }, icon = "", lang = "lua" },
-        help = { title = " Help ", pattern = "^:%s*he?l?p?%s+", icon = "󱉟" },
+        help = { title = " Help ", pattern = "^:%s*he?l?p?%s+", icon = "" },
         filter = { title = " Shell ", pattern = "^:%s*!", icon = "", lang = "bash" },
         select = { title = " CmdLine in Range ", pattern = "^:'<,'>", icon = "󱊀", lang = "vim" },
         substitute_line = { title = " Substitute in Line ", pattern = "^:s/", icon = "", lang = "regex" },

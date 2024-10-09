@@ -155,19 +155,18 @@ Plugin.config = function()
           local filename = vim.fn.expand("%")
           return filename ~= "" and vim.bo.buftype == "" and vim.fn.filereadable(filename) == 0
         end
-
         local symbols = {}
         if vim.bo.modified then
-          table.insert(symbols, "[+]")
+          table.insert(symbols, "[󰴓]")
         end
         if vim.bo.modifiable == false then
-          table.insert(symbols, "[-]")
+          table.insert(symbols, "[]")
         end
         if vim.bo.readonly == true then
-          table.insert(symbols, "[RO]")
+          table.insert(symbols, "[󰂿]")
         end
         if is_new_file() then
-          table.insert(symbols, "[New]")
+          table.insert(symbols, "[󱇬]")
         end
         return #symbols > 0 and table.concat(symbols, "") or ""
       end,
@@ -348,10 +347,10 @@ Plugin.config = function()
           sources = { "nvim_diagnostic" },
           sections = { "error", "warn", "info", "hint" },
           symbols = {
-            error = icons.diagnostics.Error,
-            warn = icons.diagnostics.Warning,
-            info = icons.diagnostics.Information,
-            hint = icons.diagnostics.Hint_alt,
+            error = " ",
+            warn = " ",
+            info = "󰠠 ",
+            hint = " ",
           },
         },
       },

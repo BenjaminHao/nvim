@@ -24,18 +24,34 @@ Plugin.config = function()
         initial_tab = 1,
         tabs = {
           {
-            name = "Find Files (CWD)",
-            tele_func = builtin.find_files,
+            name = "CWD",
+            tele_func = function()
+              builtin.find_files({
+                prompt_title = "CWD Files",
+              })
+            end,
           },
           {
-            name = "Find Files (Git)",
-            tele_func = builtin.git_files,
-            available = function() return vim.fn.isdirectory(".git") == 1 end,
+            name = "Git",
+            tele_func = function()
+              builtin.git_files({
+                prompt_title = "Git Files",
+              })
+            end,
+            available = function()
+              return vim.fn.isdirectory(".git") == 1
+            end,
           },
           {
-            name = "Find Files (All)",
-            tele_func = builtin.find_files,
-            tele_opts = { cwd = vim.env.HOME, no_ignore = true, hidden = true }
+            name = "All",
+            tele_func = function()
+              builtin.find_files({
+                prompt_title = "All Files",
+                cwd = vim.env.HOME,
+                no_ignore = true,
+                hidden = true,
+              })
+            end,
           },
         },
       },
@@ -43,12 +59,20 @@ Plugin.config = function()
         initial_tab = 1,
         tabs = {
           {
-            name = "Recent Files (History)",
-            tele_func = builtin.oldfiles
+            name = "History",
+            tele_func = function()
+              builtin.oldfiles({
+                prompt_title = "Recent Files (History)",
+              })
+            end,
           },
           {
-            name = "Recent Files (Frecency)",
-            tele_func = extensions.frecency.frecency
+            name = "Frecency",
+            tele_func = function()
+              extensions.frecency.frecency({
+                prompt_title = "Recent Files (Frecency)",
+              })
+            end,
           },
         },
       },
@@ -57,17 +81,29 @@ Plugin.config = function()
         initial_tab = 1,
         tabs = {
           {
-            name = "Fuzzy Find Current",
-            tele_func = builtin.current_buffer_fuzzy_find
+            name = "Current Buffer",
+            tele_func = function()
+              builtin.current_buffer_fuzzy_find({
+                prompt_title = "Fuzzy Find (Current Buffer)",
+              })
+            end,
           },
           {
-            name = "Grep Opened Files",
-            tele_func = builtin.live_grep,
-            tele_opts = { grep_open_files = true },
+            name = "Opened Files",
+            tele_func = function()
+              builtin.live_grep({
+                prompt_title = "Live Grep (Opened Files)",
+                grep_open_files = true
+              })
+            end,
           },
           {
-            name = "Grep Whole Project",
-            tele_func = extensions.live_grep_args.live_grep_args
+            name = "Whole Project",
+            tele_func = function()
+              extensions.live_grep_args.live_grep_args({
+                prompt_title = "Live Grep (Current Working Directory)",
+              })
+            end,
           },
         },
       },
@@ -76,12 +112,20 @@ Plugin.config = function()
         initial_tab = 1,
         tabs = {
           {
-            name = "Git Branches",
-            tele_func = builtin.git_branches,
+            name = "Branches",
+            tele_func = function()
+              builtin.git_branches({
+                prompt_title = "Git Branches",
+              })
+            end,
           },
           {
-            name = "Git Commits",
-            tele_func = builtin.git_commits,
+            name = "Commits",
+            tele_func = function()
+              builtin.git_commits({
+                prompt_title = "Git Commits",
+              })
+            end,
           },
         },
       },

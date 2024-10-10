@@ -61,7 +61,7 @@ Plugin.config = function()
     ensure_installed = {
       -- Formatters
       "black", -- Python
-      "clang-format", -- C/C++
+      -- "clang-format", -- C/C++
       "google-java-format", -- Java
       "prettier", -- HTML/JavaScript/Json/Markdown etc.
       "stylua", -- Lua

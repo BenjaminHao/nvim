@@ -15,6 +15,8 @@ local keymaps_coding = {
   ["n|<Leader>L"] = map.cmd("Mason"):desc("LSP Manager"),
   -- Conform
   ["nv|<C-=>"] = map.func(_.format_file_or_selected):desc("Format Code"),
+  ["n|<Leader>tf"] = map.cmd("FormatToggle"):desc("Toggle: Format (Global)"),
+  ["n|<Leader>tF"] = map.cmd("FormatToggle!"):desc("Toggle: Format (Buffer)")
 }
 
 -- TODO: change lsp keybinds

@@ -109,6 +109,10 @@ Func.toggle_lazygit = function()
 end
 
 ------------------------------------ Editor ------------------------------------
+Func.jump_to_word = function()
+  require("flash").jump()
+end
+
 Func.comment_line = function()
   return vim.v.count == 0
     and "<Plug>(comment_toggle_linewise_current)"

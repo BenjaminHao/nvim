@@ -14,7 +14,7 @@ local keymaps_editor = {
   -- Nvim-surround ==> <s> key: surround, acted just like vim motions
   -- Treesitter ==> <cr> - incremental selection, <bs> - decremental
   -- Flash
-  ["nvo|m"] = map.func(function() require("flash").jump() end):desc("Motion: Move to word"),
+  ["nvo|m"] = map.func(_.jump_to_word):desc("Motion: Move to word"),
   -- Spider
   ["n|L"] = map.cmd("SpiderW"):desc("Motion: Move to next subword"),
   ["ov|L"] = map.cmd("SpiderE"):desc("Motion: Move to next subword"),
@@ -27,18 +27,18 @@ local keymaps_editor = {
   -- TreeSJ
   ["n|<tab>"] = map.cmd("TSJToggle"):desc("Edit: Split/joining Code Block"),
   -- Smart-splits
-  ["n|<C-h>"] = map.cmd("SmartCursorMoveLeft"):desc("Window: Focus left"),
-  ["n|<C-j>"] = map.cmd("SmartCursorMoveDown"):desc("Window: Focus down"),
-  ["n|<C-k>"] = map.cmd("SmartCursorMoveUp"):desc("Window: Focus up"),
-  ["n|<C-l>"] = map.cmd("SmartCursorMoveRight"):desc("Window: Focus right"),
-  ["n|<C-S-h>"] = map.cmd("SmartSwapLeft"):desc("Window: Move Leftward"),
-  ["n|<C-S-j>"] = map.cmd("SmartSwapDown"):desc("Window: Move Downward"),
-  ["n|<C-S-k>"] = map.cmd("SmartSwapUp"):desc("Window: Move Upward"),
-  ["n|<C-S-l>"] = map.cmd("SmartSwapRight"):desc("Window: Move Rightward"),
-  ["n|<A-h>"] = map.cmd("SmartResizeLeft"):desc("Window: Resize Left"),
-  ["n|<A-j>"] = map.cmd("SmartResizeDown"):desc("Window: Resize Down"),
-  ["n|<A-k>"] = map.cmd("SmartResizeUp"):desc("Window: Resize Up"),
-  ["n|<A-l>"] = map.cmd("SmartResizeRight"):desc("Window: Resize Right"),
+  ["n|<A-h>"] = map.cmd("SmartCursorMoveLeft"):desc("Window: Focus left"),
+  ["n|<A-j>"] = map.cmd("SmartCursorMoveDown"):desc("Window: Focus down"),
+  ["n|<A-k>"] = map.cmd("SmartCursorMoveUp"):desc("Window: Focus up"),
+  ["n|<A-l>"] = map.cmd("SmartCursorMoveRight"):desc("Window: Focus right"),
+  ["n|<A-S-h>"] = map.cmd("SmartSwapLeft"):desc("Window: Move Leftward"),
+  ["n|<A-S-j>"] = map.cmd("SmartSwapDown"):desc("Window: Move Downward"),
+  ["n|<A-S-k>"] = map.cmd("SmartSwapUp"):desc("Window: Move Upward"),
+  ["n|<A-S-l>"] = map.cmd("SmartSwapRight"):desc("Window: Move Rightward"),
+  ["n|<Left>"] = map.cmd("SmartResizeLeft"):desc("Window: Resize Left"),
+  ["n|<Down>"] = map.cmd("SmartResizeDown"):desc("Window: Resize Down"),
+  ["n|<Up>"] = map.cmd("SmartResizeUp"):desc("Window: Resize Up"),
+  ["n|<Right>"] = map.cmd("SmartResizeRight"):desc("Window: Resize Right"),
 }
 
 Keymaps.git_on_attach = function(bufnr)

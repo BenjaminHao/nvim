@@ -7,9 +7,10 @@
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Keymaps = {}
-local map = require("my.helpers.map")
 local _ = require("my.keymaps.func")
+local map = require("my.helpers.map")
 
+-- stylua: ignore
 local keymaps_ui = {
   -- Mini.bufremove
   ["n|<Leader>bd"] = map.func(_.delete_buffer):desc("Buffer: Delete Current"),
@@ -43,4 +44,3 @@ Keymaps.setup = function()
 end
 
 return Keymaps
-

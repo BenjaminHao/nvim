@@ -11,6 +11,7 @@ local Core = {}
 local _ = require("my.keymaps.func")
 local map = require("my.helpers.map")
 
+-- stylua: ignore
 local nvim_keymaps = {
   ["nvo|gh"] = map.key("^"):desc("Goto: First non-blank character"),
   ["nvo|gl"] = map.key("g_"):desc("Goto: Last non-blank character"),
@@ -37,13 +38,13 @@ local nvim_keymaps = {
   ["v|d"] = map.key('"_d'):desc("Edit: Delete"), -- d: delete, x: cut
   ["n|x"] = map.key('"_x'):desc("Edit: Delete a character"),
   ["n|Y"] = map.key("y$"):desc("Edit: Yank text to end of line"),
+  ["n|yA"] = map.cmd("%y"):desc("Edit: Yank all"),
   ["v|p"] = map.key('"_dP'):desc("Edit: Paste"), -- Visual overwrite paste
   ["nv|c"] = map.key('"_c'):desc("Edit: Change"),
   ["nv|C"] = map.key('"_C'):desc("Edit: Change to end of line"),
   -- Insert mode
   ["n|i"] = map.func(_.better_insert):expr():desc("Edit: Insert"),
   -- ["i|<C-Space>"] = map.key("<Esc>"):desc("Quit Insert Mode"),
-  ["i|<C-=>"] = map.key("<C-r>="):desc("Edit: Calculator"),
   ["ic|<C-v>"] = map.key("<C-r>*"):desc("Edit: Paste"),
   ["ic|<C-h>"] = map.key("<Left>"):desc("Motion: Move cursor left"),
   ["ic|<C-j>"] = map.key("<Down>"):desc("Motion: Move cursor down"),

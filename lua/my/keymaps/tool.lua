@@ -7,9 +7,10 @@
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Keymaps = {}
-local map = require("my.helpers.map")
 local _ = require("my.keymaps.func")
+local map = require("my.helpers.map")
 
+-- stylua: ignore
 local keymaps_tool = {
   -- Lazy
   ["n|<Leader>P"] = map.cmd("Lazy"):desc("Plugin Manager"),
@@ -42,8 +43,9 @@ local keymaps_tool = {
   ["n|<Leader>z"] = map.cmd("ZenMode"):desc("Zen Mode")
 }
 
+-- stylua: ignore
 Keymaps.nvimtree_on_attach = function(bufnr)
-  local api = require "nvim-tree.api"
+  local api = require("nvim-tree.api")
   local keymaps_nvimtree = {
     ["n|?"] = map.func(api.tree.toggle_help):buf(bufnr):desc("NvimTree: Help"),
     ["n|l"] = map.func(api.node.open.edit):buf(bufnr):desc("NvimTree: Open"),
@@ -60,7 +62,7 @@ Keymaps.nvimtree_on_attach = function(bufnr)
     ["n|p"] = map.func(api.fs.paste):buf(bufnr):desc("NvimTree: Paste"),
     ["n|d"] = map.func(api.fs.remove):buf(bufnr):desc("NvimTree: Delete"),
     ["n|D"] = map.func(api.fs.trash):buf(bufnr):desc("NvimTree: Trash"),
-    ["n|y"] = map.func(api.fs.copy.filename):buf(bufnr):desc("NvimTree: Yank Filename"),  -- or .basename
+    ["n|y"] = map.func(api.fs.copy.filename):buf(bufnr):desc("NvimTree: Yank Filename"), -- or .basename
     ["n|Y"] = map.func(api.fs.copy.absolute_path):buf(bufnr):desc("NvimTree: Yank Absolute Path"),
     ["n|."] = map.func(api.tree.toggle_hidden_filter):buf(bufnr):desc("NvimTree: Toggle Dot Files"),
     ["n|J"] = map.func(api.node.navigate.sibling.last):buf(bufnr):desc("NvimTree: To Last Sibling"),

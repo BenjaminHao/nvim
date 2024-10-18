@@ -36,7 +36,7 @@ Plugin.config = function()
       signcolumn = "yes",
     },
     renderer = {
-      full_name = false,
+      full_name = true,
       root_folder_label = ":t",
       highlight_git = "none",
       highlight_diagnostics = "none",
@@ -87,9 +87,9 @@ Plugin.config = function()
             symlink_open = "",
           },
           git = {
-            unstaged = "󰦓",
+            unstaged = "󰀧",
             staged = "󰄲",
-            unmerged = "󰀧",
+            unmerged = "󰦓",
             renamed = "󰑕",
             untracked = "󰞋",
             deleted = "󰅗",

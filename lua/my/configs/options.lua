@@ -9,8 +9,8 @@
 local Options = {}
 local system = require("my.helpers.system")
 
+-- stylua: ignore
 local global = {
-
   -- GENERAL
   timeoutlen = 500,                      -- Time to wait for a mapped sequence to complete (in milliseconds)
   ttimeoutlen = 0,                       -- Time to wait for a key code to complete (in milliseconds)
@@ -24,7 +24,7 @@ local global = {
   jumpoptions = "stack",                 -- Make Ctrl-o consistent
 
   -- APPEARANCE
-  guifont = "MapleMono Nerd Font:h16",   -- Font for GUI NVIM
+  guifont = "MapleMono Nerd Font:h18",   -- Font for GUI NVIM
   number = true,                         -- Set numbered lines
   relativenumber = true,                 -- Set relative numbered lines
   numberwidth = 2,                       -- Set number column width to 2 (default 4)
@@ -74,6 +74,7 @@ local global = {
   inccommand = "split",                  -- Shows all inline replacements in split
 }
 
+-- stylua: ignore
 local neovide = {
   no_idle = true,                        -- Force neovide to redraw all the time
   refresh_rate = 60,                     -- Set neovide fps, only effective when not using vsync

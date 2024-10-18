@@ -32,31 +32,39 @@ Func.delete_buffer_force = function()
 end
 
 Func.next_hunk = function()
-  if vim.wo.diff then return "]h" end
-  vim.schedule(function() package.loaded.gitsigns.next_hunk() end)
+  if vim.wo.diff then
+    return "]h"
+  end
+  vim.schedule(function()
+    package.loaded.gitsigns.next_hunk()
+  end)
   return "<Ignore>"
 end
 
 Func.prev_hunk = function()
-  if vim.wo.diff then return "[h" end
-  vim.schedule(function() package.loaded.gitsigns.prev_hunk() end)
+  if vim.wo.diff then
+    return "[h"
+  end
+  vim.schedule(function()
+    package.loaded.gitsigns.prev_hunk()
+  end)
   return "<Ignore>"
 end
 
 Func.blame_line = function()
-  package.loaded.gitsigns.blame_line{ full=true }
+  package.loaded.gitsigns.blame_line({ full = true })
 end
 
 Func.diff_parent = function()
-  package.loaded.gitsigns.diffthis('~')
+  package.loaded.gitsigns.diffthis("~")
 end
 
 Func.stage_hunk_vmode = function()
-  package.loaded.gitsigns.stage_hunk {vim.fn.line('.'), vim.fn.line('v')}
+  package.loaded.gitsigns.stage_hunk({ vim.fn.line("."), vim.fn.line("v") })
 end
 
 Func.reset_hunk_vmode = function()
-  package.loaded.gitsigns.reset_hunk {vim.fn.line('.'), vim.fn.line('v')}
+  package.loaded.gitsigns.reset_hunk({ vim.fn.line("."), vim.fn.line("v") })
 end
 
 ------------------------------------ Tools -------------------------------------
@@ -77,10 +85,10 @@ Func.find_git = function()
 end
 
 Func.find_configs = function()
-  require("telescope.builtin").find_files {
-    cwd = vim.fn.stdpath 'config',
-    prompt_title = 'Nvim Config Files',
-  }
+  require("telescope.builtin").find_files({
+    cwd = vim.fn.stdpath("config"),
+    prompt_title = "Nvim Config Files",
+  })
 end
 
 Func.next_todo = function()
@@ -114,15 +122,11 @@ Func.jump_to_word = function()
 end
 
 Func.comment_line = function()
-  return vim.v.count == 0
-    and "<Plug>(comment_toggle_linewise_current)"
-    or "<Plug>(comment_toggle_linewise_count)"
+  return vim.v.count == 0 and "<Plug>(comment_toggle_linewise_current)" or "<Plug>(comment_toggle_linewise_count)"
 end
 
 Func.comment_block = function()
-  return vim.v.count == 0
-    and "<Plug>(comment_toggle_blockwise_current)"
-    or "<Plug>(comment_toggle_blockwise_count)"
+  return vim.v.count == 0 and "<Plug>(comment_toggle_blockwise_current)" or "<Plug>(comment_toggle_blockwise_count)"
 end
 
 ------------------------------------ Coding ------------------------------------

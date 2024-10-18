@@ -7,9 +7,10 @@
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Keymaps = {}
-local map = require("my.helpers.map")
 local _ = require("my.keymaps.func")
+local map = require("my.helpers.map")
 
+-- stylua: ignore
 local keymaps_editor = {
   -- Nvim-surround ==> <s> key: surround, acted just like vim motions
   -- Treesitter ==> <cr> - incremental selection, <bs> - decremental
@@ -41,6 +42,7 @@ local keymaps_editor = {
   ["n|<Right>"] = map.cmd("SmartResizeRight"):desc("Window: Resize Right"),
 }
 
+-- stylua: ignore
 Keymaps.git_on_attach = function(bufnr)
   local gs = package.loaded.gitsigns
   local keymaps_git = {

@@ -7,19 +7,21 @@
 --│                                                                          │--
 --╰──────────────────────────────────────────────────────────────────────────╯--
 local Keymaps = {}
-local map = require("my.helpers.map")
 local _ = require("my.keymaps.func")
+local map = require("my.helpers.map")
 
+-- stylua: ignore
 local keymaps_coding = {
   -- Mason
   ["n|<Leader>L"] = map.cmd("Mason"):desc("LSP Manager"),
   -- Conform
-  ["nv|<C-=>"] = map.func(_.format_file_or_selected):desc("Format Code"),
-  ["n|<Leader>tf"] = map.cmd("FormatToggle"):desc("Toggle: Format (Global)"),
-  ["n|<Leader>tF"] = map.cmd("FormatToggle!"):desc("Toggle: Format (Buffer)")
+  ["nvi|<C-=>"] = map.func(_.format_file_or_selected):desc("Format Code"),
+  ["n|<Leader>tf"] = map.cmd("FormatToggle!"):desc("Toggle: Format (Buffer)"),
+  ["n|<Leader>tF"] = map.cmd("FormatToggle"):desc("Toggle: Format (Global)"),
 }
 
 -- TODO: change lsp keybinds
+-- stylua: ignore
 Keymaps.lsp_on_attach = function(bufnr)
   local keymaps_lsp = {
     ["n|]d"] = map.func(vim.diagnostic.goto_next):buf(bufnr):desc("Next: Diagnostic message"),
@@ -27,6 +29,7 @@ Keymaps.lsp_on_attach = function(bufnr)
     ["n|gd"] = map.cmd("Glance definitions"):buf(bufnr):desc("Goto: LSP Definitions"),
     ["n|gD"] = map.func(vim.lsp.buf.declaration):buf(bufnr):desc("Goto: LSP declaration"),
     ["n|gr"] = map.cmd("Glance references"):buf(bufnr):desc("Goto: LSP References"),
+    ["n|<Leader>lR"] = map.cmd("LspRestart"):buf(bufnr):desc("LSP: Restart"),
     ["n|<Leader>li"] = map.cmd("Glance implementations"):buf(bufnr):desc("LSP: Show Implementations"),
     ["n|<Leader>lt"] = map.cmd("Glance type_definition"):buf(bufnr):desc("LSP: Show Type Definitions"),
     ["n|<Leader>lr"] = map.func(vim.lsp.buf.rename):buf(bufnr):desc("LSP: Rename Symbol"),

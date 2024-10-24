@@ -14,7 +14,7 @@ local Plugin = {
 
 Plugin.config = function()
   local has_catppuccin = vim.g.colors_name:find("catppuccin") ~= nil
-  local colors = require("catppuccin.palettes").get_palette "mocha"
+  local colors = require("catppuccin.palettes").get_palette("mocha")
   local icons = {
     diagnostics = require("my.helpers.icons").get("diagnostics", true),
     git = require("my.helpers.icons").get("git", true),
@@ -113,7 +113,7 @@ Plugin.config = function()
         return function()
           local guifg = colors[fg]
           local guibg = gen_bg and require("my.helpers.colors").hl_to_rgb("StatusLine", true, colors.mantle)
-          or colors[bg]
+            or colors[bg]
           local nobg = special_nobg
           return {
             fg = guifg and guifg or colors.none,
@@ -157,16 +157,16 @@ Plugin.config = function()
         end
         local symbols = {}
         if vim.bo.modified then
-          table.insert(symbols, "[󰴓]")
+          table.insert(symbols, "[󱇧]")
         end
         if vim.bo.modifiable == false then
-          table.insert(symbols, "[]")
+          table.insert(symbols, "[󰈡]")
         end
         if vim.bo.readonly == true then
-          table.insert(symbols, "[󰂿]")
+          table.insert(symbols, "[󰷊]")
         end
         if is_new_file() then
-          table.insert(symbols, "[󱇬]")
+          table.insert(symbols, "[󰝒]")
         end
         return #symbols > 0 and table.concat(symbols, "") or ""
       end,

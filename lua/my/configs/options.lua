@@ -24,7 +24,7 @@ local global = {
   jumpoptions = "stack",                 -- Make Ctrl-o consistent
 
   -- APPEARANCE
-  guifont = "MapleMono Nerd Font:h18",   -- Font for GUI NVIM
+  guifont = "MonoLisa Nerd Font:h18",    -- Font for GUI NVIM
   number = true,                         -- Set numbered lines
   relativenumber = true,                 -- Set relative numbered lines
   numberwidth = 2,                       -- Set number column width to 2 (default 4)
